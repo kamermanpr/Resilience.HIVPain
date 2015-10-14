@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+*.RData
+*.Rproj
+*.txt
+*.pdf
+*.rds
+*.html
+*.png
+*.csv
+
