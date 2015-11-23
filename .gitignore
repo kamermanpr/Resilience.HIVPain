@@ -28,6 +28,7 @@ vignettes/*.pdf
 *.log
 *.bak
 build/
+FactorAnalysis_cache/
 temp-*
 *.pdf
 *.html
