@@ -1,6 +1,6 @@
 ---
 title: "Resilience scale reliability and factor analysis"
-author: Antonia Wadley, Duncan Mitchell, and Peter Kamerman 
+author: "Antonia Wadley, Duncan Mitchell, and Peter Kamerman" 
 date: '`r format(Sys.time(), "%d %B %Y")`'
 output: 
   md_document:
@@ -8,6 +8,7 @@ output:
     toc_depth: 4
     variant: markdown_github
 ---
+
 # Miscellaneous
 ```{r miscellaneous.1, echo=F, warning=F, message=F}
 # Load libraries
@@ -18,8 +19,10 @@ library(tidyr)
 library(ggplot2)
 library(psych)
 library(GPArotation) # for fa function in 'psych'
+
 # Set seed
 set.seed(123)
+
 # Set knitr chunk options
 opts_chunk$set(cache = TRUE,
                warnings = FALSE,
