@@ -54,7 +54,7 @@ library(knitr)
 ## Import data
 ```{r Import_data, echo=TRUE, warning=FALSE, message=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60)}
 # Import
-data<-read.csv("activity.data.csv", header=T)
+data<-read.csv("./data/activity.data.csv", header=T)
 ```
 
 ## Convert "data" to dplyr object and get an overview of the data before cleaning
@@ -246,8 +246,6 @@ time.1<-ungroup(time.active)
 time.1<-group_by(time.1, id, pain, employed)
 # Summarise the mean time spent active for each person across the 7 (or 5) days
 time.2<-summarise(time.1, data=mean(times))
-# View data
-time.2<-ungroup(time.2)   
 ```
 
 #### Pain vs no-pain
@@ -457,7 +455,7 @@ fourth.q.3<-mutate(fourth.q.3, time.2=round(time/day, 2)) # number of minutes pe
 # Save to csv
 fq<-fourth.q.3 %>%
     rename("minutes per week"=time, "days of recording"=day, "minutes per day"=time.2)
-write.csv(fq, "time.active.4q.csv", row.names=F)
+write.csv(fq, "./data/time.active.4q.csv", row.names=F)
 # Ungroup
 fourth.q.3<-ungroup(fourth.q.3)
 
@@ -521,7 +519,7 @@ third.q.3<-mutate(third.q.3, time.2=round(time/days, 2)) # number of minutes per
 # Save to csv
 tq<-third.q.3 %>%
     rename("minutes per week"=time, "days of recording"=days, "minutes per day"=time.2)
-write.csv(tq, "time.active.3q.csv", row.names=F)
+write.csv(tq, "./data/time.active.3q.csv", row.names=F)
 # Ungroup
 third.q.3<-ungroup(third.q.3)
 
@@ -585,7 +583,7 @@ second.q.3<-mutate(second.q.3, time.2=round(time/days, 2)) # number of minutes p
 # Save to csv
 sq<-second.q.3 %>%
     rename("minutes per week"=time, "days of recording"=days, "minutes per day"=time.2)
-write.csv(sq, "time.active.2q.csv", row.names=F)
+write.csv(sq, "./data/time.active.2q.csv", row.names=F)
 # Ungroup
 second.q.3<-ungroup(second.q.3)
 
@@ -649,7 +647,7 @@ first.q.3<-mutate(first.q.3, time.2=round(time/days, 2)) # number of minutes per
 # Save to csv
 fstq<-first.q.3 %>%
     rename("minutes per week"=time, "days of recording"=days, "minutes per day"=time.2)
-write.csv(fstq, "time.active.1q.csv", row.names=F)
+write.csv(fstq, "./data/time.active.1q.csv", row.names=F)
 # Ungroup
 first.q.3<-ungroup(first.q.3)
 
@@ -713,7 +711,7 @@ zero.q.3<-mutate(zero.q.3, time.2=round(time/days, 2)) # number of minutes per d
 # Save to csv
 zq<-zero.q.3 %>%
     rename("minutes per week"=time, "days of recording"=days, "minutes per day"=time.2)
-write.csv(zq, "time.active.zero.csv", row.names=F)
+write.csv(zq, "./data/time.active.zero.csv", row.names=F)
 # Ungroup
 zero.q.3<-ungroup(zero.q.3)
 
