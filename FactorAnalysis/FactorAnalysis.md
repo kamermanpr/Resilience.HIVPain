@@ -4,7 +4,7 @@ Antonia Wadley, Duncan Mitchell, and Peter Kamerman
 
 
 # Overview
-Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [@Connor_2003], and the Resilience Scale (RS) [@greycite31755] in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa: MXXXXX), and no personal identifying information is provided here. 
+Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [(DOI)](http://dx.doi.org/10.1002/da.10113), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa: MXXXXX), and no personal identifying information is provided here. 
 
 Details of the factor analyses results from the original validation studies for the CD-RISC and RS are shown in the table below.
 
@@ -14,20 +14,6 @@ Details of the factor analyses results from the original validation studies for 
 | Resilience Scale | Ordinal 1-7 scale anchored at<br>*‘strongly disagree’* to *‘strongly agree’* | Principal Component Analysis with OBLIMIN<br>rotation and Kaiser normalisation | 2 | **Factor 1:** Personal competence<br>**Factor 2:** Acceptance of self and life | **Factor 1:** 1, 2, 3, 4, 5, 6, 9, 10,13, 14, 15, 17, 18, 19, 20, 23, 24<br>**Factor 2:** 7, 8, 11, 12, 16, 21, 22, 25 |
 
 # Data analysis
-## Miscellaneous
-### R version used
-- R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet" [@R_Core_Team_2015]
-
-### Packages used
-- library(*pander*) [@Daróczi_2015]
-- library(*knitr*) [@Xie_2015; @Xie_2015a; @Xie_2014]
-- library(*dplyr*) [@Wickham_2015]  
-- library(*tidyr*) [@Wickham_2014]
-- library(*ggplot2*) [@Wickham_2009]
-- library(*psych*) [@Revelle_2015]
-- library(*GPArotation*) [@Bernaards_2005]
-
-
 ## CD-RISC
 ### Code key
 
@@ -79,15 +65,17 @@ head(data.1)
 ```
 ## Source: local data frame [6 x 26]
 ## 
-##   ID Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15 Q16 Q17 Q18 Q19
-## 1  1  2  0  4  4  4  4  4  4  4   4   3   4   4   4   4   4   4   4   4
-## 2  2  2  4  4  2  4  2  0  2  0   2   2   3   4   2   2   3   2   2   3
-## 3  3  4  4  4  4  4  3  2  4  4   4   4   4   4   4   4   4   4   0   4
-## 4  4  4  4  4  3  3  3  4  4  4   3   1   4   0   2   2   4   2   4   4
-## 5  5  2  2  4  2  4  2  2  4  2   4   4   4   4   2   2   4   4   2   2
-## 6  6  2  2  4  0  1  3  3  2  4   3   2   3   2   2   2   4   3   1   0
-## Variables not shown: Q20 (int), Q21 (int), Q22 (int), Q23 (int), Q24
-##   (int), Q25 (int)
+##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
+##   (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int)
+## 1     1     2     0     4     4     4     4     4     4     4     4     3
+## 2     2     2     4     4     2     4     2     0     2     0     2     2
+## 3     3     4     4     4     4     4     3     2     4     4     4     4
+## 4     4     4     4     4     3     3     3     4     4     4     3     1
+## 5     5     2     2     4     2     4     2     2     4     2     4     4
+## 6     6     2     2     4     0     1     3     3     2     4     3     2
+## Variables not shown: Q12 (int), Q13 (int), Q14 (int), Q15 (int), Q16
+##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
+##   Q23 (int), Q24 (int), Q25 (int)
 ```
 
 ```r
@@ -97,15 +85,17 @@ tail(data.1)
 ```
 ## Source: local data frame [6 x 26]
 ## 
-##    ID Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15 Q16 Q17 Q18 Q19
-## 1 187  2  0  4  4  4  0  1  4  4   4   4   4   4   0   4   4   4   4   4
-## 2 191  3  2  4  4  4  2  0  1  4   4   4   4   2   4   4   4   4   0   4
-## 3 193  3  3  4  4  4  4  4  4  3   3   4   4   3   3   4   4   3   2   4
-## 4 195  2  0  4  3  2  3  0  4  4   4   2   3   2   4   3   4   4   0   3
-## 5 196  2  0  4  4  4  2  0  4  4   4   4   4   4   0   4   4   4   4   4
-## 6 197  2  4  4  4  4  4  0  4  4   4   4   4   0   2   2   3   4   0   3
-## Variables not shown: Q20 (int), Q21 (int), Q22 (int), Q23 (int), Q24
-##   (int), Q25 (int)
+##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
+##   (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int)
+## 1   187     2     0     4     4     4     0     1     4     4     4     4
+## 2   191     3     2     4     4     4     2     0     1     4     4     4
+## 3   193     3     3     4     4     4     4     4     4     3     3     4
+## 4   195     2     0     4     3     2     3     0     4     4     4     2
+## 5   196     2     0     4     4     4     2     0     4     4     4     4
+## 6   197     2     4     4     4     4     4     0     4     4     4     4
+## Variables not shown: Q12 (int), Q13 (int), Q14 (int), Q15 (int), Q16
+##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
+##   Q23 (int), Q24 (int), Q25 (int)
 ```
 
 ```r
@@ -233,7 +223,7 @@ fa.parallel(data.1.1, fm = "ml", cor = "poly")
 ![](FactorAnalysis_files/figure-html/fa.1-1.png) 
 
 ```
-## Parallel analysis suggests that the number of factors =  5  and the number of components =  2
+## Parallel analysis suggests that the number of factors =  3  and the number of components =  2
 ```
 
 ```r
@@ -552,7 +542,7 @@ fa.parallel(data.1.1b, fm = "ml", cor = "poly")
 ![](FactorAnalysis_files/figure-html/fa.1b-1.png) 
 
 ```
-## Parallel analysis suggests that the number of factors =  4  and the number of components =  2
+## Parallel analysis suggests that the number of factors =  3  and the number of components =  2
 ```
 
 ```r
@@ -784,15 +774,17 @@ head(data.2)
 ```
 ## Source: local data frame [6 x 26]
 ## 
-##   ID Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15 Q16 Q17 Q18 Q19
-## 1  1  6  6  6  7  7  7  4  6  2   6   7   6   6   7   6   7   7   7   6
-## 2  2  5  4  6  6  3  6  6  6  3   6   4   5   4   6   6   5   5   6   5
-## 3  3  7  7  7  7  4  7  5  7  6   7   7   7   7   7   7   7   7   7   7
-## 4  4  4  6  5  7  7  5  2  7  4   7   1   7   7   7   5   6   7   5   6
-## 5  5  7  6  7  7  7  7  6  7  6   7   3   6   7   7   7   6   7   7   7
-## 6  6  6  2  2  1  1  4  3  4  1   5   2   5   3   2   1   6   4   2   5
-## Variables not shown: Q20 (int), Q21 (int), Q22 (int), Q23 (int), Q24
-##   (int), Q25 (int)
+##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
+##   (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int)
+## 1     1     6     6     6     7     7     7     4     6     2     6     7
+## 2     2     5     4     6     6     3     6     6     6     3     6     4
+## 3     3     7     7     7     7     4     7     5     7     6     7     7
+## 4     4     4     6     5     7     7     5     2     7     4     7     1
+## 5     5     7     6     7     7     7     7     6     7     6     7     3
+## 6     6     6     2     2     1     1     4     3     4     1     5     2
+## Variables not shown: Q12 (int), Q13 (int), Q14 (int), Q15 (int), Q16
+##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
+##   Q23 (int), Q24 (int), Q25 (int)
 ```
 
 ```r
@@ -802,15 +794,17 @@ tail(data.2)
 ```
 ## Source: local data frame [6 x 26]
 ## 
-##    ID Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15 Q16 Q17 Q18 Q19
-## 1 191  3  5  6  7  5  5  4  6  6   7   6   4   6   6   7   7   7   5   4
-## 2 193  4  5  5  6  4  7  7  7  7   7   7   7   7   7   7   7   7   7   7
-## 3 194  4  5  6  7  7  7  7  7  1   5   4   4   5   5   6   7   6   5   7
-## 4 195  5  3  4  5  1  6  5  4  1   4   3   5   5   6   4   6   5   6   5
-## 5 196  4  7  7  7  7  7  4  7  7   7   7   1   7   7   6   6   7   7   5
-## 6 197  5  6  6  7  7  7  6  6  6   6   6   6   7   6   6   6   7   6   6
-## Variables not shown: Q20 (int), Q21 (int), Q22 (int), Q23 (int), Q24
-##   (int), Q25 (int)
+##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
+##   (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int) (int)
+## 1   191     3     5     6     7     5     5     4     6     6     7     6
+## 2   193     4     5     5     6     4     7     7     7     7     7     7
+## 3   194     4     5     6     7     7     7     7     7     1     5     4
+## 4   195     5     3     4     5     1     6     5     4     1     4     3
+## 5   196     4     7     7     7     7     7     4     7     7     7     7
+## 6   197     5     6     6     7     7     7     6     6     6     6     6
+## Variables not shown: Q12 (int), Q13 (int), Q14 (int), Q15 (int), Q16
+##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
+##   Q23 (int), Q24 (int), Q25 (int)
 ```
 
 ```r
@@ -1613,7 +1607,30 @@ print(fa.2b2f2o, cut = 0, digits = 3)
 ## Minimum correlation of possible factor scores  0.886 0.179
 ```
 
-# References
+## Session information
+
+```r
+Sys.info()
+```
+
+```
+##                                                                                            sysname 
+##                                                                                           "Darwin" 
+##                                                                                            release 
+##                                                                                           "15.0.0" 
+##                                                                                            version 
+## "Darwin Kernel Version 15.0.0: Sat Sep 19 15:53:46 PDT 2015; root:xnu-3247.10.11~1/RELEASE_X86_64" 
+##                                                                                           nodename 
+##                                                                         "Peters-MacBook-Pro.local" 
+##                                                                                            machine 
+##                                                                                           "x86_64" 
+##                                                                                              login 
+##                                                                                    "PeterKamerman" 
+##                                                                                               user 
+##                                                                                    "PeterKamerman" 
+##                                                                                     effective_user 
+##                                                                                    "PeterKamerman"
+```
 
 
 

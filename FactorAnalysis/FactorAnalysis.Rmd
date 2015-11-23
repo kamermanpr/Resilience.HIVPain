@@ -3,34 +3,33 @@ title: "Resilience scale reliability and factor analysis"
 author: Antonia Wadley, Duncan Mitchell, and Peter Kamerman 
 date: '`r format(Sys.time(), "%d %B %Y")`'
 output: 
-  html_document:
-    theme: flatly
-    highlight: haddock
+  md_document:
     toc: true
     toc_depth: 4
-    number_sections: false
-    self_contained: true
-    keep_md: true
-bibliography: references.bib
-csl: references.csl
+    variant: markdown_github
 ---
+# Miscellaneous
 ```{r miscellaneous.1, echo=F, warning=F, message=F}
 # Load libraries
 library(pander)
 library(knitr)
-library(knitcitations)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(psych)
 library(GPArotation) # for fa function in 'psych'
-# Create library citation list
-cleanbib()
-options("citation_format" = "pandoc")
+# Set seed
+set.seed(123)
+# Set knitr chunk options
+opts_chunk$set(cache = TRUE,
+               warnings = FALSE,
+               message = FALSE,
+               tidy = TRUE, 
+               tidy.opts = list(width.cutoff = 65))
 ```
 
 # Overview
-Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) `r citep("10.1002/da.10113")`, and the Resilience Scale (RS) `r citep("http://www.ncbi.nlm.nih.gov/pubmed/7850498")` in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa: MXXXXX), and no personal identifying information is provided here. 
+Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [(DOI)](http://dx.doi.org/10.1002/da.10113), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa), and no personal identifying information is provided here. 
 
 Details of the factor analyses results from the original validation studies for the CD-RISC and RS are shown in the table below.
 
@@ -41,24 +40,31 @@ Details of the factor analyses results from the original validation studies for 
 
 # Data analysis
 ## Miscellaneous
-### R version used
-- R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet" `r citep(citation())`
+```{r miscellaneous.1, echo=F, warning=F, message=F}
+# Load libraries
+library(pander)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(psych)
+library(GPArotation) # for fa function in 'psych'
 
-### Packages used
-- library(*pander*) `r citep(citation("pander"))`
-- library(*knitr*) `r citep(citation("knitr"))`
-- library(*dplyr*) `r citep(citation("dplyr"))`  
-- library(*tidyr*) `r citep(citation("tidyr"))`
-- library(*ggplot2*) `r citep(citation("ggplot2"))`
-- library(*psych*) `r citep(citation("psych"))`
-- library(*GPArotation*) `r citep(citation("GPArotation"))`
-```{r miscellaneous.2, echo=F, warning=F, message=F}
-write.bibtex(file="references.bib")
+# Set seed
+set.seed(123)
+
+# Set knitr chunk options
+opts_chunk$set(cache = TRUE,
+               echo = FALSE,
+               warnings = FALSE,
+               message = FALSE,
+               tidy = TRUE, 
+               tidy.opts = list(width.cutoff = 65))
 ```
 
 ## CD-RISC
 ### Code key
-```{r code.key.1, echo=F, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r code.key.1}
 cdr.names<-c("Q1 I am able to adapt when changes occur", "Q2 I have at least one close and secure relationship that helps me when I'm stressed", "Q3 When there are no clear solutions to my problems, sometimes fate or God can help", "Q4 I can deal with whatever comes my way", "Q5 Past successes give me confidence in dealing with new challenges and difficulties", "Q6 I try and see the humorous side of things when I'm faced with problems", "Q7 Having to cope with stress can make me stronger", "Q8 I tend to bounce back after illness, injury or other hardships", "Q9 Good or bad, I believe that most things happen for a reason", "Q10 I give my best effort no matter what the outcome may be", "Q11 I believe I can achieve my goals, even if there are obstacles", "Q12 Even when things look hopeless, I don't give up", "Q13 During times of stress/crisis, I know where to turn for help", "Q14 Under pressure, I stay focused and think clearly", "Q15 I prefer to take the lead in solving problems rather than letting others make all the decisions", "Q16 I am not easily discouraged by failure", "Q17 I think of myself as a strong person when dealing with life's challenges and difficulties", "Q18 I can make unpopular or difficult decisions that affect other people, if it is necessary", "Q19 I am able to handle unpleasant or painful feelings like sadness, fear, and anger", "Q20 In dealing with life's problems, sometimes you have to act on a hunch without knowing why", "Q21 I have a strong sense of purpose in life", "Q22 I feel in control of my life", "Q23 I like challenges", "Q24 I work to attain my goals no matter what roadblocks I encounter along the way", "Q25 I take pride in my achievements")
 
 cdr.key<-data.frame(Label=c(paste("Q", seq(1:25), sep="")), Key=gsub("Q.|Q.. ", "", cdr.names))
@@ -68,9 +74,9 @@ pander(cdr.key, style="rmarkdown", justify="left", split.table="inf")
 ```
 
 ### Import data
-```{r import, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r import}
 # Read csv
-data.1<-read.csv("cd.risc.csv", header=T)
+data.1<-read.csv("./data/cd.risc.csv", header=T)
 ```
 
 ### Inspect and clean data
@@ -90,7 +96,7 @@ str(data.1$ID)
 
 ### Internal consistency
 **Use polychoric correlation matrix throughout because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**
-```{r ic.1, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r ic.1}
 # Remove ID column
 data.1.1<-data.1[,-1]
 
@@ -105,15 +111,15 @@ pander(summary(alpha(pc.1$rho)), style="rmarkdown", justify="left", round=2, cap
 ```
 
 ### Factor analysis - initial
-```{r fa.1, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r fa.1}
 # Print parallel plots
-## Kaiser dictum: use number of PCA factors above 1 PCA line
 fa.parallel(data.1.1, fm="ml", cor="poly")
 
 # Complete factor analysis - use maximum liklihood (ml) method
-## Start with nfactor=3 based on fa.parallel plot
+## Use nfactor=3 based on fa.parallel plot
 ## Thereafter repeat analysis using 2 and 4 factors
-## Test oblique rotation first (Oblimin)
+## Test oblique rotation (Oblimin), assuming correlation between factors
+
 ### Oblimin: 3 factor
 fa.1f3o<-fa.poly(data.1.1, nfactors=3, rotate="oblimin", fm="ml", global=F)
 ### Oblimin: 4 factor
@@ -122,7 +128,7 @@ fa.1f4o<-fa.poly(data.1.1, nfactors=4, rotate="oblimin", fm="ml", global=F)
 fa.1f2o<-fa.poly(data.1.1, nfactors=2, rotate="oblimin", fm="ml", global=F)
 
 # Interpret
-## Oblimin: 3 factor
+## Oblimin: 3 factor (suggested)
 fa.diagram(fa.1f3o, cut=0, digits=3, labels=as.list(cdr.names))
 print(fa.1f3o, cut=0, digits=3)
 ## Oblimin: 4 factor
@@ -134,12 +140,11 @@ print(fa.1f2o, cut=0, digits=3)
 ```
 
 ### Outcome of initial factor analysis
-The 3-factor structure produced the most parsimonious outcome. One item (Q2: "I have at least one close and secure relationship that helps me when I'm stressed") had factor loading < 0.3, and was removed and the data reanalysed with a 3-factor structure (as per the original parallel plot), and a 4-factor solution (based on the revised parallel plot, see below).
+The 3-factor structure produced the most parsimonious outcome. One item (Q2: "I have at least one close and secure relationship that helps me when I'm stressed") had factor loading < 0.3, and was removed and the data reanalysed with a 3-factor structure.
 
 ### Factor analysis - secondary 
 *Item Q2 removed**  
-
-```{r fa.1b, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r fa.1b}
 # Remove items Q11 and Q20
 data.1.1b<-data.1.1[, -c(2)]
 
@@ -147,34 +152,27 @@ data.1.1b<-data.1.1[, -c(2)]
 pc.1b<-polychoric(data.1.1b)
 
 # Generate internal consistency coefficient alpha
-pander(summary(alpha(pc.1b$rho)), style="rmarkdown", justify="left", round=2, caption="CD-RISC: internal consistency after removal of Q2")
+pander(summary(alpha(pc.1b$rho)), style="pandoc", justify="left", round=2, caption="CD-RISC: internal consistency after removal of Q2")
 
 # Print parallel plots
-## Kaiser dictum: use number of PCA factors above 1 PCA line
 fa.parallel(data.1.1b, fm="ml", cor="poly")
 
 # Complete factor analysis - use maximum liklihood (ml) method
-## Start with nfactor=3 based on fa.parallel plot
-## Thereafter repeat analysis using 2 and 4 factors
-## Test oblique rotation first (Oblimin)
+## Use nfactor=3 based on fa.parallel plot
+
 ### Oblimin: 3 factor
 fa.1bf3o<-fa.poly(data.1.1b, nfactors=3, rotate="oblimin", fm="ml", global=F)
-### Oblimin: 4 factor
-fa.1bf4o<-fa.poly(data.1.1b, nfactors=4, rotate="oblimin", fm="ml", global=F)
 
 
 # Interpret
 ## Oblimin: 3 factor
 fa.diagram(fa.1bf3o, cut=0, digits=3)
 print(fa.1bf3o, cut=0, digits=3)
-## Oblimin: 4 factor
-fa.diagram(fa.1bf4o, cut=0, digits=3)
-print(fa.1bf4o, cut=0, digits=3)
 ```
 
 ## Resilience Scale
 ### Code key
-```{r code.key.2, echo=F, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r code.key.2}
 rs.names<-c("Q1 When I make plans, I follow through with them", "Q2 I usually manage one way or another", "Q3 I am able to depend on myself more than anyone else", "Q4 Keeping interested in things is important to me", "Q5 I can be on my own if I have to", "Q6 I feel proud that I have accomplished things in life", "Q7 I usually take things in my stride", "Q8 I am friends with myself", "Q9 I feel that I can handle many things at a time", "Q10 I am determined", "Q11 I seldom wonder what the point of it all is", "Q12 I take things one day at a time", "Q13 I can get through difficult times because I have experienced difficulty before", "Q14 I have self-discipline", "Q15 I keep interested in things", "Q16 I can usually find something to laugh about", "Q17 My belief in myself gets me through hard times", "Q18 In an emergency, I am someone people can general rely on", "Q19 I can usually look at a situation in a number of ways", "Q20 Sometimes I make myself do things whether I want to or not", "Q21 My life has meaning", "Q22 I do not dwell on things I cannot do anything about", "Q23 When I am in a difficult situation, I can usually find my way out of it", "Q24 I have enough energy to do what I have to do", "Q25 It is OK if there are people who do not like me")
 
 rs.key<-data.frame(Label=c(paste("Q", seq(1:25), sep="")), Key=gsub("Q.|Q.. ", "", rs.names))
@@ -184,15 +182,16 @@ pander(rs.key, style="rmarkdown", split.table="inf", justify="left")
 ```
 
 ### Import data
-```{r import.2, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r import.2}
 # Read csv
-data.2<-read.csv("resilience.scale.csv", header=T)
+data.2<-read.csv("./data/resilience.scale.csv", header=T)
 ```
 
 ### Inspect and clean data
 ```{r clean.2, echo=T, warning=F, message=F, tidy=T, tidy.opts=list(width.cutoff=75)}
 # Convert to dplyr object
 data.2<-tbl_df(data.2)
+
 # Inspect the data
 head(data.2)
 tail(data.2)
@@ -205,7 +204,7 @@ str(data.2$ID)
 
 ### Internal consistency
 **Use polychoric correlation matrix throughout because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**
-```{r ic.2, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r ic.2}
 # Remove ID column
 data.2.1<-data.2[,-1]
 
@@ -220,21 +219,19 @@ pander(summary(alpha(pc.2$rho)), style="rmarkdown", justify="left", round=2, cap
 ```
 
 ### Factor analysis
-```{r fa.2, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r fa.2}
 # Print parallel plots
-## Kaiser dictum: use number of PCA factors above 1 PCA line
 fa.parallel(data.2.1, fm="ml", cor="poly")
 
 # Complete factor analysis - use maximum liklihood (ml) method
 ## Start with nfactor=1 based on fa.parallel plot
-## Thereafter repeat analysis using 2 and 3 factors
+## Thereafter repeat analysis using 2 factors
 ## Test oblique rotation first (Oblimin)
+
 ### Oblimin: 1 factor
 fa.2f1o<-fa.poly(data.2.1, nfactors=1, rotate="oblimin", fm="ml", global=F)
 ### Oblimin: 2 factor
 fa.2f2o<-fa.poly(data.2.1, nfactors=2, rotate="oblimin", fm="ml", global=F)
-### Oblimin: 3 factor
-fa.2f3o<-fa.poly(data.2.1, nfactors=3, rotate="oblimin", fm="ml", global=F)
 
 # Interpret
 ## Oblimin: 1 factor
@@ -243,9 +240,6 @@ print(fa.2f1o, cut=0, digits=3)
 ## Oblimin: 2 factor
 fa.diagram(fa.2f2o, cut=0, digits=3, labels=as.list(rs.names))
 print(fa.2f2o, cut=0, digits=3)
-## Oblimin: 3 factor 
-fa.diagram(fa.2f3o, cut=0, digits=3, labels=as.list(rs.names))
-print(fa.2f3o, cut=0, digits=3)
 ```
 
 ### Outcome of initial factor analysis
@@ -253,8 +247,7 @@ The 2-factor structure produced the most parsimonious outcome based on the empir
 
 ### Factor analysis - secondary 
 *Item Q11 and Q20 removed based on the outcome of the original 1-factor solution**  
-
-```{r fa.2b1, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r fa.2b1}
 # Remove items Q11 and Q20
 data.2.1b1<-data.2.1[, -c(11,20)]
 
@@ -265,13 +258,11 @@ pc.2b1<-polychoric(data.2.1b1)
 pander(summary(alpha(pc.2b1$rho)), style="rmarkdown", justify="left", round=2, caption="CD-RISC: internal consistency after removal fo Q11 and Q20")
 
 # Print parallel plots
-## Kaiser dictum: use number of PCA factors above 1 PCA line
 fa.parallel(data.2.1b1, fm="ml", cor="poly")
 
 # Complete factor analysis - use maximum liklihood (ml) method
-## Start with nfactor=3 based on fa.parallel plot
-## Thereafter repeat analysis using 2 and 4 factors
-## Test oblique rotation first (Oblimin)
+## Start with nfactor=1 based on fa.parallel plot
+
 ### Oblimin: 1 factor
 fa.2b1f1o<-fa.poly(data.2.1b1, nfactors=1, rotate="oblimin", fm="ml", global=F)
 ### Oblimin: 2 factor
@@ -287,8 +278,7 @@ print(fa.2b1f2o, cut=0, digits=3)
 ```
 
 *Only item Q11 removed based on the outcome of the original 2-factor solution**  
-
-```{r fa.2b2, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
+```{r fa.2b2}
 # Remove items Q11 and Q20
 data.2.1b2<-data.2.1[, -c(11)]
 
@@ -314,7 +304,10 @@ fa.diagram(fa.2b2f2o, cut=0, digits=3)
 print(fa.2b2f2o, cut=0, digits=3)
 ```
 
-# References
+## Session information
+```{r SessionInfo}
+Sys.info()
+```
 
 
 
