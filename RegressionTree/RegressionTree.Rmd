@@ -58,7 +58,7 @@ write.bibtex(file="references.bib")
 ## Import data
 ```{r import, echo=T, warning=T, message=T, tidy=T, tidy.opts=list(width.cutoff=75)}
 # Read csv
-data<-read.csv("MultivariateData.csv", header=T)
+data<-read.csv("MultivariateData291015.csv", header=T)
 # Remove patient ID column
 data<-data[2:14]
 ```

@@ -13,10 +13,13 @@ Antonia Wadley, Duncan Mitchell, Peter Kamerman
 ### Packages used
 - library(*pander*) [@Dar'oczi_2015]
 - library(*knitr*) [@Xie_2015; @Xie_2015a; @Xie_2014]
+- library(*knitcitations*) [@Boettiger_2015]
 - library(*dplyr*) [@Wickham_2015]  
-- library(*tidyr*) [@Wickham_2014]
+- library(*tidyr*) [@Wickham_2015a]
 - library(*ggplot2*) [@Wickham_2009]
+- library(*ggthemes*) [@Arnold_2015]
 - library(*grid*) [@R_Core_Team_2015]
+- library(*scales*) [@Wickham_2015ab]
 - library(*party*) [@Hothorn_2006; @Zeileis_2008; @Hothorn_2006a; @Strobl_2007; @Strobl_2008]
 
 
@@ -25,7 +28,7 @@ Antonia Wadley, Duncan Mitchell, Peter Kamerman
 
 ```r
 # Read csv
-data <- read.csv("MultivariateData.csv", header = T)
+data <- read.csv("MultivariateData291015.csv", header = T)
 # Remove patient ID column
 data <- data[2:14]
 ```
@@ -48,7 +51,7 @@ str(data.2)
 ##  $ Education      : int  1 1 1 1 2 2 2 2 3 3 ...
 ##  $ BMI            : num  26.6 28.3 25.5 23.2 30.1 16 25 26.8 19.3 22.2 ...
 ##  $ Employment     : int  0 1 1 1 1 0 1 1 1 1 ...
-##  $ RS.Prop.Score  : int  95 99 86 80 75 96 76 79 92 79 ...
+##  $ RS.Prop.Score  : int  166 173 151 154 143 167 134 150 166 148 ...
 ##  $ EQ5D.vas       : int  60 100 70 95 70 50 90 60 100 70 ...
 ##  $ Worry.Money    : int  4 2 2 2 2 4 2 4 4 2 ...
 ##  $ Worry.Family   : int  4 4 0 3 3 4 4 0 2 3 ...
@@ -89,7 +92,7 @@ str(data.2)
 ##  $ Education      : Factor w/ 4 levels "None","Primary",..: 2 2 2 2 3 3 3 3 4 4 ...
 ##  $ BMI            : num  26.6 28.3 25.5 23.2 30.1 16 25 26.8 19.3 22.2 ...
 ##  $ Employment     : Factor w/ 2 levels "No","Yes": 1 2 2 2 2 1 2 2 2 2 ...
-##  $ RS.Prop.Score  : int  95 99 86 80 75 96 76 79 92 79 ...
+##  $ RS.Prop.Score  : int  166 173 151 154 143 167 134 150 166 148 ...
 ##  $ EQ5D.vas       : int  60 100 70 95 70 50 90 60 100 70 ...
 ##  $ Worry.Money    : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 5 3 3 3 3 5 3 5 5 3 ...
 ##  $ Worry.Family   : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 5 5 1 4 4 5 5 1 3 4 ...
@@ -105,7 +108,7 @@ dim(data.3)
 ```
 
 ```
-## [1] 62 13
+## [1] 63 13
 ```
 
 ## Activity
@@ -127,7 +130,7 @@ seed.12 <- sample(1:10000, 1)
 seed.12
 ```
 
-[1] 1875
+[1] 5787
 
 ```r
 set.seed(seed.12)
@@ -156,7 +159,7 @@ seed.34 <- sample(1:10000, 1)
 seed.34
 ```
 
-[1] 8863
+[1] 4675
 
 ```r
 set.seed(seed.34)
@@ -222,7 +225,7 @@ c("Seed", "Number of trees grown", "Number of variables sampled") %>% data.frame
 
 |                            |Trial 1 |Trial 2 |Trial 3 |Trial 4 |
 |:---------------------------|:-------|:-------|:-------|:-------|
-|Seed                        |1875    |1875    |8863    |8863    |
+|Seed                        |5787    |5787    |4675    |4675    |
 |Number of trees grown       |500     |2000    |500     |2000    |
 |Number of variables sampled |3       |3       |3       |3       |
 
@@ -245,7 +248,7 @@ seed.12 <- sample(1:10000, 1)
 seed.12
 ```
 
-[1] 2137
+[1] 3795
 
 ```r
 set.seed(seed.12)
@@ -274,7 +277,7 @@ seed.34 <- sample(1:10000, 1)
 seed.34
 ```
 
-[1] 3103
+[1] 9292
 
 ```r
 set.seed(seed.34)
@@ -340,7 +343,7 @@ c("Seed", "Number of trees grown", "Number of variables sampled") %>% data.frame
 
 |                            |Trial 1 |Trial 2 |Trial 3 |Trial 4 |
 |:---------------------------|:-------|:-------|:-------|:-------|
-|Seed                        |2137    |2137    |3103    |3103    |
+|Seed                        |3795    |3795    |9292    |9292    |
 |Number of trees grown       |500     |2000    |500     |2000    |
 |Number of variables sampled |3       |3       |3       |3       |
 
