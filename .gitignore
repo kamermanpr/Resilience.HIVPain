@@ -7,7 +7,6 @@
 
 # RStudio files
 .Rproj.user/
-activity_files
 
 # Studio vignettes
 vignettes/*.html
