@@ -49,3 +49,6 @@ gg<-ggplot(data=plot.data, aes(x=quartile, y=minutes.per.day, fill = pain, colou
           legend.position = c(0.9, 0.9))
 gg
 ggsave('activity.plot.pdf')
+
+# Session information
+Sys.info()

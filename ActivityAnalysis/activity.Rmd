@@ -768,3 +768,8 @@ foo<-zero.q.3 %>%
               Max=max(time.2))
 kable(foo, format="markdown", align="l", digits=0)
 ```
+
+## Session information
+```{r SessionInfo}
+Sys.info()
+```
