@@ -8,29 +8,6 @@ output:
     toc_depth: 4
     variant: markdown_github
 ---
-
-# Miscellaneous
-```{r miscellaneous.1, echo=F, warning=F, message=F}
-# Load libraries
-library(pander)
-library(knitr)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(psych)
-library(GPArotation) # for fa function in 'psych'
-
-# Set seed
-set.seed(123)
-
-# Set knitr chunk options
-opts_chunk$set(cache = TRUE,
-               warnings = FALSE,
-               message = FALSE,
-               tidy = TRUE, 
-               tidy.opts = list(width.cutoff = 65))
-```
-
 # Overview
 Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [(DOI)](http://dx.doi.org/10.1002/da.10113), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa), and no personal identifying information is provided here. 
 
