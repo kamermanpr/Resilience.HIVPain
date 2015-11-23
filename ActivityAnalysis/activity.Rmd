@@ -185,9 +185,7 @@ str(data.9)
 data.10<-group_by(data.9, id, days, date, pain, employed)
 # divide into active and inactive periods according to whether the five-minute epochs had a mean pmax.count > 1%
 active<-filter(data.10, active=="TRUE")
-write.csv(active, file="active.csv", row.names=F) # save to csv
 inactive<-filter(data.10, active=="FALSE")
-write.csv(inactive, file="inactive.csv", row.names=F) # save to csv
 ```
 
 ## Summary of pmax.count data
@@ -201,8 +199,6 @@ med.1<-data.3 %>%
     group_by(id, day, pain, employed) %>%
     summarise(Median=median(pmax.count), Mean=round(mean(pmax.count), 1))
 med.1
-# Write to csv
-write.csv(med.1, "summary.24h.day.csv", row.names=F)
 ```
 
 #### Median and mean activity per week
@@ -213,8 +209,6 @@ med.2<-data.3 %>%
     select(id, pain, employed, day, pmax.count) %>%
     group_by(id, pain, employed) %>%
     summarise(Median=median(pmax.count), Mean=round(mean(pmax.count), 1))
-# Write to csv
-write.csv(med.2, "summary.24h.week.csv", row.names=F)
 ```
 
 ### Active periods only
@@ -226,8 +220,6 @@ med.3<-active %>%
     select(id, pain, employed, days, pmax.count) %>%
     group_by(id, days, pain, employed) %>%
     summarise(Median=round(median(as.numeric(pmax.count)),1), Mean=round(mean(as.numeric(pmax.count)),1))
-# Write to csv
-write.csv(med.3, "summary.active.day.csv", row.names=F)
 ```
 
 #### Median and mean activity per week
@@ -238,8 +230,6 @@ med.4<-active %>%
     select(id, pain, employed, pmax.count) %>%
     group_by(id, pain, employed) %>%
     summarise(Median=round(median(as.numeric(pmax.count)),1), Mean=round(mean(as.numeric(pmax.count)),1))
-# Write to csv
-write.csv(med.4, "summary.active.week.csv", row.names=F)
 ```
 
 ## Univariate analysis of the active period
