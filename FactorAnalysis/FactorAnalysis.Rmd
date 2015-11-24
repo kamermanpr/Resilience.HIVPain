@@ -4,12 +4,10 @@ author: "Antonia Wadley, Duncan Mitchell, and Peter Kamerman"
 date: '`r format(Sys.time(), "%d %B %Y")`'
 output: 
   md_document:
-    toc: true
-    toc_depth: 4
     variant: markdown_github
 ---
 # Overview
-Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [(DOI)](http://dx.doi.org/10.1002/da.10113), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa), and no personal identifying information is provided here. 
+Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [(PMID)](http://http://www.ncbi.nlm.nih.gov/pubmed/12964174), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa), and no personal identifying information is provided here. 
 
 Details of the factor analyses results from the original validation studies for the CD-RISC and RS are shown in the table below.
 
@@ -75,7 +73,7 @@ str(data.1$ID)
 ```
 
 ### Internal consistency
-**Use polychoric correlation matrix throughout because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**
+_**Use polychoric correlation matrix throughout because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**_
 ```{r ic.1}
 # Remove ID column
 data.1.1<-data.1[,-1]

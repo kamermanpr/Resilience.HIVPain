@@ -1,7 +1,9 @@
 # Overview
-This repository contains the data, analysis script, and analysis outputs for analyses performed on activity data from 68 HIV-positive patients who wore Actical accelerometers for two weeks. Acticals were worn for 24-hours each day. Week one was an acclimation week, and the analyses described here only include data for the second week (7 days) only. One participant *(# 176)*, only had 5 days of recordings in the second week. All files related to this analysis are named _'activity.analysis'_ or are stored in subfolders named _'activity.analysis'_. 
+This repository contains the data, the analysis script, and its output for an assessment of phsyical activity data in 68 HIV-positive patients who wore Actical accelerometers for two weeks. The device was worn for 24-hours each day. The first seven days were used to acclimate participants to the device, and only data for the second week (days 8 to 14) was analysed. One participant *(# 176)*, only had 5 days of recordings in the second week. All files related to this analysis are named _'activity.analysis'_ or are stored in subfolders named _'activity.analysis'_. 
 
-In addition, the repository contains the data, analysis script, and analysis outputs for the activity plot included in the manuscript. All files related to this analysis are named _'activity.plot'_ or are stored in subfolders named _'activity.plot'_. 
+The repository also contains the data, analysis script, and its outputs for the activity plot included in the manuscript. All files related to this plot are named _'activity.plot'_ or are stored in subfolders named _'activity.plot'_. 
+
+Code sheets for the analysed data are provided below.
 
 # Code sheets
 ## activity.data.csv
@@ -25,8 +27,16 @@ _**Imported by 'activity.analysis.Rmd'**_
 - **pcount.ptmax:** study participant raw activity count data standardised to the maximum activity count recorded by the participant during the secpnd 7-day period (participant raw activity count/maximum participant activity count * 100) 
 
 ## time.active.*q.csv
-_**Imported by 'activity.plot.Rmd'**_ 
+_**Imported by 'activity.plot.Rmd'**_  
 
+- **id:** participant id code
 
+- **pain:** yes / no
 
-, and the script used to generate the plot used in the manuscript is described in activity.plot.Rmd.
+- **employed** employed (E) / unemployed (U)
+
+- **minutes per week** minutes per recording period spent at 0, 1-24, 25-49, 50-74, >75% of maximum activity
+
+- **days of recording:** number of recording days (5 or 7)
+
+- **minutes per day** minutes per week corrected by the number of days in the recording period
