@@ -21,7 +21,7 @@ library(knitr)
 opts_chunk$set(echo = FALSE,
                warning = FALSE,
                message = FALSE,
-               fig.path = 'figures/activity.analysis/',
+               fig.path = './figures/',
                dev = c('png', 'pdf'),
                tidy = TRUE, 
                tidy.opts = list(width.cutoff = 65))
@@ -134,7 +134,7 @@ data.9 <- select(data.8, id, date, days, pain, employed, count, pmax.count, pptm
 data.9 <- rename(data.9, active = marker.4)
 # Change "?" for patient 90 to "U"
 data.9$employed <- as.character(data.9$employed)
-data.9$employed[data.9$employed =  = "?"] <- "U"
+data.9$employed[data.9$employed == "?"] <- "U"
 data.9$employed <- factor(data.9$employed)
 # Have a quick look at "data.9"
 str(data.9)
@@ -142,8 +142,8 @@ str(data.9)
 # Pass to "data.10"
 data.10 <- group_by(data.9, id, days, date, pain, employed)
 # divide into active and inactive periods according to whether the five-minute epochs had a mean pmax.count > 1%
-active <- filter(data.10, active =  = "TRUE")
-inactive <- filter(data.10, active =  = "FALSE")
+active <- filter(data.10, active == "TRUE")
+inactive <- filter(data.10, active == "FALSE")
 ```
 
 ## Summary of pmax.count data
@@ -411,7 +411,7 @@ fourth.q.3 <- mutate(fourth.q.3, time.2 = round(time/day, 2)) # number of minute
 # Save to csv
 fq <- fourth.q.3 %>%
     rename("minutes per week" = time, "days of recording" = day, "minutes per day" = time.2)
-write.csv(fq, "./data/time.active.4q.csv", row.names = F)
+write.csv(fq, "../activity.plot/data/time.active.4q.csv", row.names = F)
 # Ungroup
 fourth.q.3 <- ungroup(fourth.q.3)
 
@@ -460,7 +460,7 @@ kable(foo, format = "markdown", align = "l", digits = 0)
 #### Third quartile (50-74%)
 ```{r third.q}
 third.q <- group_by(data.10, id, date, pain, employed) # 50-74%
-third.q.1 <- filter(third.q, pptmax.count< = 75 & pptmax.count>50)
+third.q.1 <- filter(third.q, pptmax.count<= 75 & pptmax.count>50)
 third.q.2 <- ungroup(third.q.1)
 third.q.2 <- group_by(third.q.2, id, pain, days, employed)
 third.q.2 <- summarise(third.q.2, time = n())
@@ -475,7 +475,7 @@ third.q.3 <- mutate(third.q.3, time.2 = round(time/days, 2)) # number of minutes
 # Save to csv
 tq <- third.q.3 %>%
     rename("minutes per week" = time, "days of recording" = days, "minutes per day" = time.2)
-write.csv(tq, "./data/time.active.3q.csv", row.names = F)
+write.csv(tq, "../activity.plot/data/time.active.3q.csv", row.names = F)
 # Ungroup
 third.q.3 <- ungroup(third.q.3)
 
@@ -524,7 +524,7 @@ kable(foo, format = "markdown", align = "l", digits = 0)
 #### Second quartile (25-49%)
 ```{r second.q}
 second.q <- group_by(data.10, id, date, pain, employed) # 25-49%
-second.q.1 <- filter(second.q, pptmax.count< = 50 & pptmax.count>25)
+second.q.1 <- filter(second.q, pptmax.count<= 50 & pptmax.count>25)
 second.q.2 <- ungroup(second.q.1)
 second.q.2 <- group_by(second.q.2, id, pain, days, employed)
 second.q.2 <- summarise(second.q.2, time = n())
@@ -539,7 +539,7 @@ second.q.3 <- mutate(second.q.3, time.2 = round(time/days, 2)) # number of minut
 # Save to csv
 sq <- second.q.3 %>%
     rename("minutes per week" = time, "days of recording" = days, "minutes per day" = time.2)
-write.csv(sq, "./data/time.active.2q.csv", row.names = F)
+write.csv(sq, "../activity.plot/data/time.active.2q.csv", row.names = F)
 # Ungroup
 second.q.3 <- ungroup(second.q.3)
 
@@ -588,7 +588,7 @@ kable(foo, format = "markdown", align = "l", digits = 0)
 #### First quartile (0-24%)
 ```{r first.q}
 first.q <- group_by(data.10, id, date, pain, employed) # 0-24%
-first.q.1 <- filter(first.q, pptmax.count< = 25 & pptmax.count>0)
+first.q.1 <- filter(first.q, pptmax.count<= 25 & pptmax.count>0)
 first.q.2 <- ungroup(first.q.1)
 first.q.2 <- group_by(first.q.2, id, pain, days, employed)
 first.q.2 <- summarise(first.q.2, time = n())
@@ -603,7 +603,7 @@ first.q.3 <- mutate(first.q.3, time.2 = round(time/days, 2)) # number of minutes
 # Save to csv
 fstq <- first.q.3 %>%
     rename("minutes per week" = time, "days of recording" = days, "minutes per day" = time.2)
-write.csv(fstq, "./data/time.active.1q.csv", row.names = F)
+write.csv(fstq, "../activity.plot/data/time.active.1q.csv", row.names = F)
 # Ungroup
 first.q.3 <- ungroup(first.q.3)
 
@@ -652,7 +652,7 @@ kable(foo, format = "markdown", align = "l", digits = 0)
 #### Time spent at 0 count
 ```{r zero}
 zero.q <- group_by(data.10, id, date, pain, employed) #  = 0
-zero.q.1 <- filter(zero.q, pptmax.count =  = 0)
+zero.q.1 <- filter(zero.q, pptmax.count == 0)
 zero.q.2 <- ungroup(zero.q.1)
 zero.q.2 <- group_by(zero.q.2, id, pain, days, employed)
 zero.q.2 <- summarise(zero.q.2, time = n())
@@ -667,7 +667,7 @@ zero.q.3 <- mutate(zero.q.3, time.2 = round(time/days, 2)) # number of minutes p
 # Save to csv
 zq <- zero.q.3 %>%
     rename("minutes per week" = time, "days of recording" = days, "minutes per day" = time.2)
-write.csv(zq, "./data/time.active.zero.csv", row.names = F)
+write.csv(zq, "../activity.plot/data/time.active.zero.csv", row.names = F)
 # Ungroup
 zero.q.3 <- ungroup(zero.q.3)
 
@@ -715,5 +715,5 @@ kable(foo, format = "markdown", align = "l", digits = 0)
 
 ## Session information
 ```{r SessionInfo}
-SessionInfo()
+sessionInfo()
 ```

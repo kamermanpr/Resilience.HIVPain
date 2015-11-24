@@ -43,7 +43,7 @@ library(grid)
 opts_chunk$set(echo = FALSE,
                warning = FALSE,
                message = FALSE,
-               fig.path = 'figures/activity.plot/',
+               fig.path = './figures/',
                dev = c('png', 'pdf'),
                tidy = TRUE, 
                tidy.opts = list(width.cutoff = 65))
@@ -66,7 +66,7 @@ Process data for plotting
 Create the plot
 ---------------
 
-![](figures/activity.plot/Plot-1.png)
+![](./figures/Plot-1.png)
 
 Session information
 -------------------
