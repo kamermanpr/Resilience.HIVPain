@@ -3,43 +3,13 @@ title: "Actical data analysis"
 author: Peter Kamerman 
 date: '`r format(Sys.Date(), "%d %B %Y")`'
 output: 
-  html_document:
-    theme: flatly
-    highlight: haddock
-    toc: true
-    toc_depth: 4
-    number_sections: false
-    self_contained: true
-    keep_md: true
+  md_document:
+    variant: markdown_github
 ---
 
-# Overview
-This document describes the analysis of actical activity data from 68 HIV-positive patients who agreed to wear acticals for two weeks. Acticals were worn for 24-hours each day. Week one was an acclimation week, and the analyses described here include for the second week (7 days) only. One participant *(# 176)*, only had 5 days of recordings in the second week. 
 
-# Data cleaning
-24-hour activity data for the last 7 days of actical wear was imported into MSExcel and saved a single, "long format" file with columns:
 
-- Pt ID: participant id code
-
-- Pain: yes / no
-
-- Employed: employed (E) / unemployed (U)
-
-- Time: time of day (hh:mm:ss) in one-minute intervals	
-
-- Day: date (dd-mmm-yyyy)	
-
-- Count: raw activity count
-
-- % count: study participant raw activity count data standardised to the maximum count attained on each actical when worn by an investigator (AW) undertaking maximal activity (stair climbing) (participant raw activity count/investigator maximum activity count *100)
-
-- pcount.ptmax: study participant raw activity count data standardised to the maximum activity count recorded by the participant during the secpnd 7-day period (participant raw activity count/maximum participant activity count * 100) 
-
-The complete MSExcel file was exported as a comma delimited file (csv), and the remaining data cleaning and data anlyses were performed using **R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"**.
-
-The following section describes the cleaning and analysis process.
-
-## Load required packages
+## Load required packages and set chunk options
 ```{r Load_required_packages, echo=TRUE, warning=FALSE, message=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60)}
 # Load packages
 library(dplyr)
@@ -49,6 +19,15 @@ library(ggplot2)
 library(scales) # required for ggplot
 library(exactRankTests)
 library(knitr)
+
+# knitr chunk options
+opts_chunk$set(echo = FALSE,
+               warning = FALSE,
+               message = FALSE,
+               fig.path = 'figures/activity.analysis/',
+               dev = c('png', 'pdf'),
+               tidy = TRUE, 
+               tidy.opts = list(width.cutoff = 65))
 ```
 
 ## Import data
