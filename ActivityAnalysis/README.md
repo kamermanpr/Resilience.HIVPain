@@ -8,6 +8,7 @@ Code sheets for the analysed data are provided below.
 # Code sheets
 ## activity.data.csv
 _Imported by 'activity.analysis.Rmd'_  
+
 24-hour activity data for the last 7 days of Actical wear was imported into MSExcel and saved a single, "long format" file with columns:
 
 - **Pt ID:** participant id code
