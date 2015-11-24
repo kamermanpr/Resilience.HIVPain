@@ -7,7 +7,7 @@ Code sheets for the analysed data are provided below.
 
 # Code sheets
 ## activity.data.csv
-_**Imported by 'activity.analysis.Rmd'**_
+_Imported by 'activity.analysis.Rmd'_  
 24-hour activity data for the last 7 days of Actical wear was imported into MSExcel and saved a single, "long format" file with columns:
 
 - **Pt ID:** participant id code
@@ -27,7 +27,7 @@ _**Imported by 'activity.analysis.Rmd'**_
 - **pcount.ptmax:** study participant raw activity count data standardised to the maximum activity count recorded by the participant during the secpnd 7-day period (participant raw activity count/maximum participant activity count * 100) 
 
 ## time.active.*q.csv
-_**Imported by 'activity.plot.Rmd'**_  
+_Imported by 'activity.plot.Rmd'_  
 
 - **id:** participant id code
 
