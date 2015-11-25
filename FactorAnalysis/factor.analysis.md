@@ -1,46 +1,59 @@
--   Overview
--   Data analysis
-    -   Miscellaneous
-    -   CD-RISC
-        -   Code key
-        -   Import data
-        -   Inspect and clean data
-        -   Internal consistency
-        -   Factor analysis - initial
-        -   Outcome of initial factor analysis
-        -   Factor analysis - secondary
-    -   Resilience Scale
-        -   Code key
-        -   Import data
-        -   Inspect and clean data
-        -   Internal consistency
-        -   Factor analysis
-        -   Outcome of initial factor analysis
-        -   Factor analysis - secondary
-    -   Session information
+Load required packages and set chunk options
+--------------------------------------------
 
-Overview
-========
+``` r
+# Load libraries
+library(pander)
+library(readr)
+library(knitr)
+library(dplyr)
+```
 
-Factor analysis and internal consistency assessment of isiZulu translation of the Connor-Davidson Resilience Scale (CD-RISC) [(DOI)](http://dx.doi.org/10.1002/da.10113), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 isiZulu-speaking South Africans. The study took place in 2014/2015, at the Virology Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. The questionnaires were administered to participants by Mrs Florence Mtsweni and Mrs Thobeka Bucwa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa), and no personal identifying information is provided here.
+    ## 
+    ## Attaching package: 'dplyr'
+    ## 
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+    ## 
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
 
-Details of the factor analyses results from the original validation studies for the CD-RISC and RS are shown in the table below.
+``` r
+library(tidyr)
+library(ggplot2)
+library(psych)
+```
 
-| Questionnaire    | Measurement scale                                                                       | Analysis                                                                       | No. of factors | Names given to factors                                                                                                                                                                    | Questions loading onto each factor                                                                                                                                             |
-|------------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CD-RISC          | Ordinal 1-5 scale anchored at<br>*‘not true at all’* to<br>*‘true nearly all the time’* | Exploratory Factor<br>Analysis with<br>ORTHOMAX rotation                       | 5              | **Factor 1:** Personal competence<br>**Factor 2:** Trusting one’s instincts<br>**Factor 3:** Positive acceptance of change<br>**Factor 4:** Control<br>**Factor 5:** Spiritual influences | **Factor 1:** 10, 11, 12, 16, 17, 23, 24, 25<br>**Factor 2:** 6, 7, 14, 15, 18, 19, 20<br><br>**Factor 3:** 1, 4, 5, 2, 8<br><br>**Factor 4:** 13, 21, 22<br>**Factor 5:** 3,9 |
-| Resilience Scale | Ordinal 1-7 scale anchored at<br>*‘strongly disagree’* to *‘strongly agree’*            | Principal Component Analysis with OBLIMIN<br>rotation and Kaiser normalisation | 2              | **Factor 1:** Personal competence<br>**Factor 2:** Acceptance of self and life                                                                                                            | **Factor 1:** 1, 2, 3, 4, 5, 6, 9, 10,13, 14, 15, 17, 18, 19, 20, 23, 24<br>**Factor 2:** 7, 8, 11, 12, 16, 21, 22, 25                                                         |
+    ## 
+    ## Attaching package: 'psych'
+    ## 
+    ## The following object is masked from 'package:ggplot2':
+    ## 
+    ##     %+%
 
-Data analysis
-=============
+``` r
+library(GPArotation) # for fa function in 'psych'
 
-Miscellaneous
--------------
+# Set seed
+set.seed(123)
+
+# Set knitr chunk options
+opts_chunk$set(echo = FALSE,
+               warning = FALSE,
+               message = FALSE,
+               fig.path = './figures/',
+               dev = c('png', 'pdf'),
+               cache.extra = rand_seed,
+               tidy = TRUE, 
+               tidy.opts = list(width.cutoff = 65))
+```
 
 CD-RISC
 -------
 
-### Code key
+### Item coding
 
 | Label | Key                                                                                             |
 |:------|:------------------------------------------------------------------------------------------------|
@@ -74,14 +87,6 @@ CD-RISC
 
 ### Inspect and clean data
 
-``` r
-# Convert to dplyr object
-data.1 <- tbl_df(data.1)
-
-# Inspect the data
-head(data.1)
-```
-
     ## Source: local data frame [6 x 26]
     ## 
     ##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
@@ -96,10 +101,6 @@ head(data.1)
     ##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
     ##   Q23 (int), Q24 (int), Q25 (int)
 
-``` r
-tail(data.1)
-```
-
     ## Source: local data frame [6 x 26]
     ## 
     ##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
@@ -113,10 +114,6 @@ tail(data.1)
     ## Variables not shown: Q12 (int), Q13 (int), Q14 (int), Q15 (int), Q16
     ##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
     ##   Q23 (int), Q24 (int), Q25 (int)
-
-``` r
-str(data.1)
-```
 
     ## Classes 'tbl_df', 'tbl' and 'data.frame':    154 obs. of  26 variables:
     ##  $ ID : int  1 2 3 4 5 6 7 8 9 10 ...
@@ -146,17 +143,11 @@ str(data.1)
     ##  $ Q24: int  4 2 4 4 4 3 4 3 4 4 ...
     ##  $ Q25: int  4 3 4 4 4 4 4 4 2 4 ...
 
-``` r
-# Convert data classes as nessesary
-data.1$ID <- factor(data.1$ID)
-str(data.1$ID)
-```
-
     ##  Factor w/ 154 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
 
 ### Internal consistency
 
-**Use polychoric correlation matrix throughout because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**
+***Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply***
 
 |     |  vars|    n|      mean|         sd|  median|   trimmed|     mad|  min|  max|  range|        skew|    kurtosis|         se|
 |-----|-----:|----:|---------:|----------:|-------:|---------:|-------:|----:|----:|------:|-----------:|-----------:|----------:|
@@ -195,11 +186,11 @@ Reliability analysis
 
 ### Factor analysis - initial
 
-![](FactorAnalysis_files/figure-markdown_github/fa.1-1.png)
+***Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply*** ![](./figures/fa.1-1.png)
 
     ## Parallel analysis suggests that the number of factors =  3  and the number of components =  2
 
-![](FactorAnalysis_files/figure-markdown_github/fa.1-2.png)
+![](./figures/fa.1-2.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1, nfactors = 3, rotate = "oblimin", fm = "ml", 
@@ -267,7 +258,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.879 0.848 0.729
     ## Minimum correlation of possible factor scores  0.758 0.696 0.458
 
-![](FactorAnalysis_files/figure-markdown_github/fa.1-3.png)
+![](./figures/fa.1-3.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1, nfactors = 4, rotate = "oblimin", fm = "ml", 
@@ -336,7 +327,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.870 0.872 0.737 0.600
     ## Minimum correlation of possible factor scores  0.739 0.743 0.473 0.200
 
-![](FactorAnalysis_files/figure-markdown_github/fa.1-4.png)
+![](./figures/fa.1-4.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -405,18 +396,18 @@ Reliability analysis
 
 ### Outcome of initial factor analysis
 
-The 3-factor structure produced the most parsimonious outcome. One item (Q2: "I have at least one close and secure relationship that helps me when I'm stressed") had factor loading \< 0.3, and was removed and the data reanalysed with a 3-factor structure.
+The 3-factor structure produced the most parsimonious outcome. One item (Q2: 'I have at least one close and secure relationship that helps me when I'm stressed') had factor loading \< 0.3, and was removed and the data reanalysed with a 3-factor structure.
 
 ### Factor analysis - secondary
 
 \*Item Q2 removed\*\*
 
 Reliability analysis
- raw\_alpha std.alpha G6(smc) average\_r S/N 0.91 0.91 0.93 0.29 9.6 Quitting from lines 128-151 (FactorAnalysis.Rmd) Error in match.arg(style) : 'arg' should be one of "multiline", "grid", "simple", "rmarkdown" Calls: <Anonymous> ... pandoc.table -\> cat -\> pandoc.table.return -\> match.arg In addition: Warning message: In native\_encode(text) : some characters may not work under the current locale![](FactorAnalysis_files/figure-markdown_github/fa.1b-1.png)
+ raw\_alpha std.alpha G6(smc) average\_r S/N 0.91 0.91 0.93 0.29 9.6 Quitting from lines 155-191 (factor.analysis.Rmd) Error in match.arg(style) : 'arg' should be one of "multiline", "grid", "simple", "rmarkdown" Calls: <Anonymous> ... pandoc.table -\> cat -\> pandoc.table.return -\> match.arg![](./figures/fa.1b-1.png)
 
-    ## Parallel analysis suggests that the number of factors =  4  and the number of components =  2
+    ## Parallel analysis suggests that the number of factors =  3  and the number of components =  2
 
-![](FactorAnalysis_files/figure-markdown_github/fa.1b-2.png)
+![](./figures/fa.1b-2.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1b, nfactors = 3, rotate = "oblimin", fm = "ml", 
@@ -486,7 +477,7 @@ Reliability analysis
 Resilience Scale
 ----------------
 
-### Code key
+### Item coding
 
 | Label | Key                                                                            |
 |:------|:-------------------------------------------------------------------------------|
@@ -520,14 +511,6 @@ Resilience Scale
 
 ### Inspect and clean data
 
-``` r
-# Convert to dplyr object
-data.2 <- tbl_df(data.2)
-
-# Inspect the data
-head(data.2)
-```
-
     ## Source: local data frame [6 x 26]
     ## 
     ##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
@@ -542,10 +525,6 @@ head(data.2)
     ##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
     ##   Q23 (int), Q24 (int), Q25 (int)
 
-``` r
-tail(data.2)
-```
-
     ## Source: local data frame [6 x 26]
     ## 
     ##      ID    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
@@ -559,10 +538,6 @@ tail(data.2)
     ## Variables not shown: Q12 (int), Q13 (int), Q14 (int), Q15 (int), Q16
     ##   (int), Q17 (int), Q18 (int), Q19 (int), Q20 (int), Q21 (int), Q22 (int),
     ##   Q23 (int), Q24 (int), Q25 (int)
-
-``` r
-str(data.2)
-```
 
     ## Classes 'tbl_df', 'tbl' and 'data.frame':    151 obs. of  26 variables:
     ##  $ ID : int  1 2 3 4 5 6 7 8 9 10 ...
@@ -592,17 +567,11 @@ str(data.2)
     ##  $ Q24: int  7 5 7 7 7 2 4 5 5 7 ...
     ##  $ Q25: int  3 1 1 1 7 1 5 1 7 7 ...
 
-``` r
-# Convert data classes as nessesary
-data.2$ID <- factor(data.2$ID)
-str(data.2$ID)
-```
-
     ##  Factor w/ 151 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
 
 ### Internal consistency
 
-**Use polychoric correlation matrix throughout because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**
+**Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply**
 
 |     |  vars|    n|      mean|         sd|  median|   trimmed|     mad|  min|  max|  range|        skew|    kurtosis|         se|
 |-----|-----:|----:|---------:|----------:|-------:|---------:|-------:|----:|----:|------:|-----------:|-----------:|----------:|
@@ -641,11 +610,11 @@ Reliability analysis
 
 ### Factor analysis
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2-1.png)
+**Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply** ![](./figures/fa.2-1.png)
 
     ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2-2.png)
+![](./figures/fa.2-2.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1, nfactors = 1, rotate = "oblimin", fm = "ml", 
@@ -704,7 +673,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.942
     ## Minimum correlation of possible factor scores  0.884
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2-3.png)
+![](./figures/fa.2-3.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -773,7 +742,7 @@ Reliability analysis
 
 ### Outcome of initial factor analysis
 
-The 2-factor structure produced the most parsimonious outcome based on the empirical \(\chi\)<sup>2</sup> goodness of fit test, but the 1-factor solution was recommended by the parallel plot. On the 1-factor solution, two items (Q11: "I seldom wonder what the point of it all is", and Q20: "Sometimes I make myself do things whether I want to or not") had factor loadings \< 0.3, and were removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).On the 2-factor solution, only one item (Q11: "I seldom wonder what the point of it all is") had factor loadings \< 0.3, and was removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).
+The 2-factor structure produced the most parsimonious outcome based on the empirical \(\chi\)<sup>2</sup> goodness of fit test, but the 1-factor solution was recommended by the parallel plot. On the 1-factor solution, two items (Q11: 'I seldom wonder what the point of it all is', and Q20: 'Sometimes I make myself do things whether I want to or not') had factor loadings \< 0.3, and were removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).On the 2-factor solution, only one item (Q11: 'I seldom wonder what the point of it all is') had factor loadings \< 0.3, and was removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).
 
 ### Factor analysis - secondary
 
@@ -786,11 +755,11 @@ Reliability analysis
 |:-----------|:----------|:--------|:-----------|:------|
 | 0.93       | 0.93      | 0.94    | 0.37       | 13.37 |
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2b1-1.png)
+![](./figures/fa.2b1-1.png)
 
     ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2b1-2.png)
+![](./figures/fa.2b1-2.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b1, nfactors = 1, rotate = "oblimin", fm = "ml", 
@@ -847,7 +816,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.941
     ## Minimum correlation of possible factor scores  0.883
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2b1-3.png)
+![](./figures/fa.2b1-3.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b1, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -913,11 +882,11 @@ Reliability analysis
     ## Minimum correlation of possible factor scores  0.883 0.207
 
 \*Only item Q11 removed based on the outcome of the original 2-factor solution\*\*
-![](FactorAnalysis_files/figure-markdown_github/fa.2b2-1.png)
+![](./figures/fa.2b2-1.png)
 
-    ## Parallel analysis suggests that the number of factors =  2  and the number of components =  1
+    ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2b2-2.png)
+![](./figures/fa.2b2-2.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b2, nfactors = 1, rotate = "oblimin", fm = "ml", 
@@ -975,7 +944,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.942
     ## Minimum correlation of possible factor scores  0.883
 
-![](FactorAnalysis_files/figure-markdown_github/fa.2b2-3.png)
+![](./figures/fa.2b2-3.png)
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b2, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -1044,19 +1013,26 @@ Reliability analysis
 Session information
 -------------------
 
-    ##                                                                                            sysname 
-    ##                                                                                           "Darwin" 
-    ##                                                                                            release 
-    ##                                                                                           "15.0.0" 
-    ##                                                                                            version 
-    ## "Darwin Kernel Version 15.0.0: Sat Sep 19 15:53:46 PDT 2015; root:xnu-3247.10.11~1/RELEASE_X86_64" 
-    ##                                                                                           nodename 
-    ##                                                                         "Peters-MacBook-Pro.local" 
-    ##                                                                                            machine 
-    ##                                                                                           "x86_64" 
-    ##                                                                                              login 
-    ##                                                                                    "PeterKamerman" 
-    ##                                                                                               user 
-    ##                                                                                    "PeterKamerman" 
-    ##                                                                                     effective_user 
-    ##                                                                                    "PeterKamerman"
+    ## R version 3.2.2 (2015-08-14)
+    ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
+    ## Running under: OS X 10.11.1 (El Capitan)
+    ## 
+    ## locale:
+    ## [1] C
+    ## 
+    ## attached base packages:
+    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
+    ## 
+    ## other attached packages:
+    ## [1] GPArotation_2014.11-1 psych_1.5.8           ggplot2_1.0.1        
+    ## [4] tidyr_0.3.1           dplyr_0.4.3           knitr_1.11           
+    ## [7] readr_0.2.2           pander_0.5.2         
+    ## 
+    ## loaded via a namespace (and not attached):
+    ##  [1] Rcpp_0.12.1      magrittr_1.5     MASS_7.3-44      mnormt_1.5-3    
+    ##  [5] munsell_0.4.2    colorspace_1.2-6 R6_2.1.1         highr_0.5.1     
+    ##  [9] stringr_1.0.0    plyr_1.8.3       tools_3.2.2      parallel_3.2.2  
+    ## [13] grid_3.2.2       gtable_0.1.2     DBI_0.3.1        htmltools_0.2.6 
+    ## [17] yaml_2.1.13      assertthat_0.1   digest_0.6.8     reshape2_1.4.1  
+    ## [21] formatR_1.2.1    evaluate_0.8     rmarkdown_0.8.1  stringi_1.0-1   
+    ## [25] scales_0.3.0     proto_0.3-10

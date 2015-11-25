@@ -1,12 +1,11 @@
 ---
 title: "Actical data analysis"
 author: Peter Kamerman 
-date: '`r format(Sys.Date(), "%d %B %Y")`'
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   md_document:
     variant: markdown_github
 ---
-## Load required packages and set chunk options
 ```{r Load_required_packages}
 # Load packages
 library(dplyr)
