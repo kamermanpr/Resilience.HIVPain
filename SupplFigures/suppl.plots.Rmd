@@ -1,0 +1,379 @@
+---
+title: 'Supplementary plots'
+author: 'Antonia Wadley, Duncan Mitchell, and Peter Kamerman'
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+output: 
+    md_document:
+        variant: markdown_github
+---
+## Description
+A series of scatter-plots for the supplementary material provided with the manuscript.
+
+_Note: All activity data are derived from 24-hour accelerometer recordings over a 7-day period (the exception is participant #176, who only had 5 days of recordings)._ 
+
+The plots fall into two categories  
+1. Plots of resilience score (from the Resilience Score questionnaire) against:
+    - Median activity over the recording period;  
+    - Total time (in minutes) spent in the past week at 0% of maximum activity over the recording period;   
+    - Total time (in minutes) spent in the past week at 1-24% of maximum activity over the recording period;    
+    - Total time (in minutes) spent in the past week at 25-49% of maximum activity over the recording period;    
+    - Total time (in minutes) spent in the past week at 50-74% of maximum activity over the recording period;    
+    - Total time (in minutes) spent in the past week at >75% of maximum activity over the recording period.    
+
+2. Plots of median activity over the recording period against:  
+    - Pain interference (11-point numerical rating scale, NRS), scored over the last week (recorded at baseline);    
+    - Worst pain (11-point NRS), scored over the last week (recorded at baseline);   
+    - Least pain (11-point NRS), scored over the last week (recorded at baseline).   
+
+## Load required packages and set chunk options
+```{r LoadPackages}
+# Load packages
+library(knitr)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(grid)
+
+# knitr chunk options
+opts_chunk$set(echo = FALSE,
+               warning = FALSE,
+               message = FALSE,
+               fig.path = './figures/',
+               dev = c('png', 'pdf'),
+               tidy = TRUE, 
+               tidy.opts = list(width.cutoff = 65))
+```
+
+
+## Resilience vs Activity dot-plots 
+_**68 participants, 37 with pain and 31 without pain**_
+### Import data
+```{r DataImport}
+data.res <- read_csv('./data/resilience.activity.csv', col_names = TRUE)
+```
+
+### Quick look
+```{r DataProcessing}
+# Top-and-tail
+head(data.res)
+tail(data.res)
+glimpse(data.res)
+
+# Process data
+data.res.1 <- data.res %>%
+    mutate(pain = as.factor(Pain)) %>%
+    select(-ID, -Pain) %>%
+    rename(activity = Median_activity,
+           rs.score = RS_corrected, 
+           zero = Minutes_at_0_activity,
+           q1 = Minutes_at_q1,
+           q2 = Minutes_at_q2,
+           q3 = Minutes_at_q3,
+           q4 = Minutes_at_q4) 
+glimpse(data.res.1)
+```
+
+## Create resilience plots
+```{r Plot}
+# Create a hex colour palette (colourblind friendly)
+cb1 <- c("#0072B2", "#D55E00") 
+
+# Plot_1: resilience score vs Median activity
+plot_1 <- ggplot(data.res.1,
+                 aes(x = rs.score,
+                     y = activity,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(x = '\nResilience Scale score',
+         y = 'Median activity (counts)\n',
+         title = 'Resilience Scale score vs Median activity') +
+    scale_fill_manual(labels = c('No pain','Pain'),
+                      values = cb1) +
+    scale_colour_manual(labels = c('No pain','Pain'),
+                        values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.title = element_blank(),
+          legend.key = element_blank(),
+          legend.text = element_text(size = 18),
+          legend.position = 'top')
+plot_1
+
+# Plot_2: resilience score vs time spent at 0% of max activity
+plot_2 <- ggplot(data.res.1,
+                 aes(x = rs.score,
+                     y = zero,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(title = 'Time spent at 0% of maximum activity',
+         x = '\nResilience Scale score',
+         y = 'Minutes per day\n') +
+    scale_fill_manual(labels = c('No pain','Pain'),
+                      values = cb1) +
+    scale_colour_manual(labels = c('No pain','Pain'),
+                        values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.title = element_blank(),
+          legend.key = element_blank(),
+          legend.text = element_text(size = 18),
+          legend.position = 'top')
+plot_2
+
+# Plot_3: resilience score vs time spent at 1-24% of max activity
+plot_3 <- ggplot(data.res.1,
+                 aes(x = rs.score,
+                     y = q1,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(title = 'Time spent at 1-24% of maximum activity',
+         x = '\nResilience Scale score',
+         y = 'Minutes per day\n') +
+    scale_fill_manual(labels = c('No pain','Pain'),
+                      values = cb1) +
+    scale_colour_manual(labels = c('No pain','Pain'),
+                        values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.title = element_blank(),
+          legend.key = element_blank(),
+          legend.text = element_text(size = 18),
+          legend.position = 'top')
+plot_3
+
+# Plot_4: resilience score vs time spent at 25-49% of max activity
+plot_4 <- ggplot(data.res.1,
+                 aes(x = rs.score,
+                     y = q2,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(title = 'Time spent at 25-49% of maximum activity',
+         x = '\nResilience Scale score',
+         y = 'Minutes per day\n') +
+    scale_fill_manual(labels = c('No pain','Pain'),
+                      values = cb1) +
+    scale_colour_manual(labels = c('No pain','Pain'),
+                        values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.title = element_blank(),
+          legend.key = element_blank(),
+          legend.text = element_text(size = 18),
+          legend.position = 'top')
+plot_4
+
+# Plot_5: resilience score vs time spent at 50-74% of max activity
+plot_5 <- ggplot(data.res.1,
+                 aes(x = rs.score,
+                     y = q3,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(title = 'Time spent at 50-74% of maximum activity',
+         x = '\nResilience Scale score',
+         y = 'Minutes per day\n') +
+    scale_fill_manual(labels = c('No pain','Pain'),
+                      values = cb1) +
+    scale_colour_manual(labels = c('No pain','Pain'),
+                        values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.title = element_blank(),
+          legend.key = element_blank(),
+          legend.text = element_text(size = 18),
+          legend.position = 'top')
+plot_5
+
+# Plot 6: resilience score vs time spent at >75% of max activity
+plot_6 <- ggplot(data.res.1,
+                 aes(x = rs.score,
+                     y = q4,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(title = 'Time spent at >75% of maximum activity',
+         x = '\nResilience Scale score',
+         y = 'Minutes per day\n') +
+    scale_fill_manual(labels = c('No pain','Pain'),
+                      values = cb1) +
+    scale_colour_manual(labels = c('No pain','Pain'),
+                        values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.title = element_blank(),
+          legend.key = element_blank(),
+          legend.text = element_text(size = 18),
+          legend.position = 'top')
+plot_6
+```
+
+## Brief Pain Inventory vs Activity dot-plots
+_**37 participants with pain, only**_
+### Import data
+```{r DataImport.bpi}
+data.bpi <- read_csv('./data/bpi.activity.csv', col_names = TRUE)
+```
+
+### Quick look
+```{r DataProcessing.bpi}
+# Top-and-tail
+head(data.bpi)
+tail(data.bpi)
+glimpse(data.bpi)
+
+# Process data
+data.bpi.1 <- data.bpi %>%
+    mutate(pain = as.factor(Pain)) %>%
+    select(-ID, -Pain) %>%
+    rename(activity = Median_activity,
+           bpi_interference = BPI_interference, 
+           worst_pain = Worst_pain,
+           least_pain = Least_pain) 
+glimpse(data.bpi.1)
+```
+
+## Create bpi plots
+```{r Plot.bpi}
+# Plot_7: BPI interference vs Median activity
+plot_7 <- ggplot(data.bpi.1,
+                 aes(x = bpi_interference,
+                     y = activity,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(x = '\nPain inteference (11-point NRS)',
+         y = 'Median activity (counts)\n',
+         title = 'Pain interference in the last week vs activity') +
+    scale_fill_manual(values = cb1) +
+    scale_colour_manual(values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+plot_7
+
+# Plot_8: Worst pain vs Median activity
+plot_8 <- ggplot(data.bpi.1,
+                 aes(x = worst_pain,
+                     y = activity,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(x = '\nPain intensity (11-point NRS)',
+         y = 'Median activity (counts)\n',
+         title = 'Worst pain in the last week vs activity') +
+    scale_fill_manual(values = cb1) +
+    scale_colour_manual(values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+plot_8
+
+# Plot_9: Least pain vs Median activity
+plot_9 <- ggplot(data.bpi.1,
+                 aes(x = least_pain,
+                     y = activity,
+                     fill = pain,
+                     colour = pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(x = '\nPain intensity (11-point NRS)',
+         y = 'Median activity (counts)\n',
+         title = 'Least pain in the last week vs activity') +
+    scale_fill_manual(values = cb1) +
+    scale_colour_manual(values = cb1) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+plot_9
+```
+
+## Session information
+```{r SessionInfo}
+sessionInfo()
+```
