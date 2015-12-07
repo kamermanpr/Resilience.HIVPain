@@ -64,18 +64,11 @@ library(party)
     ## Loading required package: sandwich
 
 ``` r
-# Palette
-## Quantitative
-dark5  <-  c("#0086EF", "#EF6900", "#19A476", "#F3379A", "#666666")
-
-# Set seed
-set.seed(123)
-
 # Set knitr chunk options
 opts_chunk$set(echo = FALSE,
                warning = FALSE,
                message = FALSE,
-               cache = TRUE,
+               cache = FALSE,
                fig.path = './figures/',
                fig.height = 11.69,
                fig.width = 8.27,
@@ -201,6 +194,41 @@ Pain
 ----
 
 ### Random Forest
+
+    ## Source: local data frame [68 x 13]
+    ## 
+    ##    Median.Activity   Pain   Age Female Education   BMI Employment
+    ##              (dbl) (fctr) (int) (fctr)    (fctr) (dbl)     (fctr)
+    ## 1                9    Yes    34   Male   Primary  26.6         No
+    ## 2                6     No    49 Female   Primary  28.3        Yes
+    ## 3                7     No    32 Female   Primary  25.5        Yes
+    ## 4                5     No    51   Male   Primary  23.2        Yes
+    ## 5                5    Yes    34 Female Secondary  30.1        Yes
+    ## 6                6    Yes    47   Male Secondary  16.0         No
+    ## 7                4     No    53 Female Secondary  25.0        Yes
+    ## 8                4     No    37 Female Secondary  26.8        Yes
+    ## 9                3     No    40 Female  Tertiary  19.3        Yes
+    ## 10               4     No    40 Female  Tertiary  22.2        Yes
+    ## ..             ...    ...   ...    ...       ...   ...        ...
+    ## Variables not shown: RS.Prop.Score (int), EQ5D.vas (int), Worry.Money
+    ##   (fctr), Worry.Family (fctr), Worry.Food (fctr), Worry.Health (fctr)
+
+    ## Source: local data frame [48 x 3]
+    ## Groups: trial [4]
+    ## 
+    ##                 ID   trial    importance
+    ##             (fctr)  (fctr)         (dbl)
+    ## 1              Age Trial.1 -0.0013043478
+    ## 2           Female Trial.1 -0.0010434783
+    ## 3        Education Trial.1 -0.0004347826
+    ## 4  Median.Activity Trial.1 -0.0001739130
+    ## 5              BMI Trial.1  0.0004347826
+    ## 6    RS.Prop.Score Trial.1  0.0010434783
+    ## 7       Employment Trial.1  0.0048695652
+    ## 8     Worry.Family Trial.1  0.0069565217
+    ## 9       Worry.Food Trial.1  0.0090434783
+    ## 10    Worry.Health Trial.1  0.0196521739
+    ## ..             ...     ...           ...
 
 ![](./figures/pain.forest-1.png)
 
