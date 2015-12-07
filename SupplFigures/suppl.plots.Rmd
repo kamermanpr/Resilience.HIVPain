@@ -17,7 +17,7 @@ The plots fall into two categories
     - Total time (in minutes) spent in the past week at 0% of maximum activity over the recording period;   
     - Total time (in minutes) spent in the past week at 1-24% of maximum activity over the recording period;    
     - Total time (in minutes) spent in the past week at 25-49% of maximum activity over the recording period;    
-    - Total time (in minutes) spent in the past week at 50-74% of maximum activity over the recording period;    
+    - Total time (in minutes) spent in the past week at 50-74% of maximum activity over the recording period;  
     - Total time (in minutes) spent in the past week at >75% of maximum activity over the recording period.    
 
 2. Plots of median activity over the recording period against:  
@@ -36,11 +36,16 @@ library(ggplot2)
 library(scales)
 library(grid)
 
+# Load palette
+cb8.categorical <- c("#0072B2", "#D55E00", "#009E73", "#F0E442", "#56B4E9", "#E69F00", "#CC79A7", "#999999")
+
 # knitr chunk options
 opts_chunk$set(echo = FALSE,
                warning = FALSE,
                message = FALSE,
                fig.path = './figures/',
+               fig.width = 8,
+               fig.height = 9,
                dev = c('png', 'pdf'),
                tidy = TRUE, 
                tidy.opts = list(width.cutoff = 65))
@@ -51,7 +56,7 @@ opts_chunk$set(echo = FALSE,
 _**68 participants, 37 with pain and 31 without pain**_
 ### Import data
 ```{r DataImport}
-data.res <- read_csv('./data/resilience.activity.csv', col_names = TRUE)
+data.res <- read_csv('./data/resilience.V.endurance.csv', col_names = TRUE)
 ```
 
 ### Quick look
@@ -63,7 +68,9 @@ glimpse(data.res)
 
 # Process data
 data.res.1 <- data.res %>%
-    mutate(pain = as.factor(Pain)) %>%
+    mutate(pain = factor(Pain, 
+                         levels = c('no.pain', 'pain'),
+                         labels = c('No pain', 'Pain'))) %>%
     select(-ID, -Pain) %>%
     rename(activity = Median_activity,
            rs.score = RS_corrected, 
@@ -77,23 +84,19 @@ glimpse(data.res.1)
 
 ## Create resilience plots
 ```{r Plot}
-# Create a hex colour palette (colourblind friendly)
-cb1 <- c("#0072B2", "#D55E00") 
-
-# Plot_1: resilience score vs Median activity
-plot_1 <- ggplot(data.res.1,
+# Plot_1: resilience score vs median activity
+Resilience.activity <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = activity,
                      fill = pain,
                      colour = pain)) +
-    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    geom_jitter(size = 5, shape = 21, alpha = 0.7) +
     labs(x = '\nResilience Scale score',
          y = 'Median activity (counts)\n',
-         title = 'Resilience Scale score vs Median activity') +
-    scale_fill_manual(labels = c('No pain','Pain'),
-                      values = cb1) +
-    scale_colour_manual(labels = c('No pain','Pain'),
-                        values = cb1) +
+         title = 'Resilience Scale score vs median activity\n') +
+    facet_grid(.~pain) +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -105,26 +108,24 @@ plot_1 <- ggplot(data.res.1,
           axis.ticks = element_blank(),
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
-          legend.title = element_blank(),
-          legend.key = element_blank(),
-          legend.text = element_text(size = 18),
-          legend.position = 'top')
-plot_1
+          legend.position = 'none',
+          panel.margin.y = unit(1, 'lines'))
+Resilience.activity
 
 # Plot_2: resilience score vs time spent at 0% of max activity
-plot_2 <- ggplot(data.res.1,
+RS.EnduranceZero <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = zero,
                      fill = pain,
                      colour = pain)) +
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
-    labs(title = 'Time spent at 0% of maximum activity',
+    geom_smooth(method = 'lm') +
+    labs(title = 'Time spent at 0% of maximum activity\n',
          x = '\nResilience Scale score',
          y = 'Minutes per day\n') +
-    scale_fill_manual(labels = c('No pain','Pain'),
-                      values = cb1) +
-    scale_colour_manual(labels = c('No pain','Pain'),
-                        values = cb1) +
+    facet_grid(pain~.) +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -136,26 +137,23 @@ plot_2 <- ggplot(data.res.1,
           axis.ticks = element_blank(),
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
-          legend.title = element_blank(),
-          legend.key = element_blank(),
-          legend.text = element_text(size = 18),
-          legend.position = 'top')
-plot_2
+          legend.position = 'none')
+RS.EnduranceZero
 
 # Plot_3: resilience score vs time spent at 1-24% of max activity
-plot_3 <- ggplot(data.res.1,
+RS.EnduranceQ1 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q1,
                      fill = pain,
                      colour = pain)) +
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
-    labs(title = 'Time spent at 1-24% of maximum activity',
+    geom_smooth(method = 'lm') +
+    labs(title = 'Time spent at 1-24% of maximum activity\n',
          x = '\nResilience Scale score',
          y = 'Minutes per day\n') +
-    scale_fill_manual(labels = c('No pain','Pain'),
-                      values = cb1) +
-    scale_colour_manual(labels = c('No pain','Pain'),
-                        values = cb1) +
+    facet_grid(pain~.) +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -167,26 +165,23 @@ plot_3 <- ggplot(data.res.1,
           axis.ticks = element_blank(),
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
-          legend.title = element_blank(),
-          legend.key = element_blank(),
-          legend.text = element_text(size = 18),
-          legend.position = 'top')
-plot_3
+          legend.position = 'none')
+RS.EnduranceQ1
 
 # Plot_4: resilience score vs time spent at 25-49% of max activity
-plot_4 <- ggplot(data.res.1,
+RS.EnduranceQ2 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q2,
                      fill = pain,
                      colour = pain)) +
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
-    labs(title = 'Time spent at 25-49% of maximum activity',
+    geom_smooth(method = 'lm') +
+    labs(title = 'Time spent at 25-49% of maximum activity\n',
          x = '\nResilience Scale score',
          y = 'Minutes per day\n') +
-    scale_fill_manual(labels = c('No pain','Pain'),
-                      values = cb1) +
-    scale_colour_manual(labels = c('No pain','Pain'),
-                        values = cb1) +
+    facet_grid(pain~.) +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -198,26 +193,23 @@ plot_4 <- ggplot(data.res.1,
           axis.ticks = element_blank(),
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
-          legend.title = element_blank(),
-          legend.key = element_blank(),
-          legend.text = element_text(size = 18),
-          legend.position = 'top')
-plot_4
+          legend.position = 'none')
+RS.EnduranceQ2
 
 # Plot_5: resilience score vs time spent at 50-74% of max activity
-plot_5 <- ggplot(data.res.1,
+RS.EnduranceQ3 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q3,
                      fill = pain,
                      colour = pain)) +
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
-    labs(title = 'Time spent at 50-74% of maximum activity',
+    geom_smooth(method = 'lm') +
+    labs(title = 'Time spent at 50-74% of maximum activity\n',
          x = '\nResilience Scale score',
          y = 'Minutes per day\n') +
-    scale_fill_manual(labels = c('No pain','Pain'),
-                      values = cb1) +
-    scale_colour_manual(labels = c('No pain','Pain'),
-                        values = cb1) +
+    facet_grid(pain~.) +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -229,26 +221,23 @@ plot_5 <- ggplot(data.res.1,
           axis.ticks = element_blank(),
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
-          legend.title = element_blank(),
-          legend.key = element_blank(),
-          legend.text = element_text(size = 18),
-          legend.position = 'top')
-plot_5
+          legend.position = 'none')
+RS.EnduranceQ3
 
 # Plot 6: resilience score vs time spent at >75% of max activity
-plot_6 <- ggplot(data.res.1,
+RS.EnduranceQ4 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q4,
                      fill = pain,
                      colour = pain)) +
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
-    labs(title = 'Time spent at >75% of maximum activity',
+    geom_smooth(method = 'lm') +
+    labs(title = 'Time spent at >75% of maximum activity\n',
          x = '\nResilience Scale score',
          y = 'Minutes per day\n') +
-    scale_fill_manual(labels = c('No pain','Pain'),
-                      values = cb1) +
-    scale_colour_manual(labels = c('No pain','Pain'),
-                        values = cb1) +
+    facet_grid(pain~.) +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -260,11 +249,8 @@ plot_6 <- ggplot(data.res.1,
           axis.ticks = element_blank(),
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
-          legend.title = element_blank(),
-          legend.key = element_blank(),
-          legend.text = element_text(size = 18),
-          legend.position = 'top')
-plot_6
+          legend.position = 'none')
+RS.EnduranceQ4
 ```
 
 ## Brief Pain Inventory vs Activity dot-plots
@@ -294,8 +280,8 @@ glimpse(data.bpi.1)
 
 ## Create bpi plots
 ```{r Plot.bpi}
-# Plot_7: BPI interference vs Median activity
-plot_7 <- ggplot(data.bpi.1,
+# Plot_7: BPI interference vs median activity
+Interference.activity <- ggplot(data.bpi.1,
                  aes(x = bpi_interference,
                      y = activity,
                      fill = pain,
@@ -303,9 +289,9 @@ plot_7 <- ggplot(data.bpi.1,
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
     labs(x = '\nPain inteference (11-point NRS)',
          y = 'Median activity (counts)\n',
-         title = 'Pain interference in the last week vs activity') +
-    scale_fill_manual(values = cb1) +
-    scale_colour_manual(values = cb1) +
+         title = 'Pain interference in the last week vs activity\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -318,10 +304,10 @@ plot_7 <- ggplot(data.bpi.1,
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
           legend.position = 'none')
-plot_7
+Interference.activity
 
-# Plot_8: Worst pain vs Median activity
-plot_8 <- ggplot(data.bpi.1,
+# Plot_8: Worst pain vs median activity
+WorstPain.activity <- ggplot(data.bpi.1,
                  aes(x = worst_pain,
                      y = activity,
                      fill = pain,
@@ -329,9 +315,9 @@ plot_8 <- ggplot(data.bpi.1,
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
     labs(x = '\nPain intensity (11-point NRS)',
          y = 'Median activity (counts)\n',
-         title = 'Worst pain in the last week vs activity') +
-    scale_fill_manual(values = cb1) +
-    scale_colour_manual(values = cb1) +
+         title = 'Worst pain in the last week vs activity\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -344,10 +330,10 @@ plot_8 <- ggplot(data.bpi.1,
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
           legend.position = 'none')
-plot_8
+WorstPain.activity
 
-# Plot_9: Least pain vs Median activity
-plot_9 <- ggplot(data.bpi.1,
+# Plot_9: Least pain vs median activity
+LeastPain.activity <- ggplot(data.bpi.1,
                  aes(x = least_pain,
                      y = activity,
                      fill = pain,
@@ -355,9 +341,9 @@ plot_9 <- ggplot(data.bpi.1,
     geom_jitter(size = 4, shape = 21, alpha = 0.5) +
     labs(x = '\nPain intensity (11-point NRS)',
          y = 'Median activity (counts)\n',
-         title = 'Least pain in the last week vs activity') +
-    scale_fill_manual(values = cb1) +
-    scale_colour_manual(values = cb1) +
+         title = 'Least pain in the last week vs activity\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
     theme(plot.title = element_text(face = 'bold', 
                                     size = 18, 
                                     colour = 'black'),
@@ -370,7 +356,329 @@ plot_9 <- ggplot(data.bpi.1,
           panel.background=element_blank(),
           panel.grid.major = element_line(colour = 'grey90'),
           legend.position = 'none')
-plot_9
+LeastPain.activity
+```
+
+## Activity vs predictor scatterplots
+_**68 participants with (37) and without (31) pain**_
+### Import data
+```{r DataImport.act}
+data.act <- read_csv('./data/activity.V.predictors.csv', col_names = TRUE)
+```
+
+### Quick look
+```{r DataProcessing.act}
+# Top-and-tail
+head(data.act)
+tail(data.act)
+glimpse(data.act)
+
+# Process data
+data.act.1 <- data.act %>%
+    mutate(ID = factor(ID),
+           pain = factor(pain),
+           sex = factor(sex),
+           education = factor(education, 
+                              levels = c('No education', 
+                                         'Completed grade 7', 
+                                         'Completed grade 12', 
+                                         'Tertiary education'), 
+                                         ordered = TRUE),
+           employed = factor(employed)) %>%
+    group_by(ID) %>%
+    gather(key = worry_about, value = rating, money:health) %>%
+    mutate(rating = factor(rating, 
+                           levels = c('Not at all',
+                                         'Rarely',
+                                         'Sometimes', 
+                                         'Often', 
+                                         'Nearly all the time'), 
+                                         ordered = TRUE)) %>%
+    arrange(ID)
+
+# Quick look
+str(data.act.1)
+```
+
+## Create bpi plots
+```{r Plot.act}
+# Plot_10: median activity vs. presence of pain
+Pain.activity <- ggplot(data.act.1,
+                 aes(x = pain,
+                     y = median_activity,
+                     fill = pain,
+                     colour = pain)) +
+    geom_boxplot(fill = 'white', colour = 'white') +
+    geom_boxplot(size = 1, alpha = 0.5) +
+    geom_jitter() +
+    labs(y = 'Median activity (counts)\n',
+         title = 'Median weekly activity by the presence of pain\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.title.x = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+Pain.activity
+
+# Plot_11: median activity vs age
+Age.activity <- ggplot(data.act.1,
+                 aes(x = age,
+                     y = median_activity)) +
+    geom_jitter(aes(fill = pain, colour = pain),
+                size = 4, shape = 21, alpha = 0.5) +
+    geom_smooth(method = 'loess') +
+    labs(x = '\nAge (years)',
+         y = 'Median activity (counts)\n',
+         title = 'Median weekly activity vs. Age\n(loess smoother)') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'top',
+          legend.text = element_text(size = 16),
+          legend.title = element_blank())
+Age.activity
+
+# Plot_12: median activity vs. sex
+Sex.activity <- ggplot(data.act.1,
+                 aes(x = sex,
+                     y = median_activity,
+                     fill = sex,
+                     colour = sex)) +
+    geom_boxplot(fill = 'white', colour = 'white') +
+    geom_boxplot(size = 1, alpha = 0.5) +
+    geom_jitter() +
+    labs(y = 'Median activity (counts)\n',
+         title = 'Median weekly activity by sex\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.title.x = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+Sex.activity
+
+# Plot_13: median activity vs. education
+## Need to summarise data and use stat = 'identity'
+edu <- data.act.1 %>%
+    filter(!is.na(education)) %>%
+    group_by(education) %>%
+    summarise(Median = median(median_activity), 
+              Min = min(median_activity),
+              q25 = quantile(median_activity, 0.25),
+              q75 = quantile(median_activity, 0.75),
+              Max = max(median_activity))
+
+Edu.activity <- ggplot(edu,
+                 aes(x = education,
+                     fill = education,
+                     colour = education)) +
+    geom_errorbar(aes(ymin = Min, ymax = Max), 
+                  size = 1,
+                  width = 0) +
+    geom_crossbar(aes(y = Median, ymin = q25, ymax = q75), 
+             fill = 'white', 
+             colour = 'white') +
+    geom_crossbar(aes(y = Median, ymin = q25, ymax = q75),
+             size = 1, 
+             alpha = 0.5) +
+    labs(y = 'Median activity (counts)\n',
+         title = 'Median weekly activity by education level\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.title.x = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+Edu.activity
+
+# Plot_14: Median weekly activity vs. BMI
+BMI.activity <- ggplot(data.act.1,
+                 aes(x = bmi,
+                     y = median_activity)) +
+    geom_jitter(aes(fill = pain, colour = pain),
+                size = 4, shape = 21, alpha = 0.5) +
+    geom_smooth(method = 'loess') +
+    labs(x = '\nBMI (m/kg^2)',
+         y = 'Median activity (counts)\n',
+         title = 'Median weekly activity vs. BMI\n(loess smoother)') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'top',
+          legend.text = element_text(size = 16),
+          legend.title = element_blank())
+BMI.activity
+
+# Plot_15: median activity vs. presence of pain
+Employ.activity <- ggplot(data.act.1,
+                 aes(x = employed,
+                     y = median_activity,
+                     fill = employed,
+                     colour = employed)) +
+    geom_boxplot(fill = 'white', colour = 'white') +
+    geom_boxplot(size = 1, alpha = 0.5) +
+    geom_jitter() +
+    labs(y = 'Median activity (counts)\n',
+         title = 'Median weekly activity by employment status\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.title.x = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+Employ.activity
+
+# Plot_16: Median weekly activity vs. RS score
+RS.activity <- ggplot(data.act.1,
+                 aes(x = rs_score,
+                     y = median_activity)) +
+    geom_jitter(aes(fill = pain, colour = pain),
+                size = 4, shape = 21, alpha = 0.5) +
+    geom_smooth(method = 'loess') +
+    labs(x = '\nResilience Scale score',
+         y = 'Median activity (counts)\n',
+         title = 'Median weekly activity vs. RS score\n(loess smoother)') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'top',
+          legend.text = element_text(size = 16),
+          legend.title = element_blank())
+RS.activity
+
+# Plot_17: Median weekly activity vs. EQ5D VAS
+EQ5D.activity <- ggplot(data.act.1,
+                 aes(x = eq5d_vas,
+                     y = median_activity)) +
+    geom_jitter(aes(fill = pain, colour = pain),
+                size = 4, shape = 21, alpha = 0.5) +
+    geom_smooth(method = 'loess') +
+    labs(x = '\nEQ5D VAS score',
+         y = 'Median activity (counts)\n',
+         title = 'Median weekly activity vs. EQ5D VAS score\n(loess smoother)') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'top',
+          legend.text = element_text(size = 16),
+          legend.title = element_blank())
+EQ5D.activity
+
+# Plot_18: median activity vs. Worries (money & family)
+## Subset data
+worries.a <- data.act.1 %>%
+    filter(worry_about != 'food' | worry_about != 'health') %>%
+    mutate(worry_about = factor(worry_about)) %>%
+    rename(worries_a = worry_about)
+worries.a
+
+Worr.activity <- ggplot(data = worries.a,
+                 aes(x = rating,
+                     y = median_activity,
+                     fill = rating,
+                     colour = rating)) +
+    geom_boxplot(fill = 'white', colour = 'white') +
+    geom_boxplot(size = 1, alpha = 0.5) +
+    geom_jitter() +
+    facet_grid(worries_a~.) +
+    labs(y = 'Median activity (counts)\n',
+         title = 'Median weekly activity by level\nof monetary and family worries\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour='black'),
+          axis.title.x = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background=element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'none')
+Worr.activity
+
+names(data.act.1)
 ```
 
 ## Session information
