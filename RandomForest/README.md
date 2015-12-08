@@ -1,13 +1,13 @@
 # Random forest analysis
 
 ## Overview
-This repository contains the [data](./data/random.forest.csv), [analysis script](./RegressionTree.Rmd), and the associated  [markdown document](./RegressionTree.md) and [figure](./figures/) outputs for the random forest analysis of activity and pain in 68 ambulatory HIV-positive patients who wore Actical accelerometers for two weeks. This group of 68 represents a subset of a larger cohort of 197 individuals taking part in a study on resilience and pain in HIV-positive individuals. Of the 68 participants who wore accelerometers, 37 had chronic (pain on most days for > 3 months) pain, and 31 did not have chronic pain. The device was worn for 24-hours each day. The first seven days were used to acclimate participants to the device, and only data for the second week (days 8 to 14) was analysed. One participant *(# 176)*, only had 5 days of recordings in the second week. The study took place between September 2014 and March 2015, at the HIV Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All participants gave written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa -- clearance no: M140538), and no personal identifying information is provided here. 
+This repository contains the [data](./data/random.forest.csv), [analysis script](./random.forest.Rmd), and the associated  [markdown document](./random.forest.md) and [figure](./figures/) outputs for the random forest analysis of activity and pain in 68 ambulatory HIV-positive patients who wore Actical accelerometers for two weeks. This group of 68 represents a subset of a larger cohort of 197 individuals taking part in a study on resilience and pain in HIV-positive individuals. Of the 68 participants who wore accelerometers, 37 had chronic (pain on most days for > 3 months) pain, and 31 did not have chronic pain. The device was worn for 24-hours each day. The first seven days were used to acclimate participants to the device, and only data for the second week (days 8 to 14) was analysed. One participant *(# 176)*, only had 5 days of recordings in the second week. The study took place between September 2014 and March 2015, at the HIV Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All participants gave written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa -- clearance no: M140538), and no personal identifying information is provided here. 
 
 Code sheet for the data is provided below.
 
 ## Code sheets
 [**regression.tree.csv**](./data/random.forest.csv)  
-[_Imported by 'regression.tree.Rmd'_](./RegressionTree.Rmd)   
+[_Imported by 'regression.tree.Rmd'_](./random.forest.Rmd)   
 
 | Label           	| Key                                                                                                                    	|
 |:----------------	|:-----------------------------------------------------------------------------------------------------------------------	|
