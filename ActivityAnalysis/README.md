@@ -10,7 +10,7 @@ Code sheets for the data are provided below.
 ## Code sheets
 ### Data analysis
 [**activity.data.csv**](./activity.analysis/data/)  
-[_Imported by 'activity.analysis.Rmd'_](./activity.analysis/)   
+[_Imported by 'activity.analysis.Rmd'_](./activity.analysis/activity.analysis.Rmd)   
 
 24-hour activity data for the last 7 days of Actical wear was imported into MSExcel for each participant, and saved as a single "long format" file with columns:
 
@@ -32,7 +32,7 @@ Code sheets for the data are provided below.
 
 ### Activity plot
 [**time.active.\*q.csv**](./activity.plot/data/)  
-[_Imported by 'activity.plot.Rmd'_](./activity.plot/)   
+[_Imported by 'activity.plot.Rmd'_](./activity.plot/activity.plot.Rmd)   
 
 | File                  | time spent at [x]% of maximum |
 |:----------------------|:------------------------------|
