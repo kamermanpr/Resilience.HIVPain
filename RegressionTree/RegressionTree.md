@@ -213,23 +213,6 @@ Pain
     ## Variables not shown: RS.Prop.Score (int), EQ5D.vas (int), Worry.Money
     ##   (fctr), Worry.Family (fctr), Worry.Food (fctr), Worry.Health (fctr)
 
-    ## Source: local data frame [48 x 3]
-    ## Groups: trial [4]
-    ## 
-    ##                 ID   trial    importance
-    ##             (fctr)  (fctr)         (dbl)
-    ## 1              Age Trial.1 -0.0013043478
-    ## 2           Female Trial.1 -0.0010434783
-    ## 3        Education Trial.1 -0.0004347826
-    ## 4  Median.Activity Trial.1 -0.0001739130
-    ## 5              BMI Trial.1  0.0004347826
-    ## 6    RS.Prop.Score Trial.1  0.0010434783
-    ## 7       Employment Trial.1  0.0048695652
-    ## 8     Worry.Family Trial.1  0.0069565217
-    ## 9       Worry.Food Trial.1  0.0090434783
-    ## 10    Worry.Health Trial.1  0.0196521739
-    ## ..             ...     ...           ...
-
 ![](./figures/pain.forest-1.png)
 
 |                             | Trial 1 | Trial 2 | Trial 3 | Trial 4 |
