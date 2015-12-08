@@ -1,6 +1,6 @@
 ---
 title: "Reliability and factor analysis of isiZulu translations of the CDRISC and Resilience Scale"
-author: Peter Kamerman 
+author: 'Peter Kamerman' 
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   md_document:

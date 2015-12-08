@@ -1,6 +1,6 @@
 ---
 title: "Regression tree analysis"
-author: Peter Kamerman 
+author: 'Peter Kamerman' 
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   md_document:

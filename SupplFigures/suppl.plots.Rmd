@@ -1,6 +1,6 @@
 ---
 title: 'Supplementary plots'
-author: 'Antonia Wadley, Duncan Mitchell, and Peter Kamerman'
+author: 'Peter Kamerman'
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: 
     md_document:
