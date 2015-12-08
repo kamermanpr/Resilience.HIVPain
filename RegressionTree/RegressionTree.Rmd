@@ -6,7 +6,6 @@ output:
   md_document:
     variant: markdown_github
 ---
-
 ## Load packages and set chunk options
 ```{r miscellaneous}
 # Load libraries
@@ -198,7 +197,7 @@ gg.active <- ggplot(data = active.plot,
     geom_hline(data = MinVarImp.active, 
                aes(yintercept = minimum), 
                linetype = 2) +
-    labs(y = 'Variable importance\n') +
+    labs(y = '\nVariable importance\n') +
     scale_fill_manual(values = c('#000000', '#999999', '#999999', '#999999', '#000000', '#999999', '#999999', '#999999', '#999999', '#000000', '#999999', '#999999')) +
     scale_y_continuous(limits = c(-0.05, 0.15), 
                        expand = c(0, 0.001)) +
@@ -319,7 +318,6 @@ MinVarImp.pain <- pain.plot %>%
     group_by(trial) %>%
     summarise(minimum = abs(min(importance)))
 
-pain.plot
 # ggplot
 gg.pain <- ggplot(data = pain.plot, 
                     aes(x = ID, 
@@ -332,7 +330,7 @@ gg.pain <- ggplot(data = pain.plot,
     geom_hline(data = MinVarImp.pain, 
                aes(yintercept = minimum), 
                linetype = 2) +
-    labs(y = 'Variable importance\n') +
+    labs(y = '\nVariable importance\n') +
     scale_fill_manual(values = c('#999999', '#999999', '#000000', '#999999', '#999999', '#999999', '#999999', '#999999', '#999999', '#999999', '#000000', '#000000')) +
     scale_y_continuous(limits = c(-0.05, 0.15), 
                        expand = c(0, 0.001)) +
