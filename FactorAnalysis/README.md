@@ -3,7 +3,7 @@
 ## Overview
 Determinatio of the internal consistency and factor structure of isiZulu translations of the Connor-Davidson Resilience Scale (CD-RISC) [(PMID)](http://http://www.ncbi.nlm.nih.gov/pubmed/12964174), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) administered to 154 (CD-RISC) / 151 (RS) of 197 ambulatory HIV-positive South Africans (the remaining participants opted to completed the orginal English versions). The study took place between September 2014 and March 2015, at the HIV Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All participants gave written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa -- clearance no: M140538), and no personal identifying information is provided here. 
 
-The repository contains the [data](./data/), [analysis script](), and the associated [markdown document]() and [figure](./figures/) outputs. 
+The repository contains the [data](./data/), [analysis script](factor.analysis.Rmd), and the associated [markdown document](factor.analysis.md) and [figure](./figures/) outputs. 
 
 The factor structure of the original English questionnaires are shown in the table below. PDF copies of the original papers are located in: [information](./information/).
 
