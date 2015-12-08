@@ -34,7 +34,7 @@ opts_chunk$set(echo = FALSE,
 ```
 
 
-## Resilience vs Activity dot-plots 
+## Resilience vs activity dot-plots 
 _**68 participants, 37 with pain and 31 without pain**_
 ### Import data
 ```{r DataImport}
@@ -66,7 +66,7 @@ glimpse(data.res.1)
 
 ## Create resilience plots
 ```{r Plot}
-# Plot_1: resilience score vs median activity
+# Plot-1: resilience score vs median activity
 Resilience.activity <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = activity,
@@ -93,7 +93,7 @@ Resilience.activity <- ggplot(data.res.1,
           panel.margin.x = unit(1, 'lines'))
 Resilience.activity
 
-# Plot_2: resilience score vs time spent at 0% of max activity
+# Plot-2: resilience score vs time spent at 0% of max activity
 RS.EnduranceZero <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = zero,
@@ -121,7 +121,7 @@ RS.EnduranceZero <- ggplot(data.res.1,
           panel.margin.x = unit(1, 'lines'))
 RS.EnduranceZero
 
-# Plot_3: resilience score vs time spent at 1-24% of max activity
+# Plot-3: resilience score vs time spent at 1-24% of max activity
 RS.EnduranceQ1 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q1,
@@ -149,7 +149,7 @@ RS.EnduranceQ1 <- ggplot(data.res.1,
           panel.margin.x = unit(1, 'lines'))
 RS.EnduranceQ1
 
-# Plot_4: resilience score vs time spent at 25-49% of max activity
+# Plot-4: resilience score vs time spent at 25-49% of max activity
 RS.EnduranceQ2 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q2,
@@ -177,7 +177,7 @@ RS.EnduranceQ2 <- ggplot(data.res.1,
           panel.margin.x = unit(1, 'lines'))
 RS.EnduranceQ2
 
-# Plot_5: resilience score vs time spent at 50-74% of max activity
+# Plot-5: resilience score vs time spent at 50-74% of max activity
 RS.EnduranceQ3 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q3,
@@ -205,7 +205,7 @@ RS.EnduranceQ3 <- ggplot(data.res.1,
           panel.margin.x = unit(1, 'lines'))
 RS.EnduranceQ3
 
-# Plot 6: resilience score vs time spent at >75% of max activity
+# Plot-6: resilience score vs time spent at >75% of max activity
 RS.EnduranceQ4 <- ggplot(data.res.1,
                  aes(x = rs.score,
                      y = q4,
@@ -261,7 +261,7 @@ glimpse(data.bpi.1)
 
 ## Create bpi plots
 ```{r Plot.bpi}
-# Plot_7: BPI interference vs median activity
+# Plot.bpi-1: BPI interference vs median activity
 Interference.activity <- ggplot(data.bpi.1,
                  aes(x = bpi_interference,
                      y = activity,
@@ -286,7 +286,7 @@ Interference.activity <- ggplot(data.bpi.1,
           legend.position = 'none')
 Interference.activity
 
-# Plot_8: Worst pain vs median activity
+# Plot.bpi-2: Worst pain vs median activity
 WorstPain.activity <- ggplot(data.bpi.1,
                  aes(x = worst_pain,
                      y = activity,
@@ -311,7 +311,7 @@ WorstPain.activity <- ggplot(data.bpi.1,
           legend.position = 'none')
 WorstPain.activity
 
-# Plot_9: Least pain vs median activity
+# Plot.bpi-3: Least pain vs median activity
 LeastPain.activity <- ggplot(data.bpi.1,
                  aes(x = least_pain,
                      y = activity,
@@ -378,9 +378,9 @@ data.act.1 <- data.act %>%
 str(data.act.1)
 ```
 
-## Create bpi plots
+## Create activity plots
 ```{r Plot.act}
-# Plot_10: median activity vs. presence of pain
+# Plot.act-1: median activity vs. presence of pain
 Pain.activity <- ggplot(data.act.1,
                  aes(x = pain,
                      y = median_activity,
@@ -407,7 +407,7 @@ Pain.activity <- ggplot(data.act.1,
           legend.position = 'none')
 Pain.activity
 
-# Plot_11: median activity vs age
+# Plot.act-2: median activity vs age
 Age.activity <- ggplot(data.act.1,
                  aes(x = age,
                      y = median_activity)) +
@@ -434,7 +434,7 @@ Age.activity <- ggplot(data.act.1,
           legend.title = element_blank())
 Age.activity
 
-# Plot_12: median activity vs. sex
+# Plot.act-3: median activity vs. sex
 Sex.activity <- ggplot(data.act.1,
                  aes(x = sex,
                      y = median_activity,
@@ -461,7 +461,7 @@ Sex.activity <- ggplot(data.act.1,
           legend.position = 'none')
 Sex.activity
 
-# Plot_13: median activity vs. education
+# Plot.act-4: median activity vs. education
 ## Need to summarise data and use stat = 'identity'
 edu <- data.act.1 %>%
     filter(!is.na(education)) %>%
@@ -504,7 +504,7 @@ Edu.activity <- ggplot(edu,
           legend.position = 'none')
 Edu.activity
 
-# Plot_14: Median weekly activity vs. BMI
+# Plot.act-5: Median weekly activity vs. BMI
 BMI.activity <- ggplot(data.act.1,
                  aes(x = bmi,
                      y = median_activity)) +
@@ -531,7 +531,7 @@ BMI.activity <- ggplot(data.act.1,
           legend.title = element_blank())
 BMI.activity
 
-# Plot_15: median activity vs. presence of pain
+# Plot.act-6: median activity vs. employment
 Employ.activity <- ggplot(data.act.1,
                  aes(x = employed,
                      y = median_activity,
@@ -558,7 +558,7 @@ Employ.activity <- ggplot(data.act.1,
           legend.position = 'none')
 Employ.activity
 
-# Plot_16: Median weekly activity vs. RS score
+# Plot.act-7: Median weekly activity vs. RS score
 RS.activity <- ggplot(data.act.1,
                  aes(x = rs_score,
                      y = median_activity)) +
@@ -585,7 +585,7 @@ RS.activity <- ggplot(data.act.1,
           legend.title = element_blank())
 RS.activity
 
-# Plot_17: Median weekly activity vs. EQ5D VAS
+# Plot.act-8: Median weekly activity vs. EQ5D VAS
 EQ5D.activity <- ggplot(data.act.1,
                  aes(x = eq5d_vas,
                      y = median_activity)) +
@@ -613,7 +613,7 @@ EQ5D.activity <- ggplot(data.act.1,
 EQ5D.activity
 ```
 ```{r Plot.act.b, fig.width = 8.2, fig.height = 11.7}
-# Plot_18: median activity vs. Worries (money & family)
+# Plot.act.b-1: median activity vs. Worries (money & family)
 ## Subset data
 worries.a <- data.act.1 %>%
     filter(worry_about != 'food' | worry_about != 'health') %>%
