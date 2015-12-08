@@ -1,4 +1,4 @@
-# Activity analysis
+# Activity analysis and plot
 ***
 
 ## Overview
@@ -6,13 +6,12 @@ This repository contains the [data](./activity.analysis/data/), [analysis script
 
 The repository also contains the [data](./activity.plot/data/), [analysis script](./activity.plot/activity.plot.Rmd), and the associated  [markdown document](./activity.plot/activity.plot.md) and [figure](./activity.plot/figures/) outputs for the activity plot included in the manuscript. All files related to this plot located in: [activity.plot](./activity.plot). 
 
-Code sheets for the analysed data are provided below.
+Code sheets for the data are provided below.
 
 ## Code sheets
 ### Data analysis
-**activity.data.csv**  
-
-_Imported by 'activity.analysis.Rmd'_  
+[**activity.data.csv**](./activity.analysis/data/)  
+[_Imported by 'activity.analysis.Rmd'_](./activity.analysis/)   
 
 24-hour activity data for the last 7 days of Actical wear was imported into MSExcel and saved a single, "long format" file with columns:
 
@@ -32,10 +31,9 @@ _Imported by 'activity.analysis.Rmd'_
 
 - **pcount.ptmax:** Raw activity count data expressed as a percentage of the maximum activity count recorded by the participant during the second 7-day period (participant raw activity count/maximum participant activity count * 100) 
 
-### Plot
-**time.active.\*q.csv** 
-
-_Imported by 'activity.plot.Rmd'_  
+### Activity plot
+[**time.active.\*q.csv**](./activity.plot/data/) 
+[_Imported by 'activity.plot.Rmd'_](./activity.plot/)    
 
 - **id:** Participant id code
 
