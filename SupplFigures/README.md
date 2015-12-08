@@ -1,16 +1,24 @@
-# Factor analysis and internal consistency
+# Supplementary figures
 
 ## Overview
-Determinatio of the internal consistency and factor structure of isiZulu translations of the Connor-Davidson Resilience Scale (CD-RISC) [(PMID)](http://http://www.ncbi.nlm.nih.gov/pubmed/12964174), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) administered to 154 (CD-RISC) / 151 (RS) of 197 ambulatory HIV-positive South Africans (the remaining participants opted to completed the orginal English versions). The study took place between September 2014 and March 2015, at the HIV Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All participants gave written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa -- clearance no: M140538), and no personal identifying information is provided here. 
+A series of scatter-plots for the supplementary material provided with the manuscript [update when published].
 
-The repository contains the [data](./data/), [analysis script](factor.analysis.Rmd), and the associated [markdown document](factor.analysis.md) and [figure](./figures/) outputs. 
+_Note: All activity data are derived from 24-hour accelerometer recordings over a 7-day period (the exception is participant #176, who only had 5 days of recordings)._ 
 
-The factor structure of the original English questionnaires are shown in the table below. PDF copies of the original papers are located in: [information](./information/).
+The plots fall into two categories  
+1. Plots of resilience score (from the Resilience Score questionnaire) against:
+    - Median activity over the recording period;  
+    - Total time (in minutes) spent in the past week at 0% of maximum activity over the recording period;   
+    - Total time (in minutes) spent in the past week at 1-24% of maximum activity over the recording period;    
+    - Total time (in minutes) spent in the past week at 25-49% of maximum activity over the recording period;    
+    - Total time (in minutes) spent in the past week at 50-74% of maximum activity over the recording period;  
+    - Total time (in minutes) spent in the past week at >75% of maximum activity over the recording period.    
 
-| Questionnaire | Measurement scale | Analysis | No. of factors | Names given to factors | Questions loading onto each factor |
-|---|----|---|---|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CD-RISC | Ordinal 1-5 scale anchored at<br>*‘not true at all’* to<br>*‘true nearly all the time’* | Exploratory Factor<br>Analysis with<br>ORTHOMAX rotation | 5 | **Factor 1:** Personal competence<br>**Factor 2:** Trusting one’s instincts<br>**Factor 3:** Positive acceptance of change<br>**Factor 4:**<br>Control<br>**Factor 5:** Spiritual influences | **Factor 1:**<br>10, 11, 12, 16, 17, 23, 24, 25<br>**Factor 2:**<br>6, 7, 14, 15, 18, 19, 20<br><br>**Factor 3:**<br>1, 4, 5, 2, 8<br><br><br>**Factor 4:**<br>13, 21, 22<br>**Factor 5:**<br>3,9<br><br> |
-| Resilience Scale | Ordinal 1-7 scale anchored at<br>*‘strongly disagree’* to *‘strongly agree’* | Principal Component Analysis with OBLIMIN<br>rotation and Kaiser normalisation | 2 | **Factor 1:** Personal competence<br><br>**Factor 2:** Acceptance of self and life | **Factor 1:**<br>1, 2, 3, 4, 5, 6, 9, 10,13, 14, 15, 17, 18, 19, 20, 23, 24<br>**Factor 2:**<br>7, 8, 11, 12, 16, 21, 22, 25 |
+2. Plots of median activity over the recording period against:  
+    - Pain interference (11-point numerical rating scale, NRS), scored over the last week (recorded at baseline);    
+    - Worst pain (11-point NRS), scored over the last week (recorded at baseline);   
+    - Least pain (11-point NRS), scored over the last week (recorded at baseline).   
+
 
 Code sheets for the data are provided below.
 

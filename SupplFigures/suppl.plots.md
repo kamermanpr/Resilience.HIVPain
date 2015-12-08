@@ -1,23 +1,3 @@
-Description
------------
-
-A series of scatter-plots for the supplementary material provided with the manuscript.
-
-*Note: All activity data are derived from 24-hour accelerometer recordings over a 7-day period (the exception is participant \#176, who only had 5 days of recordings).*
-
-The plots fall into two categories
-1. Plots of resilience score (from the Resilience Score questionnaire) against: - Median activity over the recording period;
- - Total time (in minutes) spent in the past week at 0% of maximum activity over the recording period;
- - Total time (in minutes) spent in the past week at 1-24% of maximum activity over the recording period;
- - Total time (in minutes) spent in the past week at 25-49% of maximum activity over the recording period;
- - Total time (in minutes) spent in the past week at 50-74% of maximum activity over the recording period;
- - Total time (in minutes) spent in the past week at \>75% of maximum activity over the recording period.
-
-1.  Plots of median activity over the recording period against:
-    -   Pain interference (11-point numerical rating scale, NRS), scored over the last week (recorded at baseline);
-    -   Worst pain (11-point NRS), scored over the last week (recorded at baseline);
-    -   Least pain (11-point NRS), scored over the last week (recorded at baseline).
-
 Load required packages and set chunk options
 --------------------------------------------
 
@@ -54,7 +34,17 @@ library(scales)
 
 ``` r
 library(grid)
+library(cowplot)
+```
 
+    ## 
+    ## Attaching package: 'cowplot'
+    ## 
+    ## The following object is masked from 'package:ggplot2':
+    ## 
+    ##     ggsave
+
+``` r
 # Load palette
 cb8.categorical <- c("#0072B2", "#D55E00", "#009E73", "#F0E442", "#56B4E9", "#E69F00", "#CC79A7", "#999999")
 
@@ -63,8 +53,8 @@ opts_chunk$set(echo = FALSE,
                warning = FALSE,
                message = FALSE,
                fig.path = './figures/',
-               fig.width = 8,
-               fig.height = 9,
+               fig.width = 11.7,
+               fig.height = 8.2,
                dev = c('png', 'pdf'),
                tidy = TRUE, 
                tidy.opts = list(width.cutoff = 65))
@@ -131,7 +121,7 @@ Create resilience plots
 
 ![](./figures/Plot-1.png) ![](./figures/Plot-2.png) ![](./figures/Plot-3.png) ![](./figures/Plot-4.png) ![](./figures/Plot-5.png) ![](./figures/Plot-6.png)
 
-Brief Pain Inventory vs Activity dot-plots
+Brief Pain Inventory vs activity dot-plots
 ------------------------------------------
 
 ***37 participants with pain, only*** \#\#\# Import data
@@ -249,7 +239,27 @@ Activity vs predictor scatterplots
 Create bpi plots
 ----------------
 
-![](./figures/Plot.act-1.png) ![](./figures/Plot.act-2.png) ![](./figures/Plot.act-3.png) ![](./figures/Plot.act-4.png)
+![](./figures/Plot.act-1.png) ![](./figures/Plot.act-2.png) ![](./figures/Plot.act-3.png) ![](./figures/Plot.act-4.png) ![](./figures/Plot.act-5.png) ![](./figures/Plot.act-6.png) ![](./figures/Plot.act-7.png) ![](./figures/Plot.act-8.png)
+
+    ## Source: local data frame [272 x 12]
+    ## 
+    ##        ID median_activity    pain   age    sex         education   bmi
+    ##    (fctr)           (dbl)  (fctr) (int) (fctr)            (fctr) (dbl)
+    ## 1       9               9    Pain    34   Male Completed grade 7  26.6
+    ## 2       9               9    Pain    34   Male Completed grade 7  26.6
+    ## 3       9               9    Pain    34   Male Completed grade 7  26.6
+    ## 4       9               9    Pain    34   Male Completed grade 7  26.6
+    ## 5      10               6 No pain    49 Female Completed grade 7  28.3
+    ## 6      10               6 No pain    49 Female Completed grade 7  28.3
+    ## 7      10               6 No pain    49 Female Completed grade 7  28.3
+    ## 8      10               6 No pain    49 Female Completed grade 7  28.3
+    ## 9      11               7 No pain    32 Female Completed grade 7  25.5
+    ## 10     11               7 No pain    32 Female Completed grade 7  25.5
+    ## ..    ...             ...     ...   ...    ...               ...   ...
+    ## Variables not shown: employed (fctr), rs_score (int), eq5d_vas (int),
+    ##   worries_a (fctr), rating (fctr)
+
+![](./figures/Plot.act.b-1.png)
 
 Session information
 -------------------
@@ -266,11 +276,11 @@ Session information
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] scales_0.3.0  ggplot2_1.0.1 tidyr_0.3.1   dplyr_0.4.3   readr_0.2.2  
-    ## [6] knitr_1.11   
+    ## [1] cowplot_0.5.0 scales_0.3.0  ggplot2_1.0.1 tidyr_0.3.1   dplyr_0.4.3  
+    ## [6] readr_0.2.2   knitr_1.11   
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_0.12.1      magrittr_1.5     MASS_7.3-44      munsell_0.4.2   
+    ##  [1] Rcpp_0.12.2      magrittr_1.5     MASS_7.3-45      munsell_0.4.2   
     ##  [5] colorspace_1.2-6 R6_2.1.1         stringr_1.0.0    plyr_1.8.3      
     ##  [9] tools_3.2.2      parallel_3.2.2   gtable_0.1.2     DBI_0.3.1       
     ## [13] htmltools_0.2.6  lazyeval_0.1.10  yaml_2.1.13      assertthat_0.1  
