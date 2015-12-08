@@ -1,23 +1,20 @@
----
-title: 'Reliability and factor analysis of isiZulu translations of the CD-RISC and Resilience Scale'
-author: 'Antonia Wadley, Duncan Mitchell, and Peter Kamerman'
-date: '`r format(Sys.time(), "%d %B %Y")`'
-output: 
-  md_document:
-    variant: markdown_github
----
-# Overview
-This analysis describes the internal consistency and factor analyses performed on the isiZulu translations of the Connor-Davidson Resilience Scale (CD-RISC) [(PMID)](http://http://www.ncbi.nlm.nih.gov/pubmed/12964174), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 (CD-RISC)/ 151 (RS) of 197 ambulatory HIV-positive South Africans who completed the isiZulu versions (the remaining participants completed the orginal English versions). The study took place in between September 2014 and March 2015, at the HIV Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All participants had given written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa -- clearance no: M140538), and no personal identifying information is provided here. 
+# Factor analysis and internal consistency
+***
 
-The results of the factor analyses performed for in original validation studies of the CD-RISC and RS are shown in the table below. PDF copies of the original papers are located in: [information](./information/).
+## Overview
+This analysis describes the internal consistency and factor analyses performed on the isiZulu translations of the Connor-Davidson Resilience Scale (CD-RISC) [(PMID)](http://http://www.ncbi.nlm.nih.gov/pubmed/12964174), and the Resilience Scale (RS) [(PMID)](http://www.ncbi.nlm.nih.gov/pubmed/7850498) in 154 (CD-RISC)/ 151 (RS) of 197 ambulatory HIV-positive South Africans who completed the isiZulu versions (the remaining participants completed the orginal English versions). The study took place between September 2014 and March 2015, at the HIV Clinic, Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All participants gave written informed consent (Human Ethics Research Committee, University of the Witwatersrand, South Africa -- clearance no: M140538), and no personal identifying information is provided here. 
+
+The results of the factor analyses performed in original validation studies of the CD-RISC and RS are shown in the table below. PDF copies of the original papers are located in: [information](./information/).
 
 | Questionnaire | Measurement scale | Analysis | No. of factors | Names given to factors | Questions loading onto each factor |
 |---|----|---|---|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CD-RISC | Ordinal 1-5 scale anchored at<br>*‘not true at all’* to<br>*‘true nearly all the time’* | Exploratory Factor<br>Analysis with<br>ORTHOMAX rotation | 5 | **Factor 1:** Personal competence<br>**Factor 2:** Trusting one’s instincts<br>**Factor 3:** Positive acceptance of change<br>**Factor 4:** Control<br>**Factor 5:** Spiritual influences | **Factor 1:** 10, 11, 12, 16, 17, 23, 24, 25<br>**Factor 2:** 6, 7, 14, 15, 18, 19, 20<br><br>**Factor 3:** 1, 4, 5, 2, 8<br><br>**Factor 4:** 13, 21, 22<br>**Factor 5:** 3,9 |
 | Resilience Scale | Ordinal 1-7 scale anchored at<br>*‘strongly disagree’* to *‘strongly agree’* | Principal Component Analysis with OBLIMIN<br>rotation and Kaiser normalisation | 2 | **Factor 1:** Personal competence<br>**Factor 2:** Acceptance of self and life | **Factor 1:** 1, 2, 3, 4, 5, 6, 9, 10,13, 14, 15, 17, 18, 19, 20, 23, 24<br>**Factor 2:** 7, 8, 11, 12, 16, 21, 22, 25 |
 
-# Code sheets
-## cd.risc.csv
+## Code sheet
+### CD-RISC
+**cd.risc.csv**  
+
 _Imported by 'factor.analysis.Rmd'_  
 
 | Label   | Key                                                                                             |
@@ -48,7 +45,9 @@ _Imported by 'factor.analysis.Rmd'_
 | Q24     | I work to attain my goals no matter what roadblocks I encounter along the way                   |
 | Q25     | I take pride in my achievements                                                                 |
 
-## resilience.scale.csv
+### Resilience Scale
+**resilience.scale.csv**  
+
 _Imported by 'factor.analysis.Rmd'_  
 
 | Label   | Key                                                                            |
