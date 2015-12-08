@@ -8,7 +8,7 @@ We investigated two primary questions: 1) what is the impact of resilience (the 
 
 The study was performed on a convenience sample of 197 ambulatory HIV-positive patients (99 with chronic pain and 98 without chronic pain) attending the HIV clinic at Charlotte Maxeke Johannesburg Academic Hospital, South Africa. All patients answered questionniares assessing: their pain (intensity, duration, sites), the effect of pain on function and quality of life, and levels of depression, anxiety, and resilience. A subset of 68 participants (37 with chonic pain and 31 without chronic pain) consented to wearing Actical accelerometers for 24-hours per day for 14 days (only the last 7 days were included in the analysis). This subset of participants were used to provide an objective assessment of physical activity. 
 
-This repository includes data (.csv) and analysis scripts (.Rmd), and the associated markdown (.md) and figure outputs (.pdf and .png) for analyses of:
+This repository includes data (.csv) and analysis scripts (.Rmd), and the associated markdown (.md) and figure outputs (.pdf and .png) for the analysis of:
 
 - [Activity levels](./ActivityAnalysis/) in the subset of patients who wore accelerometers for 24-hours per day for 14 days;
 - [Predictors](./RandomForest/) of activity levels and having pain;
