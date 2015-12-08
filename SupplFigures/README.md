@@ -34,5 +34,20 @@ The plots fall into two categories
 Code sheets for the data are provided below.
 
 ## Code sheet
-
+| Label           	| Key                                                                                                                    	|
+|:----------------	|:-----------------------------------------------------------------------------------------------------------------------	|
+| ID            	| Participant identification number                                                                             	|
+| median_activity 	| Median activity count over the last 7 days of the recording period (5 days for participant #176)                       	|
+| pain            	| Is pain present? (0 = no pain, 1 = pain)                                                                               	|
+| age             	| Age in years                                                                                                           	|
+| sex          	| Female sex (0 = no, 1 = yes)                                                                                           	|
+| employment      	| Are you employed? (0 = no, 1 = yes)                                                                                    	|
+| education       	| Highest schooling level completed (0 = none, 1 = primary, 2 = secondary, 3 = tertiary)                                 	|
+| bmi             	| Body mass index (kg/m^2^)                                                                                              	|
+| rs_score   	| Resilience Scale Score (corrected for the number of questions used in the English vs isiZulu versions)                 	|
+| eq5d_vas        	| EQ-5D 3L visual analogue scale score (0 = worst imaginable health state, 100 = best imaginable health state)           	|
+| money     	| Do you worry about money? (0 = not at all, 1 = rarely, 2 = sometimes, 3 = often, 4 = nearly all the time)              	|
+| family    	| Do you worry about family concerns? (0 = not at all, 1 = rarely, 2 = sometimes, 3 = often, 4 = nearly all the time)    	|
+| food      	| Do you worry about having enough food? (0 = not at all, 1 = rarely, 2 = sometimes, 3 = often, 4 = nearly all the time) 	|
+| health    	| Do you worry about your health? (0 = not at all, 1 = rarely, 2 = sometimes, 3 = often, 4 = nearly all the time)        	|
 
