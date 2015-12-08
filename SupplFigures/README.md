@@ -21,6 +21,14 @@ The plots fall into two categories
     - Pain interference (11-point numerical rating scale, NRS), scored over the last week (recorded at baseline)<br> ([Plot.bpi-1.pdf](./figures/Plot.bpi-1.pdf), [Plot.bpi-1.png](./figures/Plot.bpi-1.png));
     - Worst pain (11-point NRS), scored over the last week (recorded at baseline)<br> ([Plot.bpi-2.pdf](./figures/Plot.bpi-2.pdf), [Plot.bpi-2.png](./figures/Plot.bpi-2.png));
     - Least pain (11-point NRS), scored over the last week (recorded at baseline)<br> ([Plot-1.pdf](./figures/Plot-1.pdf), [Plot.bpi-3.png](./figures/Plot.bpi-3.png));
+    - Presence of pain (yes or no)<br>([Plot.act-1.pdf](./figures/Plot.act-1.pdf), [Plot.act-1.png](./figures/Plot.act-1.png));
+    - Age (in years) <br>([Plot.act-2.pdf](./figures/Plot.act-2.pdf), [Plot.act-2.png](./figures/Plot.act-2.png));
+    - Sex (male or female) <br>([Plot.act-3.pdf](./figures/Plot.act-3.pdf), [Plot.act-3.png](./figures/Plot.act-3.png));
+    - Education (none, completed primary school, completed secondary school, tertiary training) <br>([Plot.act-4.pdf](./figures/Plot.act-4.pdf), [Plot.act-4.png](./figures/Plot.act-4.png));
+    - Body mass index (kg/m^2) <br>([Plot.act-5.pdf](./figures/Plot.act-5.pdf), [Plot.act-5.png](./figures/Plot.act-5.png));
+    - Employed (yes or no) <br>([Plot.act-6.pdf](./figures/Plot.act-6.pdf), [Plot.act-6.png](./figures/Plot.act-6.png));
+    - Resilience (Resilience Scale) <br>([Plot.act-7.pdf](./figures/Plot.act-7.pdf), [Plot.act-7.png](./figures/Plot.act-7.png));
+    - Quality of life (EQ5D visual analogue scale) <br>([Plot.act-8.pdf](./figures/Plot.act-8.pdf), [Plot.act-8.png](./figures/Plot.act-8.png));
     - Worries about family, food, health, and money (5-point Likert)<br> ([Plot.act.b-1.pdf](./figures/Plot.act.b-1.pdf), [Plot.act.b-1.png](./figures/Plot.act.b-1.png)).
 
 Code sheets for the data are provided below.
