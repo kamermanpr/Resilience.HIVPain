@@ -10,11 +10,11 @@ The study was performed on a convenience sample of 197 ambulatory HIV-positive p
 
 This repository includes data (.csv) and analysis scripts (.Rmd), and the associated markdown (.md) and figure outputs (.pdf and .png) for analyses of:
 
-- [Activity levels](./ActivityAnalysis/activity.analysis/) in the subset of patients who wore accelerometers for 24-hours per day for 14 days;
+- [Activity levels](./ActivityAnalysis/) in the subset of patients who wore accelerometers for 24-hours per day for 14 days;
 - [Predictors](./RandomForest/) of activity levels and having pain;
 - [Factor structure and internal consistency](./FactorAnalysis/) of two English-language resilience questionnaires, which had been translated into isiZulu.
 
 and scripts for the plotting of:
 
-- [Activity levels](./ActivityAnalysis/activity.plot/) in the subset of patients who wore accelerometers for 24-hours per day for 14 days;
+- [Activity levels](./ActivityAnalysis/) in the subset of patients who wore accelerometers for 24-hours per day for 14 days;
 - [Supplementary plots](./SupplFigures/) for the manuscript
