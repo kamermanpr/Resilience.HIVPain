@@ -10,7 +10,7 @@ Code sheet for the data is provided below.
 [_Imported by 'regression.tree.Rmd'_](./RegressionTree.Rmd)   
 
 | Label           	| Key                                                                                                                    	|
-|-----------------	|------------------------------------------------------------------------------------------------------------------------	|
+|:----------------	|:-----------------------------------------------------------------------------------------------------------------------	|
 | Median.Activity 	| Median activity count over the last 7 days of the recording period (5 days for participant #176)                       	|
 | Pain            	| Is pain present? (0 = no pain, 1 = pain)                                                                               	|
 | Age             	| Age in years                                                                                                           	|
