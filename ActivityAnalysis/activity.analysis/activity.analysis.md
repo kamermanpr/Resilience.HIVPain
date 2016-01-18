@@ -1,6 +1,3 @@
-Load required packages and set chunk options
---------------------------------------------
-
 ``` r
 # Load packages
 library(dplyr)
@@ -147,7 +144,7 @@ Summary of pmax.count data
 Univariate analysis of the active period
 ----------------------------------------
 
-### Mean time (in minutes) active per day over the week
+### Median time (in minutes) active per day over the week
 
 #### Process the data
 
@@ -159,13 +156,13 @@ Univariate analysis of the active period
     ##  Exact Wilcoxon rank sum test
     ## 
     ## data:  data by pain
-    ## W = 585, p-value = 0.8906
+    ## W = 595, p-value = 0.7948
     ## alternative hypothesis: true mu is not equal to 0
 
 | Group   | N   | Median | IQR | Min | Max |
 |:--------|:----|:-------|:----|:----|:----|
-| no.pain | 31  | 134    | 91  | 18  | 266 |
-| pain    | 37  | 122    | 114 | 23  | 261 |
+| no.pain | 31  | 135    | 110 | 15  | 270 |
+| pain    | 37  | 130    | 135 | 20  | 275 |
 
 #### Employed vs unemployed
 
@@ -175,13 +172,13 @@ Univariate analysis of the active period
     ##  Exact Wilcoxon rank sum test
     ## 
     ## data:  data by employed
-    ## W = 647.5, p-value = 0.2418
+    ## W = 689, p-value = 0.08997
     ## alternative hypothesis: true mu is not equal to 0
 
 | Group | N   | Median | IQR | Min | Max |
 |:------|:----|:-------|:----|:----|:----|
-| E     | 41  | 141    | 99  | 18  | 266 |
-| U     | 27  | 106    | 110 | 23  | 253 |
+| E     | 41  | 140    | 110 | 15  | 270 |
+| U     | 27  | 95     | 112 | 20  | 275 |
 
 #### Conditional plot of employment and pain status
 
@@ -189,10 +186,10 @@ Univariate analysis of the active period
 
 | Group.Pain | Group.Employed | N   | Median | IQR | Min | Max |
 |:-----------|:---------------|:----|:-------|:----|:----|:----|
-| no.pain    | E              | 24  | 138    | 83  | 18  | 266 |
-| no.pain    | U              | 7   | 95     | 93  | 52  | 196 |
-| pain       | E              | 17  | 143    | 108 | 38  | 261 |
-| pain       | U              | 20  | 111    | 130 | 23  | 253 |
+| no.pain    | E              | 24  | 138    | 105 | 15  | 270 |
+| no.pain    | U              | 7   | 95     | 98  | 45  | 205 |
+| pain       | E              | 17  | 140    | 120 | 20  | 265 |
+| pain       | U              | 20  | 101    | 120 | 20  | 275 |
 
 ### Percentage of actical maximum (pmax.count, %) active per day over the week
 
@@ -432,9 +429,9 @@ Univariate analysis of complete data
 Session information
 -------------------
 
-    ## R version 3.2.2 (2015-08-14)
+    ## R version 3.2.3 (2015-12-10)
     ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
-    ## Running under: OS X 10.11.1 (El Capitan)
+    ## Running under: OS X 10.11.2 (El Capitan)
     ## 
     ## locale:
     ## [1] C
@@ -444,14 +441,13 @@ Session information
     ## 
     ## other attached packages:
     ## [1] knitr_1.11            exactRankTests_0.8-28 scales_0.3.0         
-    ## [4] ggplot2_1.0.1         lubridate_1.3.3       tidyr_0.3.1          
+    ## [4] ggplot2_2.0.0         lubridate_1.5.0       tidyr_0.3.1          
     ## [7] dplyr_0.4.3          
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_0.12.1      magrittr_1.5     MASS_7.3-44      munsell_0.4.2   
-    ##  [5] colorspace_1.2-6 R6_2.1.1         highr_0.5.1      stringr_1.0.0   
-    ##  [9] plyr_1.8.3       tools_3.2.2      parallel_3.2.2   grid_3.2.2      
-    ## [13] gtable_0.1.2     DBI_0.3.1        htmltools_0.2.6  lazyeval_0.1.10 
-    ## [17] yaml_2.1.13      assertthat_0.1   digest_0.6.8     reshape2_1.4.1  
-    ## [21] formatR_1.2.1    memoise_0.2.1    evaluate_0.8     rmarkdown_0.8.1 
-    ## [25] labeling_0.3     stringi_1.0-1    proto_0.3-10
+    ##  [1] Rcpp_0.12.2      magrittr_1.5     munsell_0.4.2    colorspace_1.2-6
+    ##  [5] R6_2.1.1         highr_0.5.1      stringr_1.0.0    plyr_1.8.3      
+    ##  [9] tools_3.2.3      parallel_3.2.3   grid_3.2.3       gtable_0.1.2    
+    ## [13] DBI_0.3.1        htmltools_0.3    yaml_2.1.13      lazyeval_0.1.10 
+    ## [17] assertthat_0.1   digest_0.6.8     reshape2_1.4.1   formatR_1.2.1   
+    ## [21] evaluate_0.8     rmarkdown_0.9.2  labeling_0.3     stringi_1.0-1

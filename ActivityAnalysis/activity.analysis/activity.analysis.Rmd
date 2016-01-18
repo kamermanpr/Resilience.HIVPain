@@ -190,7 +190,7 @@ med.4 <- active %>%
 ```
 
 ## Univariate analysis of the active period
-### Mean time (in minutes) active per day over the week
+### Median time (in minutes) active per day over the week
 #### Process the data
 ```{r time_active}
 # Group and pass to "active.1"
@@ -201,8 +201,8 @@ time.active <- summarise(active.1, times = n())
 # Group and pass to "time.1"
 time.1 <- ungroup(time.active)
 time.1 <- group_by(time.1, id, pain, employed)
-# Summarise the mean time spent active for each person across the 7 (or 5) days
-time.2 <- summarise(time.1, data = mean(times))
+# Summarise the median time spent active for each person across the 7 (or 5) days
+time.2 <- summarise(time.1, data = median(times))
 ```
 
 #### Pain vs no-pain
