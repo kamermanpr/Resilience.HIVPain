@@ -6,7 +6,7 @@ output:
   md_document:
     variant: markdown_github
 ---
-```{r Load_required_packages}
+```{r Load_required_packages, include = FALSE}
 # Load packages
 library(dplyr)
 library(tidyr)
@@ -17,12 +17,12 @@ library(exactRankTests)
 library(knitr)
 
 # knitr chunk options
-opts_chunk$set(echo = FALSE,
+opts_chunk$set(echo = TRUE,
                warning = FALSE,
                message = FALSE,
                fig.path = './figures/',
                dev = c('png', 'pdf'),
-               tidy = TRUE, 
+               tidy = FALSE, 
                tidy.opts = list(width.cutoff = 65))
 ```
 

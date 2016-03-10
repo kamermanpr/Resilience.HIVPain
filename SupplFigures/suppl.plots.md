@@ -1,69 +1,16 @@
 Load required packages and set chunk options
 --------------------------------------------
 
-``` r
-# Load packages
-library(knitr)
-library(readr)
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
-library(tidyr)
-library(ggplot2)
-library(scales)
-```
-
-    ## 
-    ## Attaching package: 'scales'
-
-    ## The following objects are masked from 'package:readr':
-    ## 
-    ##     col_factor, col_numeric
-
-``` r
-library(grid)
-library(cowplot)
-```
-
-    ## 
-    ## Attaching package: 'cowplot'
-
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     ggsave
-
-``` r
-# Load palette
-cb8.categorical <- c("#0072B2", "#D55E00", "#009E73", "#F0E442", "#56B4E9", "#E69F00", "#CC79A7", "#999999")
-
-# knitr chunk options
-opts_chunk$set(echo = FALSE,
-               warning = FALSE,
-               message = FALSE,
-               fig.path = './figures/',
-               fig.width = 11.7,
-               fig.height = 8.2,
-               dev = c('png', 'pdf'),
-               tidy = FALSE, 
-               tidy.opts = list(width.cutoff = 65))
-```
-
 Resilience vs activity dot-plots
 --------------------------------
 
-***68 participants, 37 with pain and 31 without pain*** \#\#\# Import data
+***68 participants, 37 with pain and 31 without pain***
+
+### Import data
+
+``` r
+data.res <- read_csv('./data/resilience.V.endurance.csv')
+```
 
 ### Quick look
 
@@ -93,28 +40,23 @@ Resilience vs activity dot-plots
     ## Variables not shown: Minutes_at_q1 (dbl), Minutes_at_q2 (dbl),
     ##   Minutes_at_q3 (dbl), Minutes_at_q4 (dbl)
 
-    ## Observations: 68
-    ## Variables: 9
-    ## $ ID                    (int) 9, 10, 11, 13, 21, 23, 24, 28, 32, 33, 3...
-    ## $ Pain                  (chr) "pain", "no.pain", "no.pain", "no.pain",...
-    ## $ Median_activity       (dbl) 9, 6, 7, 5, 5, 6, 4, 4, 3, 4, 10, 5, 12,...
-    ## $ RS_corrected          (int) 166, 173, 151, 154, 143, 167, 134, 150, ...
-    ## $ Minutes_at_0_activity (dbl) 1145.86, 1038.71, 1002.14, 1064.71, 1075...
-    ## $ Minutes_at_q1         (dbl) 276.57, 361.57, 381.14, 365.29, 323.14, ...
-    ## $ Minutes_at_q2         (dbl) 16.43, 16.14, 44.57, 8.71, 26.29, 11.71,...
-    ## $ Minutes_at_q3         (dbl) 1.00, 16.00, 10.71, 0.86, 13.57, 0.43, 3...
-    ## $ Minutes_at_q4         (dbl) 0.14, 7.57, 1.43, 0.43, 1.14, 0.71, 0.29...
+### Clean
 
-    ## Observations: 68
-    ## Variables: 8
-    ## $ activity (dbl) 9, 6, 7, 5, 5, 6, 4, 4, 3, 4, 10, 5, 12, 4, 8, 5, 5, ...
-    ## $ rs.score (int) 166, 173, 151, 154, 143, 167, 134, 150, 166, 148, 172...
-    ## $ zero     (dbl) 1145.86, 1038.71, 1002.14, 1064.71, 1075.86, 1064.71,...
-    ## $ q1       (dbl) 276.57, 361.57, 381.14, 365.29, 323.14, 362.43, 394.1...
-    ## $ q2       (dbl) 16.43, 16.14, 44.57, 8.71, 26.29, 11.71, 25.14, 20.14...
-    ## $ q3       (dbl) 1.00, 16.00, 10.71, 0.86, 13.57, 0.43, 3.14, 4.29, 2....
-    ## $ q4       (dbl) 0.14, 7.57, 1.43, 0.43, 1.14, 0.71, 0.29, 0.86, 0.86,...
-    ## $ pain     (fctr) Pain, No pain, No pain, No pain, Pain, Pain, No pain...
+``` r
+# Process data
+data.res.1 <- data.res %>%
+    mutate(pain = factor(Pain, 
+                         levels = c('no.pain', 'pain'),
+                         labels = c('No pain', 'Pain'))) %>%
+    select(-ID, -Pain) %>%
+    rename(activity = Median_activity,
+           rs.score = RS_corrected, 
+           zero = Minutes_at_0_activity,
+           q1 = Minutes_at_q1,
+           q2 = Minutes_at_q2,
+           q3 = Minutes_at_q3,
+           q4 = Minutes_at_q4) 
+```
 
 Create resilience plots
 -----------------------
@@ -124,7 +66,13 @@ Create resilience plots
 Brief Pain Inventory vs activity dot-plots
 ------------------------------------------
 
-***37 participants with pain, only*** \#\#\# Import data
+***37 participants with pain, only***
+
+### Import data
+
+``` r
+data.bpi <- read_csv('./data/bpi.activity.csv')
+```
 
 ### Quick look
 
@@ -150,22 +98,18 @@ Brief Pain Inventory vs activity dot-plots
     ## 5   167  Pain               6                4          8          2
     ## 6   168  Pain               6                5          8          3
 
-    ## Observations: 37
-    ## Variables: 6
-    ## $ ID               (int) 9, 21, 23, 40, 67, 69, 71, 72, 73, 74, 75, 76...
-    ## $ Pain             (chr) "Pain", "Pain", "Pain", "Pain", "Pain", "Pain...
-    ## $ Median_activity  (int) 9, 5, 6, 12, 6, 4, 5, 6, 4, 3, 4, 4, 7, 4, 6,...
-    ## $ BPI_interference (int) 6, 4, 8, 7, 3, 4, 5, 8, 3, 4, 3, 2, 4, 9, 6, ...
-    ## $ Worst_pain       (int) 7, 3, 10, 9, 8, 4, 10, 8, 7, 7, 5, 8, 8, 10, ...
-    ## $ Least_pain       (int) 2, 0, 4, 6, 0, 2, 3, 0, 3, 5, 0, 4, 2, 0, 0, ...
+### Clean
 
-    ## Observations: 37
-    ## Variables: 5
-    ## $ activity         (int) 9, 5, 6, 12, 6, 4, 5, 6, 4, 3, 4, 4, 7, 4, 6,...
-    ## $ bpi_interference (int) 6, 4, 8, 7, 3, 4, 5, 8, 3, 4, 3, 2, 4, 9, 6, ...
-    ## $ worst_pain       (int) 7, 3, 10, 9, 8, 4, 10, 8, 7, 7, 5, 8, 8, 10, ...
-    ## $ least_pain       (int) 2, 0, 4, 6, 0, 2, 3, 0, 3, 5, 0, 4, 2, 0, 0, ...
-    ## $ pain             (fctr) Pain, Pain, Pain, Pain, Pain, Pain, Pain, Pa...
+``` r
+# Process data
+data.bpi.1 <- data.bpi %>%
+    mutate(pain = as.factor(Pain)) %>%
+    select(-ID, -Pain) %>%
+    rename(activity = Median_activity,
+           bpi_interference = BPI_interference, 
+           worst_pain = Worst_pain,
+           least_pain = Least_pain) 
+```
 
 Create bpi plots
 ----------------
@@ -175,7 +119,13 @@ Create bpi plots
 Activity vs predictor scatterplots
 ----------------------------------
 
-***68 participants with (37) and without (31) pain*** \#\#\# Import data
+***68 participants with (37) and without (31) pain***
+
+### Import data
+
+``` r
+data.act <- read_csv('./data/activity.V.predictors.csv')
+```
 
 ### Quick look
 
@@ -205,184 +155,32 @@ Activity vs predictor scatterplots
     ## Variables not shown: employed (chr), rs_score (int), eq5d_vas (int), money
     ##   (chr), family (chr), food (chr), health (chr)
 
-    ## Observations: 68
-    ## Variables: 14
-    ## $ ID              (int) 9, 10, 11, 13, 21, 23, 24, 28, 32, 33, 37, 38,...
-    ## $ median_activity (dbl) 9, 6, 7, 5, 5, 6, 4, 4, 3, 4, 10, 5, 12, 4, 8,...
-    ## $ pain            (chr) "Pain", "No pain", "No pain", "No pain", "Pain...
-    ## $ age             (int) 34, 49, 32, 51, 34, 47, 53, 37, 40, 40, 32, 58...
-    ## $ sex             (chr) "Male", "Female", "Female", "Male", "Female", ...
-    ## $ education       (chr) "Completed grade 7", "Completed grade 7", "Com...
-    ## $ bmi             (dbl) 26.6, 28.3, 25.5, 23.2, 30.1, 16.0, 25.0, 26.8...
-    ## $ employed        (chr) "Unemployed", "Employed", "Employed", "Employe...
-    ## $ rs_score        (int) 166, 173, 151, 154, 143, 167, 134, 150, 166, 1...
-    ## $ eq5d_vas        (int) 60, 100, 70, 95, 70, 50, 90, 60, 100, 70, 60, ...
-    ## $ money           (chr) "Nearly all the time", "Sometimes", "Sometimes...
-    ## $ family          (chr) "Nearly all the time", "Nearly all the time", ...
-    ## $ food            (chr) "Sometimes", "Often", "Not at all", "Often", "...
-    ## $ health          (chr) "Sometimes", "Sometimes", "Not at all", "Not a...
+### Clean
 
-    ## Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':  272 obs. of  12 variables:
-    ##  $ ID             : Factor w/ 68 levels "9","10","11",..: 1 1 1 1 2 2 2 2 3 3 ...
-    ##  $ median_activity: num  9 9 9 9 6 6 6 6 7 7 ...
-    ##  $ pain           : Factor w/ 2 levels "No pain","Pain": 2 2 2 2 1 1 1 1 1 1 ...
-    ##  $ age            : int  34 34 34 34 49 49 49 49 32 32 ...
-    ##  $ sex            : Factor w/ 2 levels "Female","Male": 2 2 2 2 1 1 1 1 1 1 ...
-    ##  $ education      : Ord.factor w/ 4 levels "No education"<..: 2 2 2 2 2 2 2 2 2 2 ...
-    ##  $ bmi            : num  26.6 26.6 26.6 26.6 28.3 28.3 28.3 28.3 25.5 25.5 ...
-    ##  $ employed       : Factor w/ 2 levels "Employed","Unemployed": 2 2 2 2 1 1 1 1 1 1 ...
-    ##  $ rs_score       : int  166 166 166 166 173 173 173 173 151 151 ...
-    ##  $ eq5d_vas       : int  60 60 60 60 100 100 100 100 70 70 ...
-    ##  $ worry_about    : chr  "money" "family" "food" "health" ...
-    ##  $ rating         : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 5 5 3 3 3 5 4 3 3 1 ...
-    ##  - attr(*, "vars")=List of 1
-    ##   ..$ : symbol ID
-    ##  - attr(*, "indices")=List of 68
-    ##   ..$ : int  0 1 2 3
-    ##   ..$ : int  4 5 6 7
-    ##   ..$ : int  8 9 10 11
-    ##   ..$ : int  12 13 14 15
-    ##   ..$ : int  16 17 18 19
-    ##   ..$ : int  20 21 22 23
-    ##   ..$ : int  24 25 26 27
-    ##   ..$ : int  28 29 30 31
-    ##   ..$ : int  32 33 34 35
-    ##   ..$ : int  36 37 38 39
-    ##   ..$ : int  40 41 42 43
-    ##   ..$ : int  44 45 46 47
-    ##   ..$ : int  48 49 50 51
-    ##   ..$ : int  52 53 54 55
-    ##   ..$ : int  56 57 58 59
-    ##   ..$ : int  60 61 62 63
-    ##   ..$ : int  64 65 66 67
-    ##   ..$ : int  68 69 70 71
-    ##   ..$ : int  72 73 74 75
-    ##   ..$ : int  76 77 78 79
-    ##   ..$ : int  80 81 82 83
-    ##   ..$ : int  84 85 86 87
-    ##   ..$ : int  88 89 90 91
-    ##   ..$ : int  92 93 94 95
-    ##   ..$ : int  96 97 98 99
-    ##   ..$ : int  100 101 102 103
-    ##   ..$ : int  104 105 106 107
-    ##   ..$ : int  108 109 110 111
-    ##   ..$ : int  112 113 114 115
-    ##   ..$ : int  116 117 118 119
-    ##   ..$ : int  120 121 122 123
-    ##   ..$ : int  124 125 126 127
-    ##   ..$ : int  128 129 130 131
-    ##   ..$ : int  132 133 134 135
-    ##   ..$ : int  136 137 138 139
-    ##   ..$ : int  140 141 142 143
-    ##   ..$ : int  144 145 146 147
-    ##   ..$ : int  148 149 150 151
-    ##   ..$ : int  152 153 154 155
-    ##   ..$ : int  156 157 158 159
-    ##   ..$ : int  160 161 162 163
-    ##   ..$ : int  164 165 166 167
-    ##   ..$ : int  168 169 170 171
-    ##   ..$ : int  172 173 174 175
-    ##   ..$ : int  176 177 178 179
-    ##   ..$ : int  180 181 182 183
-    ##   ..$ : int  184 185 186 187
-    ##   ..$ : int  188 189 190 191
-    ##   ..$ : int  192 193 194 195
-    ##   ..$ : int  196 197 198 199
-    ##   ..$ : int  200 201 202 203
-    ##   ..$ : int  204 205 206 207
-    ##   ..$ : int  208 209 210 211
-    ##   ..$ : int  212 213 214 215
-    ##   ..$ : int  216 217 218 219
-    ##   ..$ : int  220 221 222 223
-    ##   ..$ : int  224 225 226 227
-    ##   ..$ : int  228 229 230 231
-    ##   ..$ : int  232 233 234 235
-    ##   ..$ : int  236 237 238 239
-    ##   ..$ : int  240 241 242 243
-    ##   ..$ : int  244 245 246 247
-    ##   ..$ : int  248 249 250 251
-    ##   ..$ : int  252 253 254 255
-    ##   ..$ : int  256 257 258 259
-    ##   ..$ : int  260 261 262 263
-    ##   ..$ : int  264 265 266 267
-    ##   ..$ : int  268 269 270 271
-    ##  - attr(*, "group_sizes")= int  4 4 4 4 4 4 4 4 4 4 ...
-    ##  - attr(*, "biggest_group_size")= int 4
-    ##  - attr(*, "labels")='data.frame':   68 obs. of  1 variable:
-    ##   ..$ ID: Factor w/ 68 levels "9","10","11",..: 1 2 3 4 5 6 7 8 9 10 ...
-    ##   ..- attr(*, "vars")=List of 1
-    ##   .. ..$ : symbol ID
-    ##   ..- attr(*, "indices")=List of 68
-    ##   .. ..$ : int  0 68 136 204
-    ##   .. ..$ : int  1 69 137 205
-    ##   .. ..$ : int  2 70 138 206
-    ##   .. ..$ : int  3 71 139 207
-    ##   .. ..$ : int  4 72 140 208
-    ##   .. ..$ : int  5 73 141 209
-    ##   .. ..$ : int  6 74 142 210
-    ##   .. ..$ : int  7 75 143 211
-    ##   .. ..$ : int  8 76 144 212
-    ##   .. ..$ : int  9 77 145 213
-    ##   .. ..$ : int  10 78 146 214
-    ##   .. ..$ : int  11 79 147 215
-    ##   .. ..$ : int  12 80 148 216
-    ##   .. ..$ : int  13 81 149 217
-    ##   .. ..$ : int  14 82 150 218
-    ##   .. ..$ : int  15 83 151 219
-    ##   .. ..$ : int  16 84 152 220
-    ##   .. ..$ : int  17 85 153 221
-    ##   .. ..$ : int  18 86 154 222
-    ##   .. ..$ : int  19 87 155 223
-    ##   .. ..$ : int  20 88 156 224
-    ##   .. ..$ : int  21 89 157 225
-    ##   .. ..$ : int  22 90 158 226
-    ##   .. ..$ : int  23 91 159 227
-    ##   .. ..$ : int  24 92 160 228
-    ##   .. ..$ : int  25 93 161 229
-    ##   .. ..$ : int  26 94 162 230
-    ##   .. ..$ : int  27 95 163 231
-    ##   .. ..$ : int  28 96 164 232
-    ##   .. ..$ : int  29 97 165 233
-    ##   .. ..$ : int  30 98 166 234
-    ##   .. ..$ : int  31 99 167 235
-    ##   .. ..$ : int  32 100 168 236
-    ##   .. ..$ : int  33 101 169 237
-    ##   .. ..$ : int  34 102 170 238
-    ##   .. ..$ : int  35 103 171 239
-    ##   .. ..$ : int  36 104 172 240
-    ##   .. ..$ : int  37 105 173 241
-    ##   .. ..$ : int  38 106 174 242
-    ##   .. ..$ : int  39 107 175 243
-    ##   .. ..$ : int  40 108 176 244
-    ##   .. ..$ : int  41 109 177 245
-    ##   .. ..$ : int  42 110 178 246
-    ##   .. ..$ : int  43 111 179 247
-    ##   .. ..$ : int  44 112 180 248
-    ##   .. ..$ : int  45 113 181 249
-    ##   .. ..$ : int  46 114 182 250
-    ##   .. ..$ : int  47 115 183 251
-    ##   .. ..$ : int  48 116 184 252
-    ##   .. ..$ : int  49 117 185 253
-    ##   .. ..$ : int  50 118 186 254
-    ##   .. ..$ : int  51 119 187 255
-    ##   .. ..$ : int  52 120 188 256
-    ##   .. ..$ : int  53 121 189 257
-    ##   .. ..$ : int  54 122 190 258
-    ##   .. ..$ : int  55 123 191 259
-    ##   .. ..$ : int  56 124 192 260
-    ##   .. ..$ : int  57 125 193 261
-    ##   .. ..$ : int  58 126 194 262
-    ##   .. ..$ : int  59 127 195 263
-    ##   .. ..$ : int  60 128 196 264
-    ##   .. ..$ : int  61 129 197 265
-    ##   .. ..$ : int  62 130 198 266
-    ##   .. ..$ : int  63 131 199 267
-    ##   .. ..$ : int  64 132 200 268
-    ##   .. ..$ : int  65 133 201 269
-    ##   .. ..$ : int  66 134 202 270
-    ##   .. ..$ : int  67 135 203 271
-    ##   ..- attr(*, "group_sizes")= int  4 4 4 4 4 4 4 4 4 4 ...
-    ##   ..- attr(*, "biggest_group_size")= int 4
+``` r
+# Process data
+data.act.1 <- data.act %>%
+    mutate(ID = factor(ID),
+           pain = factor(pain),
+           sex = factor(sex),
+           education = factor(education, 
+                              levels = c('No education', 
+                                         'Completed grade 7', 
+                                         'Completed grade 12', 
+                                         'Tertiary education'), 
+                                         ordered = TRUE),
+           employed = factor(employed)) %>%
+    group_by(ID) %>%
+    gather(key = worry_about, value = rating, money:health) %>%
+    mutate(rating = factor(rating, 
+                           levels = c('Not at all',
+                                         'Rarely',
+                                         'Sometimes', 
+                                         'Often', 
+                                         'Nearly all the time'), 
+                                         ordered = TRUE)) %>%
+    arrange(ID)
+```
 
 Create activity plots
 ---------------------

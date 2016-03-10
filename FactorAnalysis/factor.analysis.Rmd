@@ -8,7 +8,7 @@ output:
 ---
 
 ## Load required packages and set chunk options
-```{r miscellaneous.1}
+```{r miscellaneous.1, include = FALSE}
 # Load libraries
 library(pander)
 library(readr)
@@ -50,21 +50,23 @@ pander(cdr.key, style = 'rmarkdown',
 ```
 
 ### Import data
-```{r import.1}
+```{r import.1, echo = TRUE}
 # Read csv
-data.1 <- read_csv('./data/cd.risc.csv', col_names = TRUE)
+data.1 <- read_csv('./data/cd.risc.csv')
 ```
 
-### Inspect and clean data
-```{r clean.1}
+### Inspect
+```{r inspect.1}
 # Inspect the data
 head(data.1)
 tail(data.1)
 str(data.1)
+```
 
+### Clean
+```{r clean.1, echo = TRUE}
 # Convert ID to factor
 data.1$ID <- factor(data.1$ID) 
-str(data.1$ID)
 ```
 
 ### Internal consistency
@@ -206,21 +208,23 @@ pander(rs.key,
 ```
 
 ### Import data
-```{r import.2}
+```{r import.2, echo = TRUE}
 # Read csv
-data.2 <- read_csv('./data/resilience.scale.csv', col_names = TRUE)
+data.2 <- read_csv('./data/resilience.scale.csv')
 ```
 
-### Inspect and clean data
-```{r clean.2}
+### Inspect 
+```{r inspect.2}
 # Inspect the data
 head(data.2)
 tail(data.2)
 str(data.2)
+```
 
+### Clean
+```{r clean.2, echo = TRUE}
 # Convert ID to factor
 data.2$ID <- factor(data.2$ID) 
-str(data.2$ID)
 ```
 
 ### Internal consistency

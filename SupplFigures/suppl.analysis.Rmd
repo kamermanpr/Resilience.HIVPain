@@ -6,8 +6,9 @@ output:
     md_document:
         variant: markdown_github
 ---
+
 ## Load required packages and set chunk options
-```{r LoadPackages}
+```{r LoadPackages, include = FALSE}
 # Load packages
 library(knitr)
 library(readr)
@@ -37,7 +38,7 @@ opts_chunk$set(echo = FALSE,
 
 ## Process data
 ### Import
-```{r DataImport}
+```{r DataImport, echo = TRUE}
 data <- read_csv('./data/activity.bpi.eq5d.csv')
 ```
 
@@ -50,7 +51,7 @@ glimpse(data)
 ```
 
 ### Clean
-```{r Clean}
+```{r Clean, echo = TRUE}
 data.1 <- data %>%
     mutate(ID = factor(ID),
            Pain = factor(Pain),

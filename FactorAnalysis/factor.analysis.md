@@ -1,91 +1,134 @@
 Load required packages and set chunk options
 --------------------------------------------
 
-``` r
-# Load libraries
-library(pander)
-library(readr)
-library(knitr)
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-    ## 
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
-library(tidyr)
-library(ggplot2)
-library(psych)
-```
-
-    ## 
-    ## Attaching package: 'psych'
-    ## 
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     %+%
-
-``` r
-library(GPArotation) # for fa function in 'psych'
-
-# Set seed
-set.seed(123)
-
-# Set knitr chunk options
-opts_chunk$set(echo = FALSE,
-               warning = FALSE,
-               message = FALSE,
-               fig.path = './figures/',
-               dev = c('png', 'pdf'),
-               cache.extra = rand_seed,
-               tidy = TRUE, 
-               tidy.opts = list(width.cutoff = 65))
-```
-
 CD-RISC
 -------
 
 ### Item coding
 
-| Label | Key                                                                                             |
-|:------|:------------------------------------------------------------------------------------------------|
-| Q1    | I am able to adapt when changes occur                                                           |
-| Q2    | I have at least one close and secure relationship that helps me when I'm stressed               |
-| Q3    | When there are no clear solutions to my problems, sometimes fate or God can help                |
-| Q4    | I can deal with whatever comes my way                                                           |
-| Q5    | Past successes give me confidence in dealing with new challenges and difficulties               |
-| Q6    | I try and see the humorous side of things when I'm faced with problems                          |
-| Q7    | Having to cope with stress can make me stronger                                                 |
-| Q8    | I tend to bounce back after illness, injury or other hardships                                  |
-| Q9    | Good or bad, I believe that most things happen for a reason                                     |
-| Q10   | I give my best effort no matter what the outcome may be                                         |
-| Q11   | I believe I can achieve my goals, even if there are obstacles                                   |
-| Q12   | Even when things look hopeless, I don't give up                                                 |
-| Q13   | During times of stress/crisis, I know where to turn for help                                    |
-| Q14   | Under pressure, I stay focused and think clearly                                                |
-| Q15   | I prefer to take the lead in solving problems rather than letting others make all the decisions |
-| Q16   | I am not easily discouraged by failure                                                          |
-| Q17   | I think of myself as a strong person when dealing with life's challenges and difficulties       |
-| Q18   | I can make unpopular or difficult decisions that affect other people, if it is necessary        |
-| Q19   | I am able to handle unpleasant or painful feelings like sadness, fear, and anger                |
-| Q20   | In dealing with life's problems, sometimes you have to act on a hunch without knowing why       |
-| Q21   | I have a strong sense of purpose in life                                                        |
-| Q22   | I feel in control of my life                                                                    |
-| Q23   | I like challenges                                                                               |
-| Q24   | I work to attain my goals no matter what roadblocks I encounter along the way                   |
-| Q25   | I take pride in my achievements                                                                 |
+<table style="width:150%;">
+<colgroup>
+<col width="13%" />
+<col width="136%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Q1</td>
+<td align="left">I am able to adapt when changes occur</td>
+</tr>
+<tr class="even">
+<td align="left">Q2</td>
+<td align="left">I have at least one close and secure relationship that helps me when I'm stressed</td>
+</tr>
+<tr class="odd">
+<td align="left">Q3</td>
+<td align="left">When there are no clear solutions to my problems, sometimes fate or God can help</td>
+</tr>
+<tr class="even">
+<td align="left">Q4</td>
+<td align="left">I can deal with whatever comes my way</td>
+</tr>
+<tr class="odd">
+<td align="left">Q5</td>
+<td align="left">Past successes give me confidence in dealing with new challenges and difficulties</td>
+</tr>
+<tr class="even">
+<td align="left">Q6</td>
+<td align="left">I try and see the humorous side of things when I'm faced with problems</td>
+</tr>
+<tr class="odd">
+<td align="left">Q7</td>
+<td align="left">Having to cope with stress can make me stronger</td>
+</tr>
+<tr class="even">
+<td align="left">Q8</td>
+<td align="left">I tend to bounce back after illness, injury or other hardships</td>
+</tr>
+<tr class="odd">
+<td align="left">Q9</td>
+<td align="left">Good or bad, I believe that most things happen for a reason</td>
+</tr>
+<tr class="even">
+<td align="left">Q10</td>
+<td align="left">I give my best effort no matter what the outcome may be</td>
+</tr>
+<tr class="odd">
+<td align="left">Q11</td>
+<td align="left">I believe I can achieve my goals, even if there are obstacles</td>
+</tr>
+<tr class="even">
+<td align="left">Q12</td>
+<td align="left">Even when things look hopeless, I don't give up</td>
+</tr>
+<tr class="odd">
+<td align="left">Q13</td>
+<td align="left">During times of stress/crisis, I know where to turn for help</td>
+</tr>
+<tr class="even">
+<td align="left">Q14</td>
+<td align="left">Under pressure, I stay focused and think clearly</td>
+</tr>
+<tr class="odd">
+<td align="left">Q15</td>
+<td align="left">I prefer to take the lead in solving problems rather than letting others make all the decisions</td>
+</tr>
+<tr class="even">
+<td align="left">Q16</td>
+<td align="left">I am not easily discouraged by failure</td>
+</tr>
+<tr class="odd">
+<td align="left">Q17</td>
+<td align="left">I think of myself as a strong person when dealing with life's challenges and difficulties</td>
+</tr>
+<tr class="even">
+<td align="left">Q18</td>
+<td align="left">I can make unpopular or difficult decisions that affect other people, if it is necessary</td>
+</tr>
+<tr class="odd">
+<td align="left">Q19</td>
+<td align="left">I am able to handle unpleasant or painful feelings like sadness, fear, and anger</td>
+</tr>
+<tr class="even">
+<td align="left">Q20</td>
+<td align="left">In dealing with life's problems, sometimes you have to act on a hunch without knowing why</td>
+</tr>
+<tr class="odd">
+<td align="left">Q21</td>
+<td align="left">I have a strong sense of purpose in life</td>
+</tr>
+<tr class="even">
+<td align="left">Q22</td>
+<td align="left">I feel in control of my life</td>
+</tr>
+<tr class="odd">
+<td align="left">Q23</td>
+<td align="left">I like challenges</td>
+</tr>
+<tr class="even">
+<td align="left">Q24</td>
+<td align="left">I work to attain my goals no matter what roadblocks I encounter along the way</td>
+</tr>
+<tr class="odd">
+<td align="left">Q25</td>
+<td align="left">I take pride in my achievements</td>
+</tr>
+</tbody>
+</table>
 
 ### Import data
 
-### Inspect and clean data
+``` r
+# Read csv
+data.1 <- read_csv("./data/cd.risc.csv")
+```
+
+### Inspect
 
     ## Source: local data frame [6 x 26]
     ## 
@@ -143,7 +186,12 @@ CD-RISC
     ##  $ Q24: int  4 2 4 4 4 3 4 3 4 4 ...
     ##  $ Q25: int  4 3 4 4 4 4 4 4 2 4 ...
 
-    ##  Factor w/ 154 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
+### Clean
+
+``` r
+# Convert ID to factor
+data.1$ID <- factor(data.1$ID)
+```
 
 ### Internal consistency
 
@@ -186,11 +234,11 @@ Reliability analysis
 
 ### Factor analysis - initial
 
-***Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply*** ![](./figures/fa.1-1.png)
+***Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply*** ![](./figures/fa.1-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  3  and the number of components =  2
 
-![](./figures/fa.1-2.png)
+![](./figures/fa.1-2.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1, nfactors = 3, rotate = "oblimin", fm = "ml", 
@@ -258,7 +306,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.879 0.848 0.729
     ## Minimum correlation of possible factor scores  0.758 0.696 0.458
 
-![](./figures/fa.1-3.png)
+![](./figures/fa.1-3.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1, nfactors = 4, rotate = "oblimin", fm = "ml", 
@@ -327,7 +375,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.870 0.872 0.737 0.600
     ## Minimum correlation of possible factor scores  0.739 0.743 0.473 0.200
 
-![](./figures/fa.1-4.png)
+![](./figures/fa.1-4.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -396,18 +444,18 @@ Reliability analysis
 
 ### Outcome of initial factor analysis
 
-The 3-factor structure produced the most parsimonious outcome. One item (Q2: 'I have at least one close and secure relationship that helps me when I'm stressed') had factor loading \< 0.3, and was removed and the data reanalysed with a 3-factor structure.
+The 3-factor structure produced the most parsimonious outcome. One item (Q2: 'I have at least one close and secure relationship that helps me when I'm stressed') had factor loading &lt; 0.3, and was removed and the data reanalysed with a 3-factor structure.
 
 ### Factor analysis - secondary
 
 \*Item Q2 removed\*\*
 
 Reliability analysis
- raw\_alpha std.alpha G6(smc) average\_r S/N 0.91 0.91 0.93 0.29 9.6 Quitting from lines 155-191 (factor.analysis.Rmd) Error in match.arg(style) : 'arg' should be one of "multiline", "grid", "simple", "rmarkdown" Calls: <Anonymous> ... pandoc.table -\> cat -\> pandoc.table.return -\> match.arg![](./figures/fa.1b-1.png)
+ raw\_alpha std.alpha G6(smc) average\_r S/N 0.91 0.91 0.93 0.29 9.6 Quitting from lines 157-193 (factor.analysis.Rmd) Error in match.arg(style) : 'arg' should be one of "multiline", "grid", "simple", "rmarkdown" Calls: <Anonymous> ... pandoc.table -&gt; cat -&gt; pandoc.table.return -&gt; match.arg![](./figures/fa.1b-1.png)<!-- -->
 
-    ## Parallel analysis suggests that the number of factors =  3  and the number of components =  2
+    ## Parallel analysis suggests that the number of factors =  4  and the number of components =  2
 
-![](./figures/fa.1b-2.png)
+![](./figures/fa.1b-2.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.1.1b, nfactors = 3, rotate = "oblimin", fm = "ml", 
@@ -479,37 +527,129 @@ Resilience Scale
 
 ### Item coding
 
-| Label | Key                                                                            |
-|:------|:-------------------------------------------------------------------------------|
-| Q1    | When I make plans, I follow through with them                                  |
-| Q2    | I usually manage one way or another                                            |
-| Q3    | I am able to depend on myself more than anyone else                            |
-| Q4    | Keeping interested in things is important to me                                |
-| Q5    | I can be on my own if I have to                                                |
-| Q6    | I feel proud that I have accomplished things in life                           |
-| Q7    | I usually take things in my stride                                             |
-| Q8    | I am friends with myself                                                       |
-| Q9    | I feel that I can handle many things at a time                                 |
-| Q10   | I am determined                                                                |
-| Q11   | I seldom wonder what the point of it all is                                    |
-| Q12   | I take things one day at a time                                                |
-| Q13   | I can get through difficult times because I have experienced difficulty before |
-| Q14   | I have self-discipline                                                         |
-| Q15   | I keep interested in things                                                    |
-| Q16   | I can usually find something to laugh about                                    |
-| Q17   | My belief in myself gets me through hard times                                 |
-| Q18   | In an emergency, I am someone people can general rely on                       |
-| Q19   | I can usually look at a situation in a number of ways                          |
-| Q20   | Sometimes I make myself do things whether I want to or not                     |
-| Q21   | My life has meaning                                                            |
-| Q22   | I do not dwell on things I cannot do anything about                            |
-| Q23   | When I am in a difficult situation, I can usually find my way out of it        |
-| Q24   | I have enough energy to do what I have to do                                   |
-| Q25   | It is OK if there are people who do not like me                                |
+<table style="width:126%;">
+<colgroup>
+<col width="13%" />
+<col width="112%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Q1</td>
+<td align="left">When I make plans, I follow through with them</td>
+</tr>
+<tr class="even">
+<td align="left">Q2</td>
+<td align="left">I usually manage one way or another</td>
+</tr>
+<tr class="odd">
+<td align="left">Q3</td>
+<td align="left">I am able to depend on myself more than anyone else</td>
+</tr>
+<tr class="even">
+<td align="left">Q4</td>
+<td align="left">Keeping interested in things is important to me</td>
+</tr>
+<tr class="odd">
+<td align="left">Q5</td>
+<td align="left">I can be on my own if I have to</td>
+</tr>
+<tr class="even">
+<td align="left">Q6</td>
+<td align="left">I feel proud that I have accomplished things in life</td>
+</tr>
+<tr class="odd">
+<td align="left">Q7</td>
+<td align="left">I usually take things in my stride</td>
+</tr>
+<tr class="even">
+<td align="left">Q8</td>
+<td align="left">I am friends with myself</td>
+</tr>
+<tr class="odd">
+<td align="left">Q9</td>
+<td align="left">I feel that I can handle many things at a time</td>
+</tr>
+<tr class="even">
+<td align="left">Q10</td>
+<td align="left">I am determined</td>
+</tr>
+<tr class="odd">
+<td align="left">Q11</td>
+<td align="left">I seldom wonder what the point of it all is</td>
+</tr>
+<tr class="even">
+<td align="left">Q12</td>
+<td align="left">I take things one day at a time</td>
+</tr>
+<tr class="odd">
+<td align="left">Q13</td>
+<td align="left">I can get through difficult times because I have experienced difficulty before</td>
+</tr>
+<tr class="even">
+<td align="left">Q14</td>
+<td align="left">I have self-discipline</td>
+</tr>
+<tr class="odd">
+<td align="left">Q15</td>
+<td align="left">I keep interested in things</td>
+</tr>
+<tr class="even">
+<td align="left">Q16</td>
+<td align="left">I can usually find something to laugh about</td>
+</tr>
+<tr class="odd">
+<td align="left">Q17</td>
+<td align="left">My belief in myself gets me through hard times</td>
+</tr>
+<tr class="even">
+<td align="left">Q18</td>
+<td align="left">In an emergency, I am someone people can general rely on</td>
+</tr>
+<tr class="odd">
+<td align="left">Q19</td>
+<td align="left">I can usually look at a situation in a number of ways</td>
+</tr>
+<tr class="even">
+<td align="left">Q20</td>
+<td align="left">Sometimes I make myself do things whether I want to or not</td>
+</tr>
+<tr class="odd">
+<td align="left">Q21</td>
+<td align="left">My life has meaning</td>
+</tr>
+<tr class="even">
+<td align="left">Q22</td>
+<td align="left">I do not dwell on things I cannot do anything about</td>
+</tr>
+<tr class="odd">
+<td align="left">Q23</td>
+<td align="left">When I am in a difficult situation, I can usually find my way out of it</td>
+</tr>
+<tr class="even">
+<td align="left">Q24</td>
+<td align="left">I have enough energy to do what I have to do</td>
+</tr>
+<tr class="odd">
+<td align="left">Q25</td>
+<td align="left">It is OK if there are people who do not like me</td>
+</tr>
+</tbody>
+</table>
 
 ### Import data
 
-### Inspect and clean data
+``` r
+# Read csv
+data.2 <- read_csv("./data/resilience.scale.csv")
+```
+
+### Inspect
 
     ## Source: local data frame [6 x 26]
     ## 
@@ -567,7 +707,12 @@ Resilience Scale
     ##  $ Q24: int  7 5 7 7 7 2 4 5 5 7 ...
     ##  $ Q25: int  3 1 1 1 7 1 5 1 7 7 ...
 
-    ##  Factor w/ 151 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
+### Clean
+
+``` r
+# Convert ID to factor
+data.2$ID <- factor(data.2$ID)
+```
 
 ### Internal consistency
 
@@ -610,11 +755,11 @@ Reliability analysis
 
 ### Factor analysis
 
-**Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply** ![](./figures/fa.2-1.png)
+**Use polychoric correlation matrix because data are ordinal integers, and therefore Pearson's correlation matrix does not apply** ![](./figures/fa.2-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
-![](./figures/fa.2-2.png)
+![](./figures/fa.2-2.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1, nfactors = 1, rotate = "oblimin", fm = "ml", 
@@ -673,7 +818,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.942
     ## Minimum correlation of possible factor scores  0.884
 
-![](./figures/fa.2-3.png)
+![](./figures/fa.2-3.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -742,7 +887,7 @@ Reliability analysis
 
 ### Outcome of initial factor analysis
 
-The 2-factor structure produced the most parsimonious outcome based on the empirical \(\chi\)<sup>2</sup> goodness of fit test, but the 1-factor solution was recommended by the parallel plot. On the 1-factor solution, two items (Q11: 'I seldom wonder what the point of it all is', and Q20: 'Sometimes I make myself do things whether I want to or not') had factor loadings \< 0.3, and were removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).On the 2-factor solution, only one item (Q11: 'I seldom wonder what the point of it all is') had factor loadings \< 0.3, and was removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).
+The 2-factor structure produced the most parsimonious outcome based on the empirical \(\chi\)<sup>2</sup> goodness of fit test, but the 1-factor solution was recommended by the parallel plot. On the 1-factor solution, two items (Q11: 'I seldom wonder what the point of it all is', and Q20: 'Sometimes I make myself do things whether I want to or not') had factor loadings &lt; 0.3, and were removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution). On the 2-factor solution, only one item (Q11: 'I seldom wonder what the point of it all is') had factor loadings &lt; 0.3, and was removed and the data reanalysed with a 1-factor structure (as per the original and revised parallel plots), and a 2-factor structure (based on the empirical \(\chi\)<sup>2</sup> goodness of fit test on the original 2-factor solution).
 
 ### Factor analysis - secondary
 
@@ -755,11 +900,11 @@ Reliability analysis
 |:-----------|:----------|:--------|:-----------|:------|
 | 0.93       | 0.93      | 0.94    | 0.37       | 13.37 |
 
-![](./figures/fa.2b1-1.png)
+![](./figures/fa.2b1-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
-![](./figures/fa.2b1-2.png)
+![](./figures/fa.2b1-2.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b1, nfactors = 1, rotate = "oblimin", fm = "ml", 
@@ -816,7 +961,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.941
     ## Minimum correlation of possible factor scores  0.883
 
-![](./figures/fa.2b1-3.png)
+![](./figures/fa.2b1-3.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b1, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -882,11 +1027,11 @@ Reliability analysis
     ## Minimum correlation of possible factor scores  0.883 0.207
 
 \*Only item Q11 removed based on the outcome of the original 2-factor solution\*\*
-![](./figures/fa.2b2-1.png)
+![](./figures/fa.2b2-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
-![](./figures/fa.2b2-2.png)
+![](./figures/fa.2b2-2.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b2, nfactors = 1, rotate = "oblimin", fm = "ml", 
@@ -944,7 +1089,7 @@ Reliability analysis
     ## Multiple R square of scores with factors       0.942
     ## Minimum correlation of possible factor scores  0.883
 
-![](./figures/fa.2b2-3.png)
+![](./figures/fa.2b2-3.png)<!-- -->
 
     ## Factor Analysis using method =  ml
     ## Call: fa.poly(x = data.2.1b2, nfactors = 2, rotate = "oblimin", fm = "ml", 
@@ -1013,26 +1158,25 @@ Reliability analysis
 Session information
 -------------------
 
-    ## R version 3.2.2 (2015-08-14)
+    ## R version 3.2.3 (2015-12-10)
     ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
-    ## Running under: OS X 10.11.1 (El Capitan)
+    ## Running under: OS X 10.11.3 (El Capitan)
     ## 
     ## locale:
-    ## [1] C
+    ## [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
     ## 
     ## attached base packages:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] GPArotation_2014.11-1 psych_1.5.8           ggplot2_1.0.1        
-    ## [4] tidyr_0.3.1           dplyr_0.4.3           knitr_1.11           
-    ## [7] readr_0.2.2           pander_0.5.2         
+    ## [1] GPArotation_2014.11-1 psych_1.5.8           ggplot2_2.1.0        
+    ## [4] tidyr_0.4.1           dplyr_0.4.3           knitr_1.12.3         
+    ## [7] readr_0.2.2           pander_0.6.0         
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_0.12.1      magrittr_1.5     MASS_7.3-44      mnormt_1.5-3    
-    ##  [5] munsell_0.4.2    colorspace_1.2-6 R6_2.1.1         highr_0.5.1     
-    ##  [9] stringr_1.0.0    plyr_1.8.3       tools_3.2.2      parallel_3.2.2  
-    ## [13] grid_3.2.2       gtable_0.1.2     DBI_0.3.1        htmltools_0.2.6 
-    ## [17] yaml_2.1.13      assertthat_0.1   digest_0.6.8     reshape2_1.4.1  
-    ## [21] formatR_1.2.1    evaluate_0.8     rmarkdown_0.8.1  stringi_1.0-1   
-    ## [25] scales_0.3.0     proto_0.3-10
+    ##  [1] Rcpp_0.12.3      magrittr_1.5     mnormt_1.5-3     munsell_0.4.3   
+    ##  [5] colorspace_1.2-6 R6_2.1.2         highr_0.5.1      stringr_1.0.0   
+    ##  [9] plyr_1.8.3       tools_3.2.3      parallel_3.2.3   grid_3.2.3      
+    ## [13] gtable_0.2.0     DBI_0.3.1        htmltools_0.3    yaml_2.1.13     
+    ## [17] assertthat_0.1   digest_0.6.9     formatR_1.2.1    evaluate_0.8    
+    ## [21] rmarkdown_0.9.5  stringi_1.0-1    scales_0.4.0

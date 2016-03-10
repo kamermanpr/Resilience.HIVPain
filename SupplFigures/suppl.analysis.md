@@ -1,76 +1,14 @@
 Load required packages and set chunk options
 --------------------------------------------
 
-``` r
-# Load packages
-library(knitr)
-library(readr)
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
-library(tidyr)
-library(coin)
-```
-
-    ## Loading required package: survival
-
-``` r
-library(ggplot2)
-library(scales)
-```
-
-    ## 
-    ## Attaching package: 'scales'
-
-    ## The following objects are masked from 'package:readr':
-    ## 
-    ##     col_factor, col_numeric
-
-``` r
-library(grid)
-library(cowplot)
-```
-
-    ## 
-    ## Attaching package: 'cowplot'
-
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     ggsave
-
-``` r
-# Load palette
-cb8.categorical <- c("#0072B2", "#D55E00", "#009E73", "#F0E442", "#56B4E9", "#E69F00", "#CC79A7", "#999999")
-
-
-# knitr chunk options
-opts_chunk$set(echo = FALSE,
-               warning = FALSE,
-               message = FALSE,
-               fig.path = './figures/',
-               fig.width = 11.7,
-               fig.height = 8.2,
-               dev = c('png', 'pdf'),
-               tidy = FALSE, 
-               tidy.opts = list(width.cutoff = 65))
-```
-
 Process data
 ------------
 
 ### Import
+
+``` r
+data <- read_csv('./data/activity.bpi.eq5d.csv')
+```
 
 ### Quick look
 
@@ -108,6 +46,16 @@ Process data
     ## $ eq5d_mobility            (chr) "I have no problems in walking about"...
 
 ### Clean
+
+``` r
+data.1 <- data %>%
+    mutate(ID = factor(ID),
+           Pain = factor(Pain),
+           eq5d_mobility = factor(eq5d_mobility,
+                                  levels = c('I have no problems in walking about', 'I have some problems in walking about'),
+                                  labels = c('I have no problems in walking about', 'I have some problems in walking about'),
+                                  ordered = TRUE))
+```
 
 Analyses
 --------

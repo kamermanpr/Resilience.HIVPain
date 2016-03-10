@@ -6,8 +6,9 @@ output:
     md_document:
         variant: markdown_github
 ---
+
 ## Load required packages and set chunk options
-```{r LoadPackages}
+```{r LoadPackages, include = FALSE}
 # Load packages
 library(knitr)
 library(readr)
@@ -36,9 +37,10 @@ opts_chunk$set(echo = FALSE,
 
 ## Resilience vs activity dot-plots 
 _**68 participants, 37 with pain and 31 without pain**_
+
 ### Import data
-```{r DataImport}
-data.res <- read_csv('./data/resilience.V.endurance.csv', col_names = TRUE)
+```{r DataImport, echo = TRUE}
+data.res <- read_csv('./data/resilience.V.endurance.csv')
 ```
 
 ### Quick look
@@ -46,8 +48,10 @@ data.res <- read_csv('./data/resilience.V.endurance.csv', col_names = TRUE)
 # Top-and-tail
 head(data.res)
 tail(data.res)
-glimpse(data.res)
+```
 
+### Clean
+```{r Clean_1, echo = TRUE}
 # Process data
 data.res.1 <- data.res %>%
     mutate(pain = factor(Pain, 
@@ -61,7 +65,6 @@ data.res.1 <- data.res %>%
            q2 = Minutes_at_q2,
            q3 = Minutes_at_q3,
            q4 = Minutes_at_q4) 
-glimpse(data.res.1)
 ```
 
 ## Create resilience plots
@@ -236,9 +239,10 @@ RS.EnduranceQ4
 
 ## Brief Pain Inventory vs activity dot-plots
 _**37 participants with pain, only**_
+
 ### Import data
-```{r DataImport.bpi}
-data.bpi <- read_csv('./data/bpi.activity.csv', col_names = TRUE)
+```{r DataImport.bpi, echo = TRUE}
+data.bpi <- read_csv('./data/bpi.activity.csv')
 ```
 
 ### Quick look
@@ -246,8 +250,10 @@ data.bpi <- read_csv('./data/bpi.activity.csv', col_names = TRUE)
 # Top-and-tail
 head(data.bpi)
 tail(data.bpi)
-glimpse(data.bpi)
+```
 
+### Clean 
+```{r Clean_2, echo = TRUE}
 # Process data
 data.bpi.1 <- data.bpi %>%
     mutate(pain = as.factor(Pain)) %>%
@@ -256,7 +262,6 @@ data.bpi.1 <- data.bpi %>%
            bpi_interference = BPI_interference, 
            worst_pain = Worst_pain,
            least_pain = Least_pain) 
-glimpse(data.bpi.1)
 ```
 
 ## Create bpi plots
@@ -341,9 +346,10 @@ LeastPain.activity
 
 ## Activity vs predictor scatterplots
 _**68 participants with (37) and without (31) pain**_
+
 ### Import data
-```{r DataImport.act}
-data.act <- read_csv('./data/activity.V.predictors.csv', col_names = TRUE)
+```{r DataImport.act, echo = TRUE}
+data.act <- read_csv('./data/activity.V.predictors.csv')
 ```
 
 ### Quick look
@@ -351,8 +357,10 @@ data.act <- read_csv('./data/activity.V.predictors.csv', col_names = TRUE)
 # Top-and-tail
 head(data.act)
 tail(data.act)
-glimpse(data.act)
+```
 
+### Clean
+```{r Clean_3, echo = TRUE}
 # Process data
 data.act.1 <- data.act %>%
     mutate(ID = factor(ID),
@@ -375,9 +383,6 @@ data.act.1 <- data.act %>%
                                          'Nearly all the time'), 
                                          ordered = TRUE)) %>%
     arrange(ID)
-
-# Quick look
-str(data.act.1)
 ```
 
 ## Create activity plots

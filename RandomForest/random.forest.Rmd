@@ -6,8 +6,9 @@ output:
   md_document:
     variant: markdown_github
 ---
+
 ## Load packages and set chunk options
-```{r miscellaneous}
+```{r miscellaneous, include = FALSE}
 # Load libraries
 library(pander)
 library(readr)
@@ -35,21 +36,24 @@ opts_chunk$set(echo = FALSE,
 ```
 
 ## Import data
-```{r import}
+```{r import, echo = TRUE}
 # Read csv
-data <- read_csv("./data/random.forest.csv", col_names = T)
+data <- read_csv("./data/random.forest.csv")
 # Remove patient ID column
 data <- data[2:14]
 ```
 
 ## Inspect and clean data
-```{r clean}
+```{r look}
 # Inspect the data
 head(data)
 tail(data)
 summary(data)
 str(data)
+```
 
+## Clean
+```{r clean, echo = TRUE}
 # Convert data classes as required
 data$Pain <- factor(data$Pain, 
                     levels = c(0,1), 
@@ -79,9 +83,6 @@ data$Worry.Health <- factor(data$Worry.Health,
                             levels = c(0,1,2,3,4), 
                             labels = c('Not at all', 'Rarely', 'Sometimes', 'Often', 'Nearly all the time'), 
                             ordered = T)
-
-# Inspect the data
-str(data)
 
 # Remove incomplete cases
 data.2 <- data[complete.cases(data), ]

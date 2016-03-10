@@ -1,85 +1,15 @@
 Load packages and set chunk options
 -----------------------------------
 
-``` r
-# Load libraries
-library(pander)
-library(readr)
-library(knitr)
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-    ## 
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
-library(tidyr)
-library(ggplot2)
-library(grid)
-library(scales)
-```
-
-    ## 
-    ## Attaching package: 'scales'
-    ## 
-    ## The following objects are masked from 'package:readr':
-    ## 
-    ##     col_factor, col_numeric
-
-``` r
-library(cowplot)
-```
-
-    ## 
-    ## Attaching package: 'cowplot'
-    ## 
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     ggsave
-
-``` r
-library(party)
-```
-
-    ## Loading required package: mvtnorm
-    ## Loading required package: modeltools
-    ## Loading required package: stats4
-    ## Loading required package: strucchange
-    ## Loading required package: zoo
-    ## 
-    ## Attaching package: 'zoo'
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     as.Date, as.Date.numeric
-    ## 
-    ## Loading required package: sandwich
-
-``` r
-# Set knitr chunk options
-opts_chunk$set(echo = FALSE,
-               warning = FALSE,
-               message = FALSE,
-               cache = FALSE,
-               fig.path = './figures/',
-               fig.height = 11.69,
-               fig.width = 8.27,
-               dev = c('png', 'pdf'),
-               cache.extra = rand_seed,
-               tidy = TRUE, 
-               tidy.opts = list(width.cutoff = 65))
-```
-
 Import data
 -----------
+
+``` r
+# Read csv
+data <- read_csv("./data/random.forest.csv")
+# Remove patient ID column
+data <- data[2:14]
+```
 
 Inspect and clean data
 ----------------------
@@ -158,22 +88,44 @@ Inspect and clean data
     ##  $ Worry.Food     : int  2 3 0 3 2 4 0 2 0 1 ...
     ##  $ Worry.Health   : int  2 2 0 0 3 4 0 3 2 3 ...
 
-    ## Classes 'tbl_df' and 'data.frame':   68 obs. of  13 variables:
-    ##  $ Median.Activity: num  9 6 7 5 5 6 4 4 3 4 ...
-    ##  $ Pain           : Factor w/ 2 levels "No","Yes": 2 1 1 1 2 2 1 1 1 1 ...
-    ##  $ Age            : int  34 49 32 51 34 47 53 37 40 40 ...
-    ##  $ Female         : Factor w/ 2 levels "Male","Female": 1 2 2 1 2 1 2 2 2 2 ...
-    ##  $ Education      : Factor w/ 4 levels "None","Primary",..: 2 2 2 2 3 3 3 3 4 4 ...
-    ##  $ BMI            : num  26.6 28.3 25.5 23.2 30.1 16 25 26.8 19.3 22.2 ...
-    ##  $ Employment     : Factor w/ 2 levels "No","Yes": 1 2 2 2 2 1 2 2 2 2 ...
-    ##  $ RS.Prop.Score  : int  166 173 151 154 143 167 134 150 166 148 ...
-    ##  $ EQ5D.vas       : int  60 100 70 95 70 50 90 60 100 70 ...
-    ##  $ Worry.Money    : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 5 3 3 3 3 5 3 5 5 3 ...
-    ##  $ Worry.Family   : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 5 5 1 4 4 5 5 1 3 4 ...
-    ##  $ Worry.Food     : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 3 4 1 4 3 5 1 3 1 2 ...
-    ##  $ Worry.Health   : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 3 3 1 1 4 5 1 4 3 4 ...
+Clean
+-----
+
+``` r
+# Convert data classes as required
+data$Pain <- factor(data$Pain, levels = c(0, 1), labels = c("No", 
+    "Yes"))
+data$Female <- factor(data$Female, levels = c(0, 1), labels = c("Male", 
+    "Female"))
+data$Education <- factor(data$Education, levels = c(0, 1, 2, 3), labels = c("None", 
+    "Primary", "Secondary", "Tertiary"))
+data$Employment <- factor(data$Employment, levels = c(0, 1), labels = c("No", 
+    "Yes"))
+data$Worry.Money <- factor(data$Worry.Money, levels = c(0, 1, 2, 3, 
+    4), labels = c("Not at all", "Rarely", "Sometimes", "Often", "Nearly all the time"), 
+    ordered = T)
+data$Worry.Family <- factor(data$Worry.Family, levels = c(0, 1, 2, 
+    3, 4), labels = c("Not at all", "Rarely", "Sometimes", "Often", 
+    "Nearly all the time"), ordered = T)
+data$Worry.Food <- factor(data$Worry.Food, levels = c(0, 1, 2, 3, 
+    4), labels = c("Not at all", "Rarely", "Sometimes", "Often", "Nearly all the time"), 
+    ordered = T)
+data$Worry.Health <- factor(data$Worry.Health, levels = c(0, 1, 2, 
+    3, 4), labels = c("Not at all", "Rarely", "Sometimes", "Often", 
+    "Nearly all the time"), ordered = T)
+
+# Remove incomplete cases
+data.2 <- data[complete.cases(data), ]
+
+# dim data
+dim(data)
+```
 
     ## [1] 68 13
+
+``` r
+dim(data.2)
+```
 
     ## [1] 63 13
 
@@ -182,7 +134,7 @@ Activity
 
 ### Random Forest
 
-![](./figures/activity.forest-1.png)
+![](./figures/activity.forest-1.png)<!-- -->
 
 |                             | Trial 1 | Trial 2 | Trial 3 | Trial 4 |
 |:----------------------------|:--------|:--------|:--------|:--------|
@@ -213,7 +165,7 @@ Pain
     ## Variables not shown: RS.Prop.Score (int), EQ5D.vas (int), Worry.Money
     ##   (fctr), Worry.Family (fctr), Worry.Food (fctr), Worry.Health (fctr)
 
-![](./figures/pain.forest-1.png)
+![](./figures/pain.forest-1.png)<!-- -->
 
 |                             | Trial 1 | Trial 2 | Trial 3 | Trial 4 |
 |:----------------------------|:--------|:--------|:--------|:--------|
