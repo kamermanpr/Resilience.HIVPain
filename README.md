@@ -4,7 +4,7 @@
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.47318.svg)](http://dx.doi.org/10.5281/zenodo.47318)
 
-[More to be added later when published]  
+[More to be added when published]  
 
 ## Overview
 We investigated two primary questions: 1) what is the impact of resilience (the ability to overcome and adapt to adversity) on pain intensity and quality of life in HIV-infected individuals with chronic pain, and 2) does chronic HIV-related pain lead to functional impairment. In addressing these two questions we also reported (for the first time) on the use of actigraphy to objectively assess pain-related functional impairment in HIV-related individuals, and we validated two English-language resilience scales in isiZulu. To determine whether any associations we detected were pain-related or merely characteristics of our HIV-infected population as such, we compared the chronic pain cohort with patients recruited from the same patient population, but who did not have chronic pain.
