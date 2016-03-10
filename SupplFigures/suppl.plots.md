@@ -10,11 +10,11 @@ library(dplyr)
 
     ## 
     ## Attaching package: 'dplyr'
-    ## 
+
     ## The following objects are masked from 'package:stats':
     ## 
     ##     filter, lag
-    ## 
+
     ## The following objects are masked from 'package:base':
     ## 
     ##     intersect, setdiff, setequal, union
@@ -27,7 +27,7 @@ library(scales)
 
     ## 
     ## Attaching package: 'scales'
-    ## 
+
     ## The following objects are masked from 'package:readr':
     ## 
     ##     col_factor, col_numeric
@@ -39,7 +39,7 @@ library(cowplot)
 
     ## 
     ## Attaching package: 'cowplot'
-    ## 
+
     ## The following object is masked from 'package:ggplot2':
     ## 
     ##     ggsave
@@ -56,11 +56,11 @@ opts_chunk$set(echo = FALSE,
                fig.width = 11.7,
                fig.height = 8.2,
                dev = c('png', 'pdf'),
-               tidy = TRUE, 
+               tidy = FALSE, 
                tidy.opts = list(width.cutoff = 65))
 ```
 
-Resilience vs Activity dot-plots
+Resilience vs activity dot-plots
 --------------------------------
 
 ***68 participants, 37 with pain and 31 without pain*** \#\#\# Import data
@@ -119,7 +119,7 @@ Resilience vs Activity dot-plots
 Create resilience plots
 -----------------------
 
-![](./figures/Plot-1.png) ![](./figures/Plot-2.png) ![](./figures/Plot-3.png) ![](./figures/Plot-4.png) ![](./figures/Plot-5.png) ![](./figures/Plot-6.png)
+![](./figures/Plot-1.png)<!-- -->![](./figures/Plot-2.png)<!-- -->![](./figures/Plot-3.png)<!-- -->![](./figures/Plot-4.png)<!-- -->![](./figures/Plot-5.png)<!-- -->![](./figures/Plot-6.png)<!-- -->
 
 Brief Pain Inventory vs activity dot-plots
 ------------------------------------------
@@ -170,7 +170,7 @@ Brief Pain Inventory vs activity dot-plots
 Create bpi plots
 ----------------
 
-![](./figures/Plot.bpi-1.png) ![](./figures/Plot.bpi-2.png) ![](./figures/Plot.bpi-3.png)
+![](./figures/Plot.bpi-1.png)<!-- -->![](./figures/Plot.bpi-2.png)<!-- -->![](./figures/Plot.bpi-3.png)<!-- -->
 
 Activity vs predictor scatterplots
 ----------------------------------
@@ -222,7 +222,7 @@ Activity vs predictor scatterplots
     ## $ food            (chr) "Sometimes", "Often", "Not at all", "Often", "...
     ## $ health          (chr) "Sometimes", "Sometimes", "Not at all", "Not a...
 
-    ## Classes 'tbl_df', 'tbl' and 'data.frame':    272 obs. of  12 variables:
+    ## Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':  272 obs. of  12 variables:
     ##  $ ID             : Factor w/ 68 levels "9","10","11",..: 1 1 1 1 2 2 2 2 3 3 ...
     ##  $ median_activity: num  9 9 9 9 6 6 6 6 7 7 ...
     ##  $ pain           : Factor w/ 2 levels "No pain","Pain": 2 2 2 2 1 1 1 1 1 1 ...
@@ -233,15 +233,164 @@ Activity vs predictor scatterplots
     ##  $ employed       : Factor w/ 2 levels "Employed","Unemployed": 2 2 2 2 1 1 1 1 1 1 ...
     ##  $ rs_score       : int  166 166 166 166 173 173 173 173 151 151 ...
     ##  $ eq5d_vas       : int  60 60 60 60 100 100 100 100 70 70 ...
-    ##  $ worry_about    : Factor w/ 4 levels "money","family",..: 1 2 3 4 1 2 3 4 1 2 ...
+    ##  $ worry_about    : chr  "money" "family" "food" "health" ...
     ##  $ rating         : Ord.factor w/ 5 levels "Not at all"<"Rarely"<..: 5 5 3 3 3 5 4 3 3 1 ...
+    ##  - attr(*, "vars")=List of 1
+    ##   ..$ : symbol ID
+    ##  - attr(*, "indices")=List of 68
+    ##   ..$ : int  0 1 2 3
+    ##   ..$ : int  4 5 6 7
+    ##   ..$ : int  8 9 10 11
+    ##   ..$ : int  12 13 14 15
+    ##   ..$ : int  16 17 18 19
+    ##   ..$ : int  20 21 22 23
+    ##   ..$ : int  24 25 26 27
+    ##   ..$ : int  28 29 30 31
+    ##   ..$ : int  32 33 34 35
+    ##   ..$ : int  36 37 38 39
+    ##   ..$ : int  40 41 42 43
+    ##   ..$ : int  44 45 46 47
+    ##   ..$ : int  48 49 50 51
+    ##   ..$ : int  52 53 54 55
+    ##   ..$ : int  56 57 58 59
+    ##   ..$ : int  60 61 62 63
+    ##   ..$ : int  64 65 66 67
+    ##   ..$ : int  68 69 70 71
+    ##   ..$ : int  72 73 74 75
+    ##   ..$ : int  76 77 78 79
+    ##   ..$ : int  80 81 82 83
+    ##   ..$ : int  84 85 86 87
+    ##   ..$ : int  88 89 90 91
+    ##   ..$ : int  92 93 94 95
+    ##   ..$ : int  96 97 98 99
+    ##   ..$ : int  100 101 102 103
+    ##   ..$ : int  104 105 106 107
+    ##   ..$ : int  108 109 110 111
+    ##   ..$ : int  112 113 114 115
+    ##   ..$ : int  116 117 118 119
+    ##   ..$ : int  120 121 122 123
+    ##   ..$ : int  124 125 126 127
+    ##   ..$ : int  128 129 130 131
+    ##   ..$ : int  132 133 134 135
+    ##   ..$ : int  136 137 138 139
+    ##   ..$ : int  140 141 142 143
+    ##   ..$ : int  144 145 146 147
+    ##   ..$ : int  148 149 150 151
+    ##   ..$ : int  152 153 154 155
+    ##   ..$ : int  156 157 158 159
+    ##   ..$ : int  160 161 162 163
+    ##   ..$ : int  164 165 166 167
+    ##   ..$ : int  168 169 170 171
+    ##   ..$ : int  172 173 174 175
+    ##   ..$ : int  176 177 178 179
+    ##   ..$ : int  180 181 182 183
+    ##   ..$ : int  184 185 186 187
+    ##   ..$ : int  188 189 190 191
+    ##   ..$ : int  192 193 194 195
+    ##   ..$ : int  196 197 198 199
+    ##   ..$ : int  200 201 202 203
+    ##   ..$ : int  204 205 206 207
+    ##   ..$ : int  208 209 210 211
+    ##   ..$ : int  212 213 214 215
+    ##   ..$ : int  216 217 218 219
+    ##   ..$ : int  220 221 222 223
+    ##   ..$ : int  224 225 226 227
+    ##   ..$ : int  228 229 230 231
+    ##   ..$ : int  232 233 234 235
+    ##   ..$ : int  236 237 238 239
+    ##   ..$ : int  240 241 242 243
+    ##   ..$ : int  244 245 246 247
+    ##   ..$ : int  248 249 250 251
+    ##   ..$ : int  252 253 254 255
+    ##   ..$ : int  256 257 258 259
+    ##   ..$ : int  260 261 262 263
+    ##   ..$ : int  264 265 266 267
+    ##   ..$ : int  268 269 270 271
+    ##  - attr(*, "group_sizes")= int  4 4 4 4 4 4 4 4 4 4 ...
+    ##  - attr(*, "biggest_group_size")= int 4
+    ##  - attr(*, "labels")='data.frame':   68 obs. of  1 variable:
+    ##   ..$ ID: Factor w/ 68 levels "9","10","11",..: 1 2 3 4 5 6 7 8 9 10 ...
+    ##   ..- attr(*, "vars")=List of 1
+    ##   .. ..$ : symbol ID
+    ##   ..- attr(*, "indices")=List of 68
+    ##   .. ..$ : int  0 68 136 204
+    ##   .. ..$ : int  1 69 137 205
+    ##   .. ..$ : int  2 70 138 206
+    ##   .. ..$ : int  3 71 139 207
+    ##   .. ..$ : int  4 72 140 208
+    ##   .. ..$ : int  5 73 141 209
+    ##   .. ..$ : int  6 74 142 210
+    ##   .. ..$ : int  7 75 143 211
+    ##   .. ..$ : int  8 76 144 212
+    ##   .. ..$ : int  9 77 145 213
+    ##   .. ..$ : int  10 78 146 214
+    ##   .. ..$ : int  11 79 147 215
+    ##   .. ..$ : int  12 80 148 216
+    ##   .. ..$ : int  13 81 149 217
+    ##   .. ..$ : int  14 82 150 218
+    ##   .. ..$ : int  15 83 151 219
+    ##   .. ..$ : int  16 84 152 220
+    ##   .. ..$ : int  17 85 153 221
+    ##   .. ..$ : int  18 86 154 222
+    ##   .. ..$ : int  19 87 155 223
+    ##   .. ..$ : int  20 88 156 224
+    ##   .. ..$ : int  21 89 157 225
+    ##   .. ..$ : int  22 90 158 226
+    ##   .. ..$ : int  23 91 159 227
+    ##   .. ..$ : int  24 92 160 228
+    ##   .. ..$ : int  25 93 161 229
+    ##   .. ..$ : int  26 94 162 230
+    ##   .. ..$ : int  27 95 163 231
+    ##   .. ..$ : int  28 96 164 232
+    ##   .. ..$ : int  29 97 165 233
+    ##   .. ..$ : int  30 98 166 234
+    ##   .. ..$ : int  31 99 167 235
+    ##   .. ..$ : int  32 100 168 236
+    ##   .. ..$ : int  33 101 169 237
+    ##   .. ..$ : int  34 102 170 238
+    ##   .. ..$ : int  35 103 171 239
+    ##   .. ..$ : int  36 104 172 240
+    ##   .. ..$ : int  37 105 173 241
+    ##   .. ..$ : int  38 106 174 242
+    ##   .. ..$ : int  39 107 175 243
+    ##   .. ..$ : int  40 108 176 244
+    ##   .. ..$ : int  41 109 177 245
+    ##   .. ..$ : int  42 110 178 246
+    ##   .. ..$ : int  43 111 179 247
+    ##   .. ..$ : int  44 112 180 248
+    ##   .. ..$ : int  45 113 181 249
+    ##   .. ..$ : int  46 114 182 250
+    ##   .. ..$ : int  47 115 183 251
+    ##   .. ..$ : int  48 116 184 252
+    ##   .. ..$ : int  49 117 185 253
+    ##   .. ..$ : int  50 118 186 254
+    ##   .. ..$ : int  51 119 187 255
+    ##   .. ..$ : int  52 120 188 256
+    ##   .. ..$ : int  53 121 189 257
+    ##   .. ..$ : int  54 122 190 258
+    ##   .. ..$ : int  55 123 191 259
+    ##   .. ..$ : int  56 124 192 260
+    ##   .. ..$ : int  57 125 193 261
+    ##   .. ..$ : int  58 126 194 262
+    ##   .. ..$ : int  59 127 195 263
+    ##   .. ..$ : int  60 128 196 264
+    ##   .. ..$ : int  61 129 197 265
+    ##   .. ..$ : int  62 130 198 266
+    ##   .. ..$ : int  63 131 199 267
+    ##   .. ..$ : int  64 132 200 268
+    ##   .. ..$ : int  65 133 201 269
+    ##   .. ..$ : int  66 134 202 270
+    ##   .. ..$ : int  67 135 203 271
+    ##   ..- attr(*, "group_sizes")= int  4 4 4 4 4 4 4 4 4 4 ...
+    ##   ..- attr(*, "biggest_group_size")= int 4
 
-Create bpi plots
-----------------
+Create activity plots
+---------------------
 
-![](./figures/Plot.act-1.png) ![](./figures/Plot.act-2.png) ![](./figures/Plot.act-3.png) ![](./figures/Plot.act-4.png) ![](./figures/Plot.act-5.png) ![](./figures/Plot.act-6.png) ![](./figures/Plot.act-7.png) ![](./figures/Plot.act-8.png)
+![](./figures/Plot.act-1.png)<!-- -->![](./figures/Plot.act-2.png)<!-- -->![](./figures/Plot.act-3.png)<!-- -->![](./figures/Plot.act-4.png)<!-- -->![](./figures/Plot.act-5.png)<!-- -->![](./figures/Plot.act-6.png)<!-- -->![](./figures/Plot.act-7.png)<!-- -->![](./figures/Plot.act-8.png)<!-- -->
 
     ## Source: local data frame [272 x 12]
+    ## Groups: ID [68]
     ## 
     ##        ID median_activity    pain   age    sex         education   bmi
     ##    (fctr)           (dbl)  (fctr) (int) (fctr)            (fctr) (dbl)
@@ -259,30 +408,30 @@ Create bpi plots
     ## Variables not shown: employed (fctr), rs_score (int), eq5d_vas (int),
     ##   worries_a (fctr), rating (fctr)
 
-![](./figures/Plot.act.b-1.png)
+![](./figures/Plot.act.b-1.png)<!-- -->
 
 Session information
 -------------------
 
-    ## R version 3.2.2 (2015-08-14)
+    ## R version 3.2.3 (2015-12-10)
     ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
-    ## Running under: OS X 10.11.1 (El Capitan)
+    ## Running under: OS X 10.11.3 (El Capitan)
     ## 
     ## locale:
-    ## [1] C
+    ## [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
     ## 
     ## attached base packages:
     ## [1] grid      stats     graphics  grDevices utils     datasets  methods  
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] cowplot_0.5.0 scales_0.3.0  ggplot2_1.0.1 tidyr_0.3.1   dplyr_0.4.3  
-    ## [6] readr_0.2.2   knitr_1.11   
+    ## [1] cowplot_0.6.0 scales_0.4.0  ggplot2_2.1.0 tidyr_0.4.1   dplyr_0.4.3  
+    ## [6] readr_0.2.2   knitr_1.12.3 
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_0.12.2      magrittr_1.5     MASS_7.3-45      munsell_0.4.2   
-    ##  [5] colorspace_1.2-6 R6_2.1.1         stringr_1.0.0    plyr_1.8.3      
-    ##  [9] tools_3.2.2      parallel_3.2.2   gtable_0.1.2     DBI_0.3.1       
-    ## [13] htmltools_0.2.6  lazyeval_0.1.10  yaml_2.1.13      assertthat_0.1  
-    ## [17] digest_0.6.8     reshape2_1.4.1   formatR_1.2.1    evaluate_0.8    
-    ## [21] rmarkdown_0.8.1  labeling_0.3     stringi_1.0-1    proto_0.3-10
+    ##  [1] Rcpp_0.12.3      magrittr_1.5     munsell_0.4.3    colorspace_1.2-6
+    ##  [5] R6_2.1.2         stringr_1.0.0    plyr_1.8.3       tools_3.2.3     
+    ##  [9] parallel_3.2.3   gtable_0.2.0     DBI_0.3.1        htmltools_0.3   
+    ## [13] yaml_2.1.13      lazyeval_0.1.10  assertthat_0.1   digest_0.6.9    
+    ## [17] reshape2_1.4.1   formatR_1.2.1    evaluate_0.8     rmarkdown_0.9.5 
+    ## [21] labeling_0.3     stringi_1.0-1
