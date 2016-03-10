@@ -76,33 +76,33 @@ Process data
 
     ## Source: local data frame [6 x 6]
     ## 
-    ##      ID  Pain bpi_interference Median_activity_duration Median_activity
-    ##   (int) (chr)            (int)                    (dbl)           (int)
-    ## 1     9  Pain                6                    235.0               9
-    ## 2    21  Pain                4                    140.0               5
-    ## 3    23  Pain                8                    250.0               6
-    ## 4    40  Pain                7                     92.5              12
-    ## 5    67  Pain                3                     70.0               6
-    ## 6    69  Pain                4                    147.5               4
-    ## Variables not shown: eq5d_mobility (chr)
+    ##      ID  Pain bpi_walk_interference Median_activity_duration
+    ##   (int) (chr)                 (int)                    (dbl)
+    ## 1     9  Pain                     5                    235.0
+    ## 2    21  Pain                     4                    140.0
+    ## 3    23  Pain                     9                    250.0
+    ## 4    40  Pain                     2                     92.5
+    ## 5    67  Pain                     0                     70.0
+    ## 6    69  Pain                     5                    147.5
+    ## Variables not shown: Median_activity (int), eq5d_mobility (chr)
 
     ## Source: local data frame [6 x 6]
     ## 
-    ##      ID  Pain bpi_interference Median_activity_duration Median_activity
-    ##   (int) (chr)            (int)                    (dbl)           (int)
-    ## 1   161  Pain                4                       40               7
-    ## 2   163  Pain                6                      195               4
-    ## 3   164  Pain                8                       20               3
-    ## 4   165  Pain                6                      110               8
-    ## 5   167  Pain                4                      175               6
-    ## 6   168  Pain                5                      135               6
-    ## Variables not shown: eq5d_mobility (chr)
+    ##      ID  Pain bpi_walk_interference Median_activity_duration
+    ##   (int) (chr)                 (int)                    (dbl)
+    ## 1   161  Pain                     6                       40
+    ## 2   163  Pain                     8                      195
+    ## 3   164  Pain                     7                       20
+    ## 4   165  Pain                     8                      110
+    ## 5   167  Pain                     3                      175
+    ## 6   168  Pain                    10                      135
+    ## Variables not shown: Median_activity (int), eq5d_mobility (chr)
 
     ## Observations: 37
     ## Variables: 6
     ## $ ID                       (int) 9, 21, 23, 40, 67, 69, 71, 72, 73, 74...
     ## $ Pain                     (chr) "Pain", "Pain", "Pain", "Pain", "Pain...
-    ## $ bpi_interference         (int) 6, 4, 8, 7, 3, 4, 5, 8, 3, 4, 3, 2, 4...
+    ## $ bpi_walk_interference    (int) 5, 4, 9, 2, 0, 5, 0, 7, 0, 4, 5, 5, 2...
     ## $ Median_activity_duration (dbl) 235.0, 140.0, 250.0, 92.5, 70.0, 147....
     ## $ Median_activity          (int) 9, 5, 6, 12, 6, 4, 5, 6, 4, 3, 4, 4, ...
     ## $ eq5d_mobility            (chr) "I have no problems in walking about"...
@@ -112,39 +112,50 @@ Process data
 Analyses
 --------
 
-### Correlation between BPI interference and duration of activity
+### Correlation between BPI interference with walking and time active
 
-**(median daily duration of activity over the past week)** ![](./figures/BPIInterference.v.ActivityDuration-1.png)<!-- -->
+**(median time active daily over the past week)** ![](./figures/BPIInterference.v.ActivityDuration-1.png)<!-- -->
 
     ## 
     ##  Asymptotic Spearman Correlation Test
     ## 
-    ## data:  bpi_interference by Median_activity_duration
-    ## Z = 0.30772, p-value = 0.7583
+    ## data:  bpi_walk_interference by Median_activity_duration
+    ## Z = -0.25138, p-value = 0.8015
     ## alternative hypothesis: true rho is not equal to 0
 
-### EQ5D mobility rating vs duration of activity
+### Correlation between BPI interference with walking and intensity of activity
 
-**(median duration of activity over the past week)** ![](./figures/EQ5DMobility.v.ActivityDuration-1.png)<!-- -->
+**(median daily intensity of activity over the past week)** ![](./figures/BPIInterference.v.ActivityIntensity-1.png)<!-- -->
+
+    ## 
+    ##  Asymptotic Spearman Correlation Test
+    ## 
+    ## data:  bpi_walk_interference by Median_activity
+    ## Z = -0.42428, p-value = 0.6714
+    ## alternative hypothesis: true rho is not equal to 0
+
+### EQ5D mobility rating vs time active
+
+**(median time active daily over the past week)** ![](./figures/EQ5DMobility.v.ActivityDuration-1.png)<!-- -->
 
     ## 
     ##  Asymptotic Wilcoxon-Mann-Whitney Test
     ## 
     ## data:  Median_activity_duration by
-    ##   eq5d_mobility (I have no problems in walking about, I have some problems in walking about)
-    ## Z = 0.27857, p-value = 0.7806
+    ##   eq5d_mobility (I have no problems in walking about < I have some problems in walking about)
+    ## Z = -0.27857, p-value = 0.7806
     ## alternative hypothesis: true mu is not equal to 0
 
 ### EQ5D mobility rating vs intensity of activity
 
-**(median intenisty of activity over the past week)** ![](./figures/EQ5DMobility.v.ActivityIntensity-1.png)<!-- -->
+**(median daily intensity of activity over the past week)** ![](./figures/EQ5DMobility.v.ActivityIntensity-1.png)<!-- -->
 
     ## 
     ##  Asymptotic Wilcoxon-Mann-Whitney Test
     ## 
     ## data:  Median_activity by
-    ##   eq5d_mobility (I have no problems in walking about, I have some problems in walking about)
-    ## Z = 0.97505, p-value = 0.3295
+    ##   eq5d_mobility (I have no problems in walking about < I have some problems in walking about)
+    ## Z = -0.97505, p-value = 0.3295
     ## alternative hypothesis: true mu is not equal to 0
 
 Session information
