@@ -17,4 +17,4 @@ This repository includes data (.csv) and analysis scripts (.Rmd), and the associ
 and scripts for the plotting of:
 
 - [Activity levels](./ActivityAnalysis/) in the subset of patients who wore accelerometers for 24-hours per day for 14 days;
-- [Supplementary plots](./SupplFigures/) for the manuscript (includes supplementary analysis of relationship between the various objective and subjective measures of activity in people with pain).
+- [Supplementary plots](./SupplFigures/) for the manuscript (includes supplementary analyses of the relationship between the various objective and subjective measures of activity in people with pain).
