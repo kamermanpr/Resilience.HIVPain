@@ -88,7 +88,9 @@ _68 participants, 37 with pain and 31 without pain_
 
 ***
 
-The files also contain [supplementary analyses](suppl.analysis.md) and plots of the relationship between objective (actigraphy) and subjective (BPI interference with walking, EQ5D mobility) measures of activity in people with pain.
+# Supplementary analyses
+
+The SupplFigures directory also contains files describing [supplementary analyses](suppl.analysis.md) and plots of the relationship between objective (actigraphy) and subjective (BPI interference with walking, EQ5D mobility) measures of activity in people with pain.
 
 ## Plots
 
