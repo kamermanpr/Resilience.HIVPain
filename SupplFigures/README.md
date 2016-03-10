@@ -1,7 +1,7 @@
 # Supplementary figures
 
 ## Overview
-A series of scatter-plots for the supplementary material provided with the manuscript _[link to be added when published]_.
+A series of plots for the supplementary material provided with the manuscript _[link to be added when published]_.
 
 **Note:**  
 
@@ -85,4 +85,29 @@ _68 participants, 37 with pain and 31 without pain_
 | family    	| Do you worry about family concerns? (Not at all, Rarely, Sometimes, Often, Nearly all the time))    	|
 | food      	| Do you worry about having enough food? (Not at all, Rarely, Sometimes, Often, Nearly all the time) 	|
 | health    	| Do you worry about your health? (Not at all, Rarely, Sometimes, Often, Nearly all the time)        	|
+
+***
+
+The files also contain [supplementary analyses](suppl.analysis.md) and plots of the relationship between objective (actigraphy) and subjective (BPI interference with walking, EQ5D mobility) measures of activity in people with pain.
+
+## Plots
+
+- BPI interference with walking score versus time active ([BPIInterference.v.ActivityDuration-1.png](./figures/BPIInterference.v.ActivityDuration-1.png), [BPIInterference.v.ActivityDuration-1.pdf](./figures/BPIInterference.v.ActivityDuration-1.pdf));
+- BPI interference with walking score versus intensity of activity ([BPIInterference.v.ActivityIntensity-1.png](./figures/BPIInterference.v.ActivityIntensity-1.png), [BPIInterference.v.ActivityIntensity-1.pdf](./figures/BPIInterference.v.ActivityIntensity-1.pdf));
+- EQ5D mobility versus time active ([EQ5DMobility.v.ActivityDuration-1.png](./figures/EQ5DMobility.v.ActivityDuration-1.png), [EQ5DMobility.v.ActivityDuration-1.pdf](./figures/EQ5DMobility.v.ActivityDuration-1.pdf));
+- EQ5D mobility subscale versus intensity of activity ([EQ5DMobility.v.ActivityIntensity-1.png](./figures/EQ5DMobility.v.ActivityIntensity-1.png), [EQ5DMobility.v.ActivityIntensity-1.pdf](./figures/EQ5DMobility.v.ActivityIntensity-1.pdf)).
+
+## Code sheet
+
+[*activity.bpi.eq5d.csv*](./data/activity.bpi.eq5d.csv)  
+_37 participants with pain, only_  
+
+|Key              |Label |
+|:----------------|:-----|
+|ID               |Participant identification number    |
+|Pain             |Is pain present? (Pain)    |
+|bpi\_walk\_interference |Median pain interference with walking (11-point NRS), scored over the last week (recorded at baseline)   |
+|Median\_activity\_duration  |Median time active (minutes) over the last 7 days of the recording period (5 days for participant #176)   |
+|Median_activity  |Median activity count over the last 7 days of the recording period (5 days for participant #176)     |
+|eq5d_mobility    |Rating of mobility on the EQ5D mobility subscale (3-point Likert scale, but only the first two items were used by participants; I have no problems in walking about, I have some problems in walking about) |
 
