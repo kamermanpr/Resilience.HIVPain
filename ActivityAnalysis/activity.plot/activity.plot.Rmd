@@ -61,8 +61,8 @@ glimpse(plot.data)
 ## Create the plot
 ```{r Plot}
 # Create a hex colour palette (colourblind friendly)
-cb1 <- c("#0072B2", "#D55E00") # line colours
-cb2 <- c('#6fafd3', '#e7a46f') # lighter shade for fill
+cb1 <- c("#000000", "#000000") # line colours
+cb2 <- c('#FFFFFF', '#888888') # lighter shade for fill
 
 # Plot the data
 plot_1 <- ggplot(data = plot.data, 
@@ -71,7 +71,7 @@ plot_1 <- ggplot(data = plot.data,
                    fill = pain, 
                    colour = pain)) + 
     geom_boxplot(position = position_dodge(0.85)) + 
-    scale_x_discrete(labels = c("0", "1-24", "25-49", "50-74", "75-100")) +
+    scale_x_discrete(labels = c("0", "1-24", "25-49", "50-74", "75-100"), expand = c(0,0)) +
     coord_cartesian(ylim = c(-20, 1400), 
                     xlim = c(0.5,5.5)) +
     scale_y_continuous(breaks = c(0, 200, 400, 600,800,1000,1200, 1400)) +
@@ -83,7 +83,8 @@ plot_1 <- ggplot(data = plot.data,
                       labels = c("No pain", "Pain")) +
     theme(axis.text = element_text(size = 18, colour = 'black'),
           axis.title = element_text(size = 18, colour='black'),
-          axis.line = element_line(colour = 'black'),
+          axis.line.x = element_line(colour = 'black'),
+          axis.line.y = element_line(colour = 'black'),
           panel.background=element_blank(),
           panel.grid = element_blank(),
           legend.title = element_blank(),
