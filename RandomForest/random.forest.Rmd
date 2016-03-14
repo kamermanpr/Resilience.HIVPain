@@ -18,14 +18,13 @@ library(tidyr)
 library(ggplot2)
 library(grid)
 library(scales)
-library(cowplot)
 library(party)
 
 # Set knitr chunk options
 opts_chunk$set(echo = FALSE,
                warning = FALSE,
                message = FALSE,
-               cache = FALSE,
+               cache = TRUE,
                fig.path = './figures/',
                fig.height = 11.69,
                fig.width = 8.27,
@@ -186,28 +185,63 @@ MinVarImp.active <- active.plot %>%
     group_by(trial) %>%
     summarise(minimum = abs(min(importance)))
 
+# Create labeling and ordering vectors
+labels <- c('Worry.Money' = 'Worries about money', 
+            'Worry.Health' = 'Worries about health', 
+            'EQ5D.vas' = 'Quality of life', 
+            'BMI' = 'Body mass index', 
+            'Female' = 'Sex', 
+            'Education' = 'Education', 
+            'Pain' = 'Pain', 
+            'Worry.Family' = 'Worries about familiy', 
+            'RS.Prop.Score' = 'Resilience', 
+            'Employment' = 'Employment', 
+            'Worry.Food' = 'Worries about food', 
+            'Age' = 'Age')
+fill <- c('Worry.Money' = '#999999', 
+            'Worry.Health' = '#999999', 
+            'EQ5D.vas' = '#999999', 
+            'BMI' = '#999999', 
+            'Female' = '#999999', 
+            'Education' = '#999999', 
+            'Pain' = '#999999', 
+            'Worry.Family' = '#999999', 
+            'RS.Prop.Score' = '#999999', 
+            'Employment' = '#000000', 
+            'Worry.Food' = '#000000', 
+            'Age' = '#000000')
+
+facet_labels <- c('Trial.1' = 'Trial 1',
+                  'Trial.2' = 'Trial 2',
+                  'Trial.3' = 'Trial 3',
+                  'Trial.4' = 'Trial 4')
+
 # ggplot
 gg.active <- ggplot(data = active.plot, 
-                    aes(x = ID, 
+                    aes(x = reorder(ID, importance), 
                         y = importance,
                         fill = ID)) +
     geom_point(shape = 21, 
                size = 5, 
                colour = 'black') +
-    facet_grid(trial~.) +
+    facet_grid(trial~., labeller = as_labeller(facet_labels)) +
     geom_hline(data = MinVarImp.active, 
                aes(yintercept = minimum), 
                linetype = 2) +
-    labs(y = '\nVariable importance\n') +
-    scale_fill_manual(values = c('#000000', '#999999', '#999999', '#999999', '#000000', '#999999', '#999999', '#999999', '#999999', '#000000', '#999999', '#999999')) +
+    labs(y = '\n\nVariable importance\n') +
     scale_y_continuous(limits = c(-0.05, 0.15), 
                        expand = c(0, 0.001)) +
-    scale_x_discrete(limits = c('Worry.Money', 'Worry.Health', 'EQ5D.vas', 'BMI', 'Female', 'Education', 'Pain', 'Worry.Family', 'RS.Prop.Score', 'Employment', 'Worry.Food', 'Age'),
-                     labels = c('Worries about money', 'Worries about health', 'Quality of life', 'Body mass index', 'Sex', 'Education', 'Pain', 'Worries about familiy', 'Resilience', 'Employment', 'Worries about food', 'Age')) +
-    theme_cowplot() +
+    scale_x_discrete(labels = labels) +
+    scale_fill_manual(values = fill) +
     theme(legend.position = 'none',
-          panel.margin.y = unit(1.3, 'lines'),
+          panel.background = element_blank(),
+          panel.margin.y = unit(1.5, 'lines'),
+          axis.line.y = element_line(colour = '#000000',
+                                   size = 0.5),
+          axis.line.x = element_line(colour = '#000000',
+                                   size = 0.5),
           axis.title.x = element_blank(),
+          axis.text = element_text(color = '#000000'),
           axis.text.x = element_text(angle = 35, 
                                      hjust = 1, 
                                      size = 16),
@@ -304,7 +338,7 @@ pain.df2 <- data.frame(ID = c("Seed", "ntree", "mtry"),
                        "Trial 2" = c(seed.123, 2000, 3), 
                        "Trial 3" = c(seed.345, 500, 3), 
                        "Trial 4" = c(seed.345, 2000, 3))
-data
+
 # Plot data
 pain.plot <- pain.df %>%
     tbl_df() %>%
@@ -319,6 +353,51 @@ MinVarImp.pain <- pain.plot %>%
     group_by(trial) %>%
     summarise(minimum = abs(min(importance)))
 
+# Create labeling and ordering vectors
+order <- c('Median.Activity',
+            'Education', 
+            'Age',
+            'Female',
+            'BMI',
+            'RS.Prop.Score', 
+            'Employment', 
+            'Worry.Family',
+            'Worry.Food',
+            'Worry.Health', 
+            'Worry.Money', 
+            'EQ5D.vas')
+
+labels <- c('Median.Activity' = 'Activity',
+            'Education' = 'Education', 
+            'Age' = 'Age',
+            'Female' = 'Sex',
+            'BMI' = 'Body mass index',
+            'RS.Prop.Score' = 'Resilience', 
+            'Employment' = 'Employment', 
+            'Worry.Family' = 'Worries about familiy',
+            'Worry.Food' = 'Worries about food',
+            'Worry.Health' = 'Worries about health', 
+            'Worry.Money' = 'Worries about money', 
+            'EQ5D.vas' = 'Quality of life')
+
+fill <- c('Median.Activity' = '#999999',
+            'Education' = '#999999', 
+            'Age' = '#999999',
+            'Female' = '#999999',
+            'BMI' = '#999999',
+            'RS.Prop.Score' = '#999999', 
+            'Employment' = '#999999', 
+            'Worry.Family' = '#999999',
+            'Worry.Food' = '#999999',
+            'Worry.Health' = '#000000', 
+            'Worry.Money' = '#000000', 
+            'EQ5D.vas' = '#000000')
+
+facet_labels <- c('Trial.1' = 'Trial 1',
+                  'Trial.2' = 'Trial 2',
+                  'Trial.3' = 'Trial 3',
+                  'Trial.4' = 'Trial 4')
+
 # ggplot
 gg.pain <- ggplot(data = pain.plot, 
                     aes(x = ID, 
@@ -327,20 +406,25 @@ gg.pain <- ggplot(data = pain.plot,
     geom_point(shape = 21, 
                size = 5, 
                colour = 'black') +
-    facet_grid(trial~.) +
+    facet_grid(trial~., labeller = as_labeller(facet_labels)) +
     geom_hline(data = MinVarImp.pain, 
                aes(yintercept = minimum), 
                linetype = 2) +
-    labs(y = '\nVariable importance\n') +
-    scale_fill_manual(values = c('#999999', '#999999', '#000000', '#999999', '#999999', '#999999', '#999999', '#999999', '#999999', '#999999', '#000000', '#000000')) +
+    labs(y = '\n\nVariable importance\n') +
+    scale_x_discrete(limits = order,
+                     labels = labels) +
+    scale_fill_manual(values = fill) +
     scale_y_continuous(limits = c(-0.05, 0.15), 
                        expand = c(0, 0.001)) +
-    scale_x_discrete(limits = c('Median.Activity', 'Education', 'Age', 'Female', 'BMI', 'RS.Prop.Score', 'Employment', 'Worry.Family', 'Worry.Food', 'Worry.Health', 'Worry.Money', 'EQ5D.vas'),
-                     labels = c('Activity', 'Education', 'Age', 'Sex', 'Body mass index', 'Resilience', 'Employment', 'Worries about family', 'Worries about food', 'Worries about health', 'Worries about money', 'Quality of life')) +
-    theme_cowplot() +
-    theme(legend.position = 'none',
-          panel.margin.y = unit(1.3, 'lines'),
+     theme(legend.position = 'none',
+          panel.background = element_blank(),
+          panel.margin.y = unit(1.5, 'lines'),
+          axis.line.y = element_line(colour = '#000000',
+                                   size = 0.5),
+          axis.line.x = element_line(colour = '#000000',
+                                   size = 0.5),
           axis.title.x = element_blank(),
+          axis.text = element_text(color = '#000000'),
           axis.text.x = element_text(angle = 35, 
                                      hjust = 1, 
                                      size = 16),
