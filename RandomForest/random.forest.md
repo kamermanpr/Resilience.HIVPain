@@ -147,24 +147,6 @@ Pain
 
 ### Random Forest
 
-    ## Source: local data frame [68 x 13]
-    ## 
-    ##    Median.Activity   Pain   Age Female Education   BMI Employment
-    ##              (dbl) (fctr) (int) (fctr)    (fctr) (dbl)     (fctr)
-    ## 1                9    Yes    34   Male   Primary  26.6         No
-    ## 2                6     No    49 Female   Primary  28.3        Yes
-    ## 3                7     No    32 Female   Primary  25.5        Yes
-    ## 4                5     No    51   Male   Primary  23.2        Yes
-    ## 5                5    Yes    34 Female Secondary  30.1        Yes
-    ## 6                6    Yes    47   Male Secondary  16.0         No
-    ## 7                4     No    53 Female Secondary  25.0        Yes
-    ## 8                4     No    37 Female Secondary  26.8        Yes
-    ## 9                3     No    40 Female  Tertiary  19.3        Yes
-    ## 10               4     No    40 Female  Tertiary  22.2        Yes
-    ## ..             ...    ...   ...    ...       ...   ...        ...
-    ## Variables not shown: RS.Prop.Score (int), EQ5D.vas (int), Worry.Money
-    ##   (fctr), Worry.Family (fctr), Worry.Food (fctr), Worry.Health (fctr)
-
 ![](./figures/pain.forest-1.png)<!-- -->
 
 |                             | Trial 1 | Trial 2 | Trial 3 | Trial 4 |
