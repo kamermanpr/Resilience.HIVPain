@@ -87,6 +87,11 @@ pander(summary(alpha(pc.1$rho)),
        justify='left', 
        round = 2, 
        caption='CD-RISC: internal consistency')
+
+# Drop-one summary overall alpha
+kable(alpha(pc.1$rho)$alpha.drop)
+# Drop-one summary for each item
+kable(alpha(pc.1$rho)$item.stats)
 ```
 
 ### Factor analysis - initial
@@ -245,6 +250,11 @@ pander(summary(alpha(pc.2$rho)),
        justify='left', 
        round = 2, 
        caption='CD-RISC: internal consistency')
+
+# Drop-one summary overall alpha
+kable(alpha(pc.2$rho)$alpha.drop)
+# Drop-one summary for each item
+kable(alpha(pc.2$rho)$item.stats)
 ```
 
 ### Factor analysis
