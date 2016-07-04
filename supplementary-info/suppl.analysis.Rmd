@@ -1,0 +1,236 @@
+---
+title: 'Supplementary comparison of activity measures'
+author: 'Peter Kamerman'
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+output: 
+    md_document:
+        variant: markdown_github
+---
+
+## Load required packages and set chunk options
+```{r LoadPackages, include = FALSE}
+# Load packages
+library(knitr)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(coin)
+library(ggplot2)
+library(scales)
+library(grid)
+library(cowplot)
+
+# Load palette
+cb8.categorical <- c("#0072B2", "#D55E00", "#009E73", "#F0E442", "#56B4E9", "#E69F00", "#CC79A7", "#999999")
+
+
+# knitr chunk options
+opts_chunk$set(echo = FALSE,
+               warning = FALSE,
+               message = FALSE,
+               fig.path = './figures/',
+               fig.width = 11.7,
+               fig.height = 8.2,
+               dev = c('png', 'pdf'),
+               tidy = FALSE, 
+               tidy.opts = list(width.cutoff = 65))
+```
+
+## Process data
+### Import
+```{r DataImport, echo = TRUE}
+data <- read_csv('./data/activity.bpi.eq5d.csv')
+```
+
+### Quick look
+```{r QuickLook}
+# Top-and-tail
+head(data)
+tail(data)
+glimpse(data)
+```
+
+### Clean
+```{r Clean, echo = TRUE}
+data.1 <- data %>%
+    mutate(ID = factor(ID),
+           Pain = factor(Pain),
+           eq5d_mobility = factor(eq5d_mobility,
+                                  levels = c('I have no problems in walking about', 'I have some problems in walking about'),
+                                  labels = c('I have no problems in walking about', 'I have some problems in walking about'),
+                                  ordered = TRUE))
+```
+
+## Analyses
+### Correlation between BPI interference with walking and time active
+**(median time active daily over the past week)**
+```{r BPIInterference.v.ActivityDuration}
+# Extract required data
+data.cor.duration <- data.1 %>%
+    select(Pain, bpi_walk_interference, Median_activity_duration)
+
+# Scatterplot 
+scatter.plot.duration <- ggplot(data.cor.duration,
+                 aes(x = bpi_walk_interference,
+                     y = Median_activity_duration,
+                     fill = Pain,
+                     colour = Pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(x = '\nMedian pain interference with walking (11-point NRS)',
+         y = 'Median time active daily (minutes)\n',
+         title = 'Pain interference vs time active\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme_cowplot() +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour = 'black'),
+          axis.ticks = element_blank(), 
+          panel.grid.major = element_line(colour = 'grey80'),
+          panel.background = element_blank(),
+          legend.position = 'none')
+scatter.plot.duration
+
+# Perform Spearman's correlation
+result.cor.duration <- spearman_test(bpi_walk_interference ~ Median_activity_duration,
+                            data = data.cor.duration)
+result.cor.duration
+```
+
+### Correlation between BPI interference with walking and intensity of activity
+**(median daily intensity of activity over the past week)**
+```{r BPIInterference.v.ActivityIntensity}
+# Extract required data
+data.cor.intensity <- data.1 %>%
+    select(Pain, bpi_walk_interference, Median_activity)
+
+# Scatterplot 
+scatter.plot.intensity <- ggplot(data.cor.intensity,
+                 aes(x = bpi_walk_interference,
+                     y = Median_activity,
+                     fill = Pain,
+                     colour = Pain)) +
+    geom_jitter(size = 4, shape = 21, alpha = 0.5) +
+    labs(x = '\nMedian pain interference with walking (11-point NRS)',
+         y = 'Median daily intensity of activity (counts)\n',
+         title = 'Pain interference vs intensity of activity\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    theme_cowplot() +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour = 'black'),
+          axis.ticks = element_blank(), 
+          panel.grid.major = element_line(colour = 'grey80'),
+          panel.background = element_blank(),
+          legend.position = 'none')
+scatter.plot.intensity
+
+# Perform Spearman's correlation
+result.cor.intensity <- spearman_test(bpi_walk_interference ~ Median_activity,
+                            data = data.cor.intensity)
+result.cor.intensity
+```
+
+### EQ5D mobility rating vs time active
+**(median time active daily over the past week)**
+```{r EQ5DMobility.v.ActivityDuration}
+# Extract required data
+data.duration <- data.1 %>%
+    select(Pain, eq5d_mobility, Median_activity_duration)
+
+# Scatterplot 
+duration.plot <- ggplot(data.duration,
+                 aes(x = eq5d_mobility,
+                     y = Median_activity_duration,
+                     fill = eq5d_mobility,
+                     colour = eq5d_mobility)) +
+    geom_boxplot(fill = 'white', colour = 'white') +
+    geom_boxplot(size = 1, alpha = 0.5) +
+    geom_jitter() +
+    labs(y = 'Median time active daily (minutes)\n',
+         title = 'EQ5D mobility rating vs duration of activity\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    scale_x_discrete(breaks = c('I have no problems in walking about', 
+                              'I have some problems in walking about'),
+                   labels = c('I have no problems\nin walking about', 
+                              'I have some problems\nin walking about')) +
+    theme_cowplot() +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour = 'black'),
+          axis.title.x = element_blank(),
+          axis.ticks = element_blank(), 
+          panel.grid.major = element_line(colour = 'grey80'),
+          panel.background = element_blank(),
+          legend.position = 'none')
+duration.plot
+
+# Wilcoxon rank sum test
+result.duration <- wilcox_test(Median_activity_duration ~ eq5d_mobility, 
+                               data = data.duration)
+result.duration
+```
+
+### EQ5D mobility rating vs intensity of activity
+**(median daily intensity of activity over the past week)**
+```{r EQ5DMobility.v.ActivityIntensity}
+# Extract required data
+data.intensity <- data.1 %>%
+    select(Pain, eq5d_mobility, Median_activity)
+
+# Scatterplot 
+intensity.plot <- ggplot(data.intensity,
+                 aes(x = eq5d_mobility,
+                     y = Median_activity,
+                     fill = eq5d_mobility,
+                     colour = eq5d_mobility)) +
+    geom_boxplot(fill = 'white', colour = 'white') +
+    geom_boxplot(size = 1, alpha = 0.5) +
+    geom_jitter() +
+    labs(y = 'Median daily intensity of activity (counts)\n',
+         title = 'EQ5D mobility rating vs intensity of activity\n') +
+    scale_fill_manual(values = cb8.categorical) +
+    scale_colour_manual(values = cb8.categorical) +
+    scale_x_discrete(breaks = c('I have no problems in walking about', 
+                              'I have some problems in walking about'),
+                   labels = c('I have no problems\nin walking about', 
+                              'I have some problems\nin walking about')) +
+    theme_cowplot() +
+    theme(plot.title = element_text(face = 'bold', 
+                                    size = 18, 
+                                    colour = 'black'),
+          axis.text = element_text(size = 18, 
+                                   colour = 'black'),
+          axis.title = element_text(size = 18, 
+                                    colour = 'black'),
+          axis.title.x = element_blank(),
+          axis.ticks = element_blank(), 
+          panel.grid.major = element_line(colour = 'grey80'),
+          panel.background = element_blank(),
+          legend.position = 'none')
+intensity.plot
+
+# Wilcoxon rank sum test
+result.intensity <- wilcox_test(Median_activity ~ eq5d_mobility, 
+                               data = data.intensity)
+result.intensity
+```
+
+## Session information
+```{r SessionInfo}
+sessionInfo()
+```

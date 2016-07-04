@@ -1,0 +1,442 @@
+---
+title: "Regression tree analysis"
+author: 'Peter Kamerman' 
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: 
+  md_document:
+    variant: markdown_github
+---
+
+## Load packages and set chunk options
+```{r miscellaneous, include = FALSE}
+# Load libraries
+library(pander)
+library(readr)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(grid)
+library(scales)
+library(party)
+
+# Set knitr chunk options
+opts_chunk$set(echo = FALSE,
+               warning = FALSE,
+               message = FALSE,
+               cache = TRUE,
+               fig.path = './figures/',
+               fig.height = 11.69,
+               fig.width = 8.27,
+               dev = c('png', 'pdf'),
+               cache.extra = rand_seed,
+               tidy = TRUE, 
+               tidy.opts = list(width.cutoff = 65))
+```
+
+## Import data
+```{r import, echo = TRUE}
+# Read csv
+data <- read_csv("./data/random.forest.csv")
+# Remove patient ID column
+data <- data[2:14]
+```
+
+## Inspect and clean data
+```{r look}
+# Inspect the data
+head(data)
+tail(data)
+summary(data)
+str(data)
+```
+
+## Clean
+```{r clean, echo = TRUE}
+# Convert data classes as required
+data$Pain <- factor(data$Pain, 
+                    levels = c(0,1), 
+                    labels = c('No', 'Yes'))
+data$Female <- factor(data$Female, 
+                      levels = c(0,1), 
+                      labels = c('Male', 'Female'))
+data$Education <- factor(data$Education, 
+                         levels = c(0,1,2,3), 
+                         labels = c('None', 'Primary', 'Secondary', 'Tertiary'))
+data$Employment <- factor(data$Employment, 
+                          levels = c(0,1), 
+                          labels = c('No', 'Yes'))
+data$Worry.Money <- factor(data$Worry.Money, 
+                           levels = c(0,1,2,3,4), 
+                           labels = c('Not at all', 'Rarely', 'Sometimes', 'Often', 'Nearly all the time'), 
+                           ordered = T)
+data$Worry.Family <- factor(data$Worry.Family, 
+                            levels = c(0,1,2,3,4), 
+                            labels = c('Not at all', 'Rarely', 'Sometimes', 'Often', 'Nearly all the time'), 
+                            ordered = T)
+data$Worry.Food <- factor(data$Worry.Food, 
+                          levels = c(0,1,2,3,4), 
+                          labels = c('Not at all', 'Rarely', 'Sometimes', 'Often', 'Nearly all the time'), 
+                          ordered = T)
+data$Worry.Health <- factor(data$Worry.Health, 
+                            levels = c(0,1,2,3,4), 
+                            labels = c('Not at all', 'Rarely', 'Sometimes', 'Often', 'Nearly all the time'), 
+                            ordered = T)
+
+# Remove incomplete cases
+data.2 <- data[complete.cases(data), ]
+
+# dim data
+dim(data)
+dim(data.2)
+```
+
+## Activity
+### Random Forest
+```{r activity.forest}
+# Trial 1 (ntree = 500, mtry = 3, seed = 123)
+## Set seed
+seed.123  <-  123
+set.seed(seed.123)
+## Set parameters (ntree = 500, mtry = 3)
+### 'mtry' estimated to be sqrt of variables 
+active.controls.1 <- cforest_unbiased(ntree = 500, 
+                                      mtry = 3)
+## Forest
+active.forest.1 <- cforest(Median.Activity~., 
+                           data = data.2, 
+                           controls = active.controls.1)
+## Extract variable importance
+active.varimp.1 <- varimp(active.forest.1, 
+                          conditional = TRUE)
+active.trial.1 <- active.varimp.1
+
+# Trial 2 (ntree = 2000, mtry = 3, seed = 123)
+set.seed(seed.123)
+## Set parameters (ntree = 2000, mtry = 3) 
+### 'mtry' estimated to be sqrt of variables
+active.controls.2 <- cforest_unbiased(ntree = 2000, 
+                                      mtry = 3)
+## Forest
+active.forest.2 <- cforest(Median.Activity~., 
+                           data = data.2, 
+                           controls = active.controls.2)
+## Extract variable importance
+active.varimp.2 <- varimp(active.forest.2, 
+                          conditional = TRUE)
+active.trial.2 <- active.varimp.2
+
+# Trial 3 (ntree = 500, mtry = 3, seed = 345)
+## Set seed
+seed.345 <- 345
+set.seed(seed.345)
+## Set parameters (ntree = 500, mtry = 3)
+### 'mtry' estimated to be sqrt of variables 
+active.controls.3 <- cforest_unbiased(ntree = 500, 
+                                      mtry = 3)
+## Forest
+active.forest.3 <- cforest(Median.Activity~., 
+                           data = data.2, 
+                           controls = active.controls.3)
+## Extract variable importance
+active.varimp.3 <- varimp(active.forest.3, 
+                          conditional = TRUE)
+active.trial.3 <- active.varimp.3
+
+# Trial 4 (ntree = 2000, mtry = 3, seed = 345)
+set.seed(seed.345)
+## Set parameters (ntree = 2000, mtry = 3) 
+### 'mtry' estimated to be sqrt of variables
+active.controls.4 <- cforest_unbiased(ntree = 2000, 
+                                      mtry = 3)
+## Forest
+active.forest.4 <- cforest(Median.Activity~., 
+                           data = data.2, 
+                           controls = active.controls.4)
+## Extract variable importance
+active.varimp.4 <- varimp(active.forest.4, 
+                          conditional = TRUE)
+active.trial.4 <- active.varimp.4
+
+## make a dataframe (active.df) of variable importance models
+active.df <- data.frame(ID = names(active.trial.1),
+                      "Trial 1" = active.trial.1, 
+                      "Trial 2" = active.trial.2, 
+                      "Trial 3" = active.trial.3, 
+                      "Trial 4" = active.trial.4)
+
+## make a dataframe (active.df2) of control parameters
+active.df2 <- data.frame(ID = c("Seed", "ntree", "mtry"), 
+                       "Trial 1" = c(seed.123, 500, 3), 
+                       "Trial 2" = c(seed.123, 2000, 3), 
+                       "Trial 3" = c(seed.345, 500, 3), 
+                       "Trial 4" = c(seed.345, 2000, 3))
+# Plot data
+active.plot <- active.df %>%
+    tbl_df() %>%
+    gather(key = trial,
+           value = importance,
+           Trial.1:Trial.4) %>%
+    group_by(trial) %>%
+    arrange(importance)
+
+# create df with data to plot abs(min(variable_importance))
+MinVarImp.active <- active.plot %>%
+    group_by(trial) %>%
+    summarise(minimum = abs(min(importance)))
+
+# Create labeling and ordering vectors
+labels <- c('Worry.Money' = 'Worries about money', 
+            'Worry.Health' = 'Worries about health', 
+            'EQ5D.vas' = 'Quality of life', 
+            'BMI' = 'Body mass index', 
+            'Female' = 'Sex', 
+            'Education' = 'Education', 
+            'Pain' = 'Pain', 
+            'Worry.Family' = 'Worries about familiy', 
+            'RS.Prop.Score' = 'Resilience', 
+            'Employment' = 'Employment', 
+            'Worry.Food' = 'Worries about food', 
+            'Age' = 'Age')
+fill <- c('Worry.Money' = '#999999', 
+            'Worry.Health' = '#999999', 
+            'EQ5D.vas' = '#999999', 
+            'BMI' = '#999999', 
+            'Female' = '#999999', 
+            'Education' = '#999999', 
+            'Pain' = '#999999', 
+            'Worry.Family' = '#999999', 
+            'RS.Prop.Score' = '#999999', 
+            'Employment' = '#000000', 
+            'Worry.Food' = '#000000', 
+            'Age' = '#000000')
+
+facet_labels <- c('Trial.1' = 'Trial 1',
+                  'Trial.2' = 'Trial 2',
+                  'Trial.3' = 'Trial 3',
+                  'Trial.4' = 'Trial 4')
+
+# ggplot
+gg.active <- ggplot(data = active.plot, 
+                    aes(x = reorder(ID, importance), 
+                        y = importance,
+                        fill = ID)) +
+    geom_point(shape = 21, 
+               size = 5, 
+               colour = 'black') +
+    facet_grid(trial~., labeller = as_labeller(facet_labels)) +
+    geom_hline(data = MinVarImp.active, 
+               aes(yintercept = minimum), 
+               linetype = 2) +
+    labs(y = '\n\nVariable importance\n') +
+    scale_y_continuous(limits = c(-0.05, 0.15), 
+                       expand = c(0, 0.001)) +
+    scale_x_discrete(labels = labels) +
+    scale_fill_manual(values = fill) +
+    theme(legend.position = 'none',
+          panel.background = element_blank(),
+          panel.margin.y = unit(1.5, 'lines'),
+          axis.line.y = element_line(colour = '#000000',
+                                   size = 0.5),
+          axis.line.x = element_line(colour = '#000000',
+                                   size = 0.5),
+          axis.title.x = element_blank(),
+          axis.text = element_text(color = '#000000'),
+          axis.text.x = element_text(angle = 35, 
+                                     hjust = 1, 
+                                     size = 16),
+          axis.text.y = element_text(size = 16),
+          axis.title.y = element_text(size = 16))
+gg.active
+
+# Report random forest settings for each plot
+c('Seed','Number of trees grown', 'Number of variables sampled') %>%
+    data.frame(Variable = .) %>%
+    tbl_df() %>%
+    bind_cols(., active.df2) %>%
+    select(Variable, Trial.1, Trial.2, Trial.3, Trial.4) %>%
+    kable(., format = 'markdown', align = 'l', caption = 'Random forest condition settings', col.names = c('', 'Trial 1', 'Trial 2', 'Trial 3', 'Trial 4'))
+```
+
+## Pain
+### Random Forest
+```{r pain.forest}
+# Trial 1 (ntree = 500, mtry = 3, seed = 123)
+## Set seed
+seed.123 <- 123
+set.seed(seed.123)
+## Set parameters (ntree = 500, mtry = 3)
+### 'mtry' estimated to be sqrt of variables 
+pain.controls.1 <- cforest_unbiased(ntree = 500, 
+                                    mtry = 3)
+## Forest
+pain.forest.1 <- cforest(Pain~., 
+                         data = data.2, 
+                         controls = pain.controls.1)
+## Extract variable importance
+pain.varimp.1 <- varimp(pain.forest.1, 
+                        conditional = TRUE)
+pain.trial.1 <- pain.varimp.1
+
+# Trial 2 (ntree = 2000, mtry = 3, seed = 123)
+set.seed(seed.123)
+## Set parameters (ntree = 2000, mtry = 3) 
+### 'mtry' estimated to be sqrt of variables
+pain.controls.2 <- cforest_unbiased(ntree = 2000, 
+                                    mtry = 3)
+## Forest
+pain.forest.2 <- cforest(Pain~., 
+                         data = data.2, 
+                         controls = pain.controls.2)
+## Extract variable importance
+pain.varimp.2 <- varimp(pain.forest.2, 
+                        conditional = TRUE)
+pain.trial.2 <- pain.varimp.2
+
+# Trial 3 (ntree = 500, mtry = 3, seed = 345)
+## Set seed
+seed.345 <- 345
+set.seed(seed.345)
+## Set parameters (ntree = 500, mtry = 3)
+### 'mtry' estimated to be sqrt of variables 
+pain.controls.3 <- cforest_unbiased(ntree = 500, 
+                                    mtry = 3)
+## Forest
+pain.forest.3 <- cforest(Pain~., 
+                         data = data.2, 
+                         controls = pain.controls.3)
+## Extract variable importance
+pain.varimp.3 <- varimp(pain.forest.3, 
+                        conditional = TRUE)
+pain.trial.3 <- pain.varimp.3
+
+# Trial 4 (ntree = 2000, mtry = 3, seed = 345)
+set.seed(seed.345)
+## Set parameters (ntree = 2000, mtry = 3) 
+### 'mtry' estimated to be sqrt of variables
+pain.controls.4 <- cforest_unbiased(ntree = 2000, 
+                                    mtry = 3)
+## Forest
+pain.forest.4 <- cforest(Pain~., 
+                         data = data.2, 
+                         controls = pain.controls.4)
+## Extract variable importance
+pain.varimp.4 <- varimp(pain.forest.4, 
+                        conditional = TRUE)
+pain.trial.4 <- pain.varimp.4
+
+## make a dataframe (active.df) of variable importance models
+pain.df <- data.frame(ID = names(pain.trial.1),
+                      "Trial 1" = pain.trial.1, 
+                      "Trial 2" = pain.trial.2, 
+                      "Trial 3" = pain.trial.3, 
+                      "Trial 4" = pain.trial.4)
+
+## make a dataframe (pain.df2) of control parameters
+pain.df2 <- data.frame(ID = c("Seed", "ntree", "mtry"), 
+                       "Trial 1" = c(seed.123, 500, 3), 
+                       "Trial 2" = c(seed.123, 2000, 3), 
+                       "Trial 3" = c(seed.345, 500, 3), 
+                       "Trial 4" = c(seed.345, 2000, 3))
+
+# Plot data
+pain.plot <- pain.df %>%
+    tbl_df() %>%
+    gather(key = trial,
+           value = importance,
+           Trial.1:Trial.4) %>%
+    group_by(trial) %>%
+    arrange(importance)
+
+# create df with data to plot abs(min(variable_importance))
+MinVarImp.pain <- pain.plot %>%
+    group_by(trial) %>%
+    summarise(minimum = abs(min(importance)))
+
+# Create labeling and ordering vectors
+order <- c('Median.Activity',
+            'Education', 
+            'Age',
+            'Female',
+            'BMI',
+            'RS.Prop.Score', 
+            'Employment', 
+            'Worry.Family',
+            'Worry.Food',
+            'Worry.Health', 
+            'Worry.Money', 
+            'EQ5D.vas')
+
+labels <- c('Median.Activity' = 'Activity',
+            'Education' = 'Education', 
+            'Age' = 'Age',
+            'Female' = 'Sex',
+            'BMI' = 'Body mass index',
+            'RS.Prop.Score' = 'Resilience', 
+            'Employment' = 'Employment', 
+            'Worry.Family' = 'Worries about familiy',
+            'Worry.Food' = 'Worries about food',
+            'Worry.Health' = 'Worries about health', 
+            'Worry.Money' = 'Worries about money', 
+            'EQ5D.vas' = 'Quality of life')
+
+fill <- c('Median.Activity' = '#999999',
+            'Education' = '#999999', 
+            'Age' = '#999999',
+            'Female' = '#999999',
+            'BMI' = '#999999',
+            'RS.Prop.Score' = '#999999', 
+            'Employment' = '#999999', 
+            'Worry.Family' = '#999999',
+            'Worry.Food' = '#999999',
+            'Worry.Health' = '#000000', 
+            'Worry.Money' = '#000000', 
+            'EQ5D.vas' = '#000000')
+
+facet_labels <- c('Trial.1' = 'Trial 1',
+                  'Trial.2' = 'Trial 2',
+                  'Trial.3' = 'Trial 3',
+                  'Trial.4' = 'Trial 4')
+
+# ggplot
+gg.pain <- ggplot(data = pain.plot, 
+                    aes(x = ID, 
+                        y = importance,
+                        fill = ID)) +
+    geom_point(shape = 21, 
+               size = 5, 
+               colour = 'black') +
+    facet_grid(trial~., labeller = as_labeller(facet_labels)) +
+    geom_hline(data = MinVarImp.pain, 
+               aes(yintercept = minimum), 
+               linetype = 2) +
+    labs(y = '\n\nVariable importance\n') +
+    scale_x_discrete(limits = order,
+                     labels = labels) +
+    scale_fill_manual(values = fill) +
+    scale_y_continuous(limits = c(-0.05, 0.15), 
+                       expand = c(0, 0.001)) +
+     theme(legend.position = 'none',
+          panel.background = element_blank(),
+          panel.margin.y = unit(1.5, 'lines'),
+          axis.line.y = element_line(colour = '#000000',
+                                   size = 0.5),
+          axis.line.x = element_line(colour = '#000000',
+                                   size = 0.5),
+          axis.title.x = element_blank(),
+          axis.text = element_text(color = '#000000'),
+          axis.text.x = element_text(angle = 35, 
+                                     hjust = 1, 
+                                     size = 16),
+          axis.text.y = element_text(size = 16),
+          axis.title.y = element_text(size = 16))
+gg.pain
+
+# Report random forest settings for each plot
+c('Seed','Number of trees grown', 'Number of variables sampled') %>%
+    data.frame(Variable = .) %>%
+    tbl_df() %>%
+    bind_cols(., pain.df2) %>%
+    select(Variable, Trial.1, Trial.2, Trial.3, Trial.4) %>%
+    kable(., format = 'markdown', align = 'l', caption = 'Random forest condition settings', col.names = c('', 'Trial 1', 'Trial 2', 'Trial 3', 'Trial 4'))
+```
