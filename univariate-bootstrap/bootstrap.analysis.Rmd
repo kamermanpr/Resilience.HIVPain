@@ -1,0 +1,699 @@
+---
+title: "Bootstrap analyses"
+author: "Peter Kamerman and Antonia Wadley"
+date: "7 July 2016"
+output: 
+    github_document:
+        toc: true
+        toc_depth: 4
+---
+
+**Last updated: `r format(Sys.time(), "%B %d, %Y")`**
+
+****
+
+# Session setup
+```{r sessionSetup, message = FALSE}
+# Load packages
+library(svglite)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+# set seed
+set.seed(1234)
+
+# knitr chunk options
+opts_chunk$set(echo = TRUE,
+               warning = FALSE,
+               message = FALSE,
+               cache = TRUE,
+               cache.extra = rand_seed,
+               fig.path = './figures/',
+               fig.width = 7,
+               fig.height = 7,
+               dev = c('png', 'svg'),
+               tidy = FALSE)
+```
+
+# Load data
+```{r import_data}
+data <- read_csv('./data/data.csv')
+data_activity <- read_csv('./data/activity-data.csv')
+```
+
+# Quick look
+```{r quick_look}
+############################################################
+#                                                          #
+#                           Data                           #
+#                                                          #
+############################################################
+dim(data)
+names(data)
+head(data)
+tail(data)
+glimpse(data)
+# summary(data)
+
+############################################################
+#                                                          #
+#                      Activity data                       #
+#                                                          #
+############################################################
+dim(data_activity)
+names(data_activity)
+head(data_activity)
+tail(data_activity)
+glimpse(data_activity)
+# summary(data_activity)
+```
+
+# Process data
+```{r process_data}
+############################################################
+#                                                          #
+#               Merge data and data_activity               #
+#                                                          #
+############################################################
+data <- data %>%
+    left_join(data_activity, by = 'id') %>%
+    mutate(pain = pain.x) %>%
+    select(-pain.x, -pain.y)
+
+############################################################
+#                                                          #
+#                      Column formats                      #
+#                                                          #
+############################################################
+# Convert chr values to factors
+data_1 <- data %>%
+    mutate(pain = factor(pain),
+           actigraphy = factor(actigraphy),
+           eq5d_vas = eq5d_vas/100)
+
+# Convert eq5d mobility to numeric so that 
+# Spearman's correlation doesn't throw a fit
+data_1$eq5d_mobility[data_1$eq5d_mobility == 'no_problems'] <- 0 
+data_1$eq5d_mobility[data_1$eq5d_mobility == 'some_problems'] <- 1 
+data_1$eq5d_mobility <- as.numeric(data_1$eq5d_mobility)
+
+############################################################
+#                                                          #
+#              Generate subsets for use later              #
+#                                                          #
+############################################################
+# Pain only
+data_pain <- data_1 %>%
+    filter(pain == 'Pain')
+# Activity only
+data_activity <- data_1 %>%
+    filter(actigraphy == 'Yes')
+## Activity + pain
+data_act_pain <- data_activity %>%
+    filter(pain == 'Pain')
+## Activity + no pain
+data_act_no.pain <- data_activity %>%
+    filter(pain == 'No pain')
+```
+
+****
+
+# Spearman correlation
+
+## Spearman bootstrapping and permutation function
+```{r spearmans}
+############################################################
+#                                                          #
+#  Bootstrap Spearman's correlation with permuted p-value  #
+#                                                          #
+############################################################
+
+# Create function to generate a bootstrap Spearman Rho
+# and to permute a p-value. 
+
+# 10000 iterations for both tests
+# Random seed = 1234
+
+# Arguments
+## data:    Dataframe containing the data to be analysed.
+## var_?:   Name of the two variables to analyse. Use the form: 'name'.
+
+boot_spear <- function(data, var_1, var_2) {
+    
+    # Set seed
+    set.seed(1234)
+    
+    # Create vector of variable names
+    variable_names <- c(var_1, var_2)
+    
+    # Subset input data according to variable names 
+    # and filter out incomplete cases
+    
+    # Attach required package
+    require(dplyr)
+    
+    data_subset <- data[ , names(data) %in% variable_names] %>%
+        filter(complete.cases(.)) %>%
+        select_(var_1, var_2) # use standard evaluation
+    
+    # Check the columns are correct
+    if(var_1 %in% names(data_pain) != TRUE |
+       var_2 %in% names(data_pain) != TRUE) {
+               warning('Column names of subsetted data DO NOT match the variable names provided in \'var_1\' and \'var_2\'')
+        } 
+    
+    ###################
+    #  Bootstrapping  #
+    ###################
+    
+    # Attach required packages
+    require(boot)
+    
+    # Boot 'statistic' function
+    spear <- function(data_subset, i) {
+        d <- data_subset[i, ]
+        cor(d[[1]], d[[2]],
+            method = 'spearman')
+    }
+    
+    # Generate bootstrap sample
+    boot_output <- boot(data_subset, 
+                        statistic = spear,
+                        R = 10000,
+                        sim = 'ordinary',
+                        stype = 'i')
+    
+    # Get 95%CI of bootstrapped sample
+    boot_95CI <- boot.ci(boot_output, type = 'basic')
+    
+    # Generate plot of bootstrapped sample 
+    boot_plot <- plot(boot_output)
+
+    #########################
+    #  p-value permutation  #
+    #########################
+    
+    # Attach required packages
+    require(coin)
+    
+    # Generate permuted p-value
+    perm_output <- spearman_test(data_subset[[1]] ~ data_subset[[2]],
+                                 distribution = 'approximate',
+                                 B = 10000)
+    
+    ###########################
+    #  Bring it all together  #
+    ###########################
+    
+    # Create list of objects generated so far
+    output <- list(paste0('INPUT VARIABLES: ', 
+                          variable_names[1], ' and ',
+                          variable_names[2]),
+                   paste0('Passed internal subsetting check'),
+                   paste0('ORIGINAL t0 = ', 
+                          round(mean(boot_output$t), 7)),
+                   boot_plot,
+                   boot_95CI,
+                   perm_output)
+    
+    # Print list
+    output
+}
+```
+
+## Analysis
+
+### WHOLE COHORT
+
+#### EQ5D VAS vs resilience
+```{r eq5dvas_res}
+
+boot_spear(data = data_1, 
+           var_1 = 'eq5d_vas', 
+           var_2 = 'resilience')
+
+```
+
+### PAIN COHORT ONLY
+#### Worst pain vs resilience
+```{r wpi_res}
+
+boot_spear(data = data_pain, 
+           var_1 = 'wpi', 
+           var_2 = 'resilience')
+
+```
+
+#### Least pain vs resilience
+```{r lpi_res}
+
+boot_spear(data = data_pain, 
+           var_1 = 'lpi', 
+           var_2 = 'resilience')
+
+```
+
+#### Nadir CD4 vs resilience
+```{r cd4_res}
+
+boot_spear(data = data_pain, 
+           var_1 = 'nadir_cd4', 
+           var_2 = 'resilience')
+
+```
+
+#### BPI inteference vs resilience
+```{r bpi_res}
+
+boot_spear(data = data_pain, 
+           var_1 = 'bpi_i', 
+           var_2 = 'resilience')
+
+```
+
+#### BPI inteference vs worst pain
+```{r bpi_wpi}
+
+boot_spear(data = data_pain, 
+           var_1 = 'bpi_i', 
+           var_2 = 'wpi')
+
+```
+
+#### EQ5D VAS vs worst pain
+```{r eq5dv_wpi}
+
+boot_spear(data = data_pain, 
+           var_1 = 'eq5d_vas', 
+           var_2 = 'wpi')
+
+```
+
+#### EQ5D mobility vs BPI walking
+```{r eq5dm_bpiw}
+
+boot_spear(data = data_pain, 
+           var_1 = 'eq5d_mobility', 
+           var_2 = 'bpi_walking')
+
+```
+
+### ACTIGRAPHY COHORT 
+_(pain and no pain)_
+
+#### Median daily activity vs resilience
+```{r act_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'median_activity', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'median_activity', 
+           var_2 = 'resilience')
+
+```
+
+#### Minutes active per day vs resilience
+```{r act2_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'active_min', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'active_min', 
+           var_2 = 'resilience')
+
+```
+
+#### Time spent at 0% of maximum activity vs resilience
+```{r q0_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'min_q0', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'min_q0', 
+           var_2 = 'resilience')
+```
+
+#### Time spent in the first quartile of maximum activity vs resilience
+```{r q1_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'min_q1', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'min_q1', 
+           var_2 = 'resilience')
+```
+
+#### Time spent in the second quartile of maximum activity vs resilience
+```{r q2_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'min_q2', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'min_q2', 
+           var_2 = 'resilience')
+```
+
+#### Time spent in the third quartile of maximum activity vs resilience
+```{r q3_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'min_q3', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'min_q3', 
+           var_2 = 'resilience')
+```
+
+#### Time spent in the fourth quartile of maximum activity vs resilience
+```{r q4_res}
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+boot_spear(data = data_act_pain, 
+           var_1 = 'min_q4', 
+           var_2 = 'resilience')
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+boot_spear(data = data_act_no.pain, 
+           var_1 = 'min_q4', 
+           var_2 = 'resilience')
+```
+
+### ACTIGRAPHY COHORT
+_(pain sub-group only)_
+
+#### BPI walking vs median daily activity
+```{r bpi_act}
+
+boot_spear(data = data_act_pain, 
+           var_1 = 'bpi_walking', 
+           var_2 = 'median_activity')
+
+```
+
+#### BPI walking vs minutes active per day
+```{r bpi_act2}
+
+boot_spear(data = data_act_pain, 
+           var_1 = 'bpi_walking', 
+           var_2 = 'active_min')
+
+```
+
+#### EQ5D mobility vs median daily activity
+```{r eq5dm_act}
+
+boot_spear(data = data_act_pain, 
+           var_1 = 'eq5d_mobility', 
+           var_2 = 'median_activity')
+
+```
+
+#### EQ5D mobility vs minutes active per day
+```{r eq5dm_act2}
+
+boot_spear(data = data_act_pain, 
+           var_1 = 'eq5d_mobility', 
+           var_2 = 'active_min')
+
+```
+
+#### Worst pain vs median daily activity
+```{r wpi_act}
+
+boot_spear(data = data_act_pain, 
+           var_1 = 'wpi', 
+           var_2 = 'median_activity')
+
+```
+
+#### Least pain vs median daily activity
+```{r lpi_act}
+
+boot_spear(data = data_act_pain, 
+           var_1 = 'lpi', 
+           var_2 = 'median_activity')
+
+```
+
+****
+
+# Wilcoxon rank sum test
+
+## Wilcoxon bootstrapping and permutation function
+```{r wilcoxon}
+############################################################
+#                                                          #
+#      Bootstrap Wilcoxon test with permuted p-value       #
+#                                                          #
+############################################################
+
+# Create function to generate a bootstrap Wilcoxon Zeta
+# and to permute a p-value. 
+
+# 10000 iterations for both tests
+# Random seed = 1234
+
+# Arguments
+## data:    Dataframe containing the data to be analysed.
+## var_?:   Name of the two variables to analyse. Use the form: 'name'.
+
+boot_wilcox <- function(data, var_1, var_2) {
+    
+    # Set seed
+    set.seed(1234)
+    
+    # Create vector of variable names
+    variable_names <- c(var_1, var_2)
+    
+    # Subset input data according to variable names,  
+    # filter out incomplete cases, and order the columns
+    
+    # Attach required package
+    require(dplyr)
+    
+    data_subset <- data[ , names(data) %in% variable_names] %>%
+        filter(complete.cases(.)) %>%
+        select_(var_1, var_2) # use standard evaluation
+    
+    # Check the columns are correct
+    if(var_1 %in% names(data_pain) != TRUE |
+       var_2 %in% names(data_pain) != TRUE) {
+               warning('Column names of subsetted data DO NOT match the variable names provided in \'var_1\' and \'var_2\'')
+        } 
+    
+    ###################
+    #  Bootstrapping  #
+    ###################
+    
+    # Attach required packages
+    require(boot)
+    
+    # Boot 'statistic' function
+    wilcox <- function(data_subset, i) {
+        d <- data_subset[i, ]
+        foo <- wilcox_test(d[[1]] ~ d[[2]])
+        foo@statistic@teststatistic
+    }
+    
+    # Generate bootstrap sample
+    boot_output <- boot(data_subset, 
+                        statistic = wilcox,
+                        R = 10000,
+                        sim = 'ordinary',
+                        stype = 'i',
+                        parallel = 'multicore')
+    
+    # Get 95%CI of bootstrapped sample
+    boot_95CI <- boot.ci(boot_output, type = 'basic')
+    
+    # Generate plot of bootstrapped sample 
+    boot_plot <- plot(boot_output)
+
+    #########################
+    #  p-value permutation  #
+    #########################
+    
+    # Attach required packages
+    require(coin)
+    
+    # Generate permuted p-value
+    perm_output <- wilcox_test(data_subset[[1]] ~
+                                   data_subset[[2]],
+                               distribution = 'approximate',
+                               B = 10000)
+    
+    ###########################
+    #  Bring it all together  #
+    ###########################
+    
+    # Create list of objects generated so far
+    output <- list(paste0('INPUT VARIABLES: ', 
+                          variable_names[1], ' and ',
+                          variable_names[2]),
+                   paste0('Passed internal subsetting check'),
+                   paste0('ORIGINAL t0 = ', 
+                          round(mean(boot_output$t), 7)),
+                   boot_plot,
+                   boot_95CI,
+                   perm_output)
+    
+    # Print list
+    output
+}
+```
+
+## Analysis
+
+### ACTIGRAPHY
+_(whole cohort)_
+
+#### Minutes active per day vs pain/no pain
+```{r act2_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'active_min',
+            var_2 = 'pain')
+
+```
+
+#### Median daily active vs pain/no pain
+```{r act_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'median_activity',
+            var_2 = 'pain')
+
+```
+
+#### Time spent at 0% maximum activity vs pain/no pain
+```{r q0_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'min_q0',
+            var_2 = 'pain')
+
+```
+
+#### Time spent in first quartile of maximum activity vs pain/no pain
+```{r q1_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'min_q1',
+            var_2 = 'pain')
+
+```
+
+#### Time spent in second quartile of maximum activity vs pain/no pain
+```{r q2_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'min_q2',
+            var_2 = 'pain')
+
+```
+
+#### Time spent in third quartile of maximum activity vs pain/no pain
+```{r q3_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'min_q3',
+            var_2 = 'pain')
+
+```
+
+#### Time spent in fourth quartile of maximum activity vs pain/no pain
+```{r q4_pain}
+
+boot_wilcox(data = data_activity,
+            var_1 = 'min_q4',
+            var_2 = 'pain')
+
+```
+
+****
+
+# Session information
+```{r session_information}
+sessionInfo()
+```

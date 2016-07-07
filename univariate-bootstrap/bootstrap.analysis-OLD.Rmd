@@ -1,0 +1,1149 @@
+---
+title: "Bootstrap analyses"
+author: "Peter Kamerman and Antonia Wadley"
+date: "7 July 2016"
+output: 
+    github_document:
+        toc: true
+        toc_depth: 4
+---
+
+**Last updated: `r format(Sys.time(), "%B %d, %Y")`**
+
+***
+
+# Session setup
+```{r sessionSetup, message = FALSE}
+# Load packages
+library(svglite)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(boot)
+library(coin)
+
+# set seed
+set.seed(1234)
+
+# knitr chunk options
+opts_chunk$set(echo = TRUE,
+               warning = FALSE,
+               message = FALSE,
+               cache = TRUE,
+               cache.extra = rand_seed,
+               fig.path = './figures/',
+               fig.width = 7,
+               fig.height = 7,
+               dev = 'svg',
+               tidy = FALSE)
+```
+
+# Load data
+```{r import_data}
+data <- read_csv('./data/data.csv')
+data_activity <- read_csv('./data/activity-data.csv')
+```
+
+# Quick look
+```{r quick_look}
+############################################################
+#                                                          #
+#                           Data                           #
+#                                                          #
+############################################################
+dim(data)
+names(data)
+head(data)
+tail(data)
+glimpse(data)
+# summary(data)
+
+############################################################
+#                                                          #
+#                      Activity data                       #
+#                                                          #
+############################################################
+dim(data_activity)
+names(data_activity)
+head(data_activity)
+tail(data_activity)
+glimpse(data_activity)
+# summary(data_activity)
+```
+
+# Process data
+```{r process_data}
+############################################################
+#                                                          #
+#               Merge data and data_activity               #
+#                                                          #
+############################################################
+data <- data %>%
+    left_join(data_activity, by = 'id') %>%
+    mutate(pain = pain.x) %>%
+    select(-pain.x, -pain.y)
+
+############################################################
+#                                                          #
+#                      Column formats                      #
+#                                                          #
+############################################################
+# Convert chr values to factors
+data_1 <- data %>%
+    mutate(pain = factor(pain),
+           actigraphy = factor(actigraphy),
+           eq5d_vas = eq5d_vas/100)
+
+# Convert eq5d mobility categories to numeric form
+# so that Spearman's correlation doesn't throw a fit
+data_1$eq5d_mobility[data_1$eq5d_mobility == 'no_problems'] <- 0 
+data_1$eq5d_mobility[data_1$eq5d_mobility == 'some_problems'] <- 1 
+data_1$eq5d_mobility <- as.numeric(data_1$eq5d_mobility)
+
+############################################################
+#                                                          #
+#              Generate subsets for use later              #
+#                                                          #
+############################################################
+# Pain only
+data_pain <- data_1 %>%
+    filter(pain == 'Pain')
+# Activity only
+data_activity <- data_1 %>%
+    filter(actigraphy == 'Yes')
+## Activity + pain
+data_act_pain <- data_activity %>%
+    filter(pain == 'Pain')
+## Activity + no pain
+data_act_no.pain <- data_activity %>%
+    filter(pain == 'No pain')
+```
+
+# Spearman's tests
+
+## Spearman's boot function
+```{r spearmans}
+spear <- function(data, i) {
+    d <- data[i, ]
+    spearman_test(d[[1]] ~ d[[2]])
+}
+```
+
+cor(data_pain[[5]], data_pain[[4]], method = 'spearman')
+
+
+```{r spear}
+boot_spear <- function(data, var_1, var_2) {
+    # Ensure required packages are attached
+    require(boot)
+    require(coin)
+    
+    # Set seed
+    set.seed(1234)
+    
+    # Create vector of variable names
+    variable_names <- c(var_1, var_2)
+    
+    # Subset input data according to variable names
+    data_subset <- data[ , names(data) %in% variable_names]
+    
+    ###################
+    #  Bootstrapping  #
+    ###################
+    
+    # Boot statistic function
+    spear <- function(data_subset, i) {
+        d <- data_subset[i, ]
+        cor(d[[1]], d[[2]],
+            method = 'spearman')
+    }
+    
+    # Generate bootstrap sample
+    boot_output <- boot(data_subset, 
+                        statistic = spear,
+                        R = 10000,
+                        sim = 'ordinary',
+                        stype = 'i')
+    
+    # Get 95%CI of bootstrap sample
+    boot_95CI <- boot.ci(boot_output, type = 'basic')
+    
+    # Generate plot of bootstrap sample 
+    boot_plot <- plot(boot_output)
+
+    #########################
+    #  P-value permutation  #
+    #########################
+    
+    perm_output <- spearman_test(data_subset[[1]] ~ data_subset[[2]],
+                                 distribution = 'approximate',
+                                 B = 10000)
+    
+    ###########################
+    #  Bring it all together  #
+    ###########################
+    
+    # Create list of objects generated so far
+    output <- list(paste0('INPUT VARIABLES: ', 
+                          variable_names[1], ' and ',
+                          variable_names[2]),
+                   paste0('ORIGINAL t0 = ', 
+                          round(mean(boot_output$t), 7)),
+                   boot_plot,
+                   boot_95CI,
+                   perm_output)
+    # Print list
+    output
+}
+
+boot_spear(data_pain, 'resilience', 'lpi' )
+
+df
+```
+
+
+
+## WHOLE COHORT
+### EQ5D VAS vs resilience
+```{r eq5dv_res}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_1 %>%
+    select(c(eq5d_vas, resilience)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+eq5dv_res <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+eq5dv_res_CI <- boot.ci(eq5dv_res, type = 'basic')
+
+# Output
+eq5dv_res
+mean(eq5dv_res$t)
+eq5dv_res_CI
+plot(eq5dv_res)
+```
+
+## PAIN COHORT ONLY
+### Worst pain vs resilience
+```{r wpi_res}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(wpi, resilience)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+wpi_res <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+wpi_res_CI <- boot.ci(wpi_res, type = 'basic')
+
+# Output
+wpi_res
+mean(wpi_res$t)
+wpi_res_CI
+plot(wpi_res)
+```
+
+### Least pain vs resilience
+```{r lpi_res}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(lpi, resilience)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+lpi_res <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+lpi_res_CI <- boot.ci(lpi_res, type = 'basic')
+
+# Output
+lpi_res
+mean(lpi_res$t)
+lpi_res_CI
+plot(lpi_res)
+```
+
+### Nadir CD4 vs resilience
+```{r cd4_res}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(nadir_cd4, resilience)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+cd4_res <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+cd4_res_CI <- boot.ci(cd4_res, type = 'basic')
+
+# Output
+cd4_res
+mean(cd4_res$t)
+cd4_res_CI
+plot(cd4_res)
+```
+
+### BPI inteference vs resilience
+```{r bpi_res}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(bpi_i, resilience)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+bpi_res <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+bpi_res_CI <- boot.ci(bpi_res, type = 'basic')
+
+# Output
+bpi_res
+mean(bpi_res$t)
+bpi_res_CI
+plot(bpi_res)
+```
+
+### BPI inteference vs worst pain
+```{r bpi_wpi}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(bpi_i, wpi)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+bpi_wpi <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+bpi_wpi_CI <- boot.ci(bpi_wpi, type = 'basic')
+
+# Output
+bpi_wpi
+mean(bpi_wpi$t)
+bpi_wpi_CI
+plot(bpi_wpi)
+```
+
+### EQ5D VAS vs worst pain
+```{r eq5dv_wpi}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(eq5d_vas, wpi)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+eq5dv_wpi <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+eq5dv_wpi_CI <- boot.ci(eq5dv_wpi, type = 'basic')
+
+# Output
+eq5dv_wpi
+mean(eq5dv_wpi$t)
+eq5dv_wpi_CI
+plot(eq5dv_wpi)
+```
+
+### EQ5D mobility vs BPI walking
+```{r eq5dv_bpiw}
+# Set seed
+set.seed(1234)
+
+# Process
+data_new <- data_pain %>%
+    select(c(eq5d_mobility, bpi_walking)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+eq5dm_bpiw <- boot(data_new, 
+                spear, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+
+# Get 95%CI
+eq5dm_bpiw_CI <- boot.ci(eq5dm_bpiw, type = 'basic')
+
+# Output
+eq5dm_bpiw
+mean(eq5dm_bpiw$t)
+eq5dm_bpiw_CI
+plot(eq5dm_bpiw)
+```
+
+### ACTIGRAPHY COHORT 
+_(pain and no pain)_
+
+### Median activity vs resilience
+```{r act_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(median_activity, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+act_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+act_pain_res_CI <- boot.ci(act_pain_res, type = 'basic')
+# Output
+act_pain_res
+mean(act_pain_res$t)
+act_pain_res_CI
+# Plot
+plot(act_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(median_activity, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+act_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+act_no.pain_res_CI <- boot.ci(act_no.pain_res, type = 'basic')
+# Output
+act_no.pain_res
+mean(act_no.pain_res$t)
+act_no.pain_res_CI
+# Plot
+plot(act_no.pain_res)
+```
+
+### Duration of activity vs resilience
+```{r act2_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(active_min, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+act2_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+act2_pain_res_CI <- boot.ci(act2_pain_res, type = 'basic')
+# Output
+act2_pain_res
+mean(act2_pain_res$t)
+act2_pain_res_CI
+# Plot
+plot(act2_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(active_min, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+act2_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+act2_no.pain_res_CI <- boot.ci(act2_no.pain_res, type = 'basic')
+# Output
+act2_no.pain_res
+mean(act2_no.pain_res$t)
+act2_no.pain_res_CI
+# Plot
+plot(act2_no.pain_res)
+```
+
+### Time at 0% of maximum activity vs resilience
+```{r q0_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(min_q0, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q0_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q0_pain_res_CI <- boot.ci(q0_pain_res, type = 'basic')
+# Output
+q0_pain_res
+mean(q0_pain_res$t)
+q0_pain_res_CI
+# Plot
+plot(q0_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(min_q0, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q0_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q0_no.pain_res_CI <- boot.ci(q0_no.pain_res, type = 'basic')
+# Output
+q0_no.pain_res
+mean(q0_no.pain_res$t)
+q0_no.pain_res_CI
+# Plot
+plot(q0_no.pain_res)
+```
+
+### Time in first quartile of maximum activity vs resilience
+```{r q1_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(min_q1, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q1_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q1_pain_res_CI <- boot.ci(q1_pain_res, type = 'basic')
+# Output
+q1_pain_res
+mean(q1_pain_res$t)
+q1_pain_res_CI
+# Plot
+plot(q1_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(min_q1, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q1_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q1_no.pain_res_CI <- boot.ci(q1_no.pain_res, type = 'basic')
+# Output
+q1_no.pain_res
+mean(q1_no.pain_res$t)
+q1_no.pain_res_CI
+# Plot
+plot(q1_no.pain_res)
+```
+
+### Time in second quartile of maximum activity vs resilience
+```{r q2_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(min_q2, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q2_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q2_pain_res_CI <- boot.ci(q2_pain_res, type = 'basic')
+# Output
+q2_pain_res
+mean(q2_pain_res$t)
+q2_pain_res_CI
+# Plot
+plot(q2_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(min_q2, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q2_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q2_no.pain_res_CI <- boot.ci(q2_no.pain_res, type = 'basic')
+# Output
+q2_no.pain_res
+mean(q2_no.pain_res$t)
+q2_no.pain_res_CI
+# Plot
+plot(q2_no.pain_res)
+```
+
+### Time in third quartile of maximum activity vs resilience
+```{r q3_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(min_q3, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q3_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q3_pain_res_CI <- boot.ci(q3_pain_res, type = 'basic')
+# Output
+q3_pain_res
+mean(q3_pain_res$t)
+q3_pain_res_CI
+# Plot
+plot(q3_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(min_q3, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q3_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q3_no.pain_res_CI <- boot.ci(q3_no.pain_res, type = 'basic')
+# Output
+q3_no.pain_res
+mean(q3_no.pain_res$t)
+q3_no.pain_res_CI
+# Plot
+plot(q3_no.pain_res)
+```
+
+### Time in fourth quartile of maximum activity vs resilience
+```{r q4_res}
+# Set seed
+set.seed(1234)
+
+############################################################
+#                                                          #
+#                           Pain                           #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_pain %>%
+    select(c(min_q4, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q4_pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q4_pain_res_CI <- boot.ci(q4_pain_res, type = 'basic')
+# Output
+q4_pain_res
+mean(q4_pain_res$t)
+q4_pain_res_CI
+# Plot
+plot(q4_pain_res)
+
+############################################################
+#                                                          #
+#                          No Pain                         #
+#                                                          #
+############################################################
+# Process
+data_new <- data_act_no.pain %>%
+    select(c(min_q4, resilience)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+q4_no.pain_res <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q4_no.pain_res_CI <- boot.ci(q4_no.pain_res, type = 'basic')
+# Output
+q4_no.pain_res
+mean(q4_no.pain_res$t)
+q4_no.pain_res_CI
+# Plot
+plot(q4_no.pain_res)
+```
+
+### ACTIGRAPHY COHORT
+_(pain sub-group only)_
+
+### BPI walking vs median daily activity
+```{r bpi_act}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_act_pain %>%
+    select(c(bpi_walking, median_activity)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+bpi_act <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+bpi_act_CI <- boot.ci(bpi_act, type = 'basic')
+# Output
+bpi_act
+mean(bpi_act$t)
+bpi_act_CI
+# Plot
+plot(bpi_act)
+```
+
+### BPI walking vs time active
+```{r bpi_act2}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_act_pain %>%
+    select(c(bpi_walking, active_min)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+bpi_act2 <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+bpi_act2_CI <- boot.ci(bpi_act2, type = 'basic')
+# Output
+bpi_act2
+mean(bpi_act2$t)
+bpi_act2_CI
+# Plot
+plot(bpi_act2)
+```
+
+### EQ5D mobility vs median daily activity
+```{r eq5dm_act}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_act_pain %>%
+    select(c(eq5d_mobility, median_activity)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+eq5dm_act <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+eq5dm_act_CI <- boot.ci(eq5dm_act, type = 'basic')
+# Output
+eq5dm_act
+mean(eq5dm_act$t)
+eq5dm_act_CI
+# Plot
+plot(eq5dm_act)
+```
+
+### EQ5D mobility vs time active
+```{r eq5dm_act2}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_act_pain %>%
+    select(c(eq5d_mobility, active_min)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+eq5dm_act2 <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+eq5dm_act2_CI <- boot.ci(eq5dm_act2, type = 'basic')
+# Output
+eq5dm_act2
+mean(eq5dm_act2$t)
+eq5dm_act2_CI
+# Plot
+plot(eq5dm_act2)
+```
+
+### Worst pain vs median daily activity
+```{r wpi_act}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_act_pain %>%
+    select(c(wpi, median_activity)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+wpi_act <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+wpi_act_CI <- boot.ci(wpi_act, type = 'basic')
+# Output
+wpi_act
+mean(wpi_act$t)
+wpi_act_CI
+# Plot
+plot(wpi_act)
+```
+
+### Least pain vs median daily activity
+```{r lpi_act}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_act_pain %>%
+    select(c(lpi, median_activity)) %>%
+    filter(complete.cases(.))
+# Run bootstrap
+lpi_act <- boot(data_new, 
+                spear, 
+                R = 10000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+lpi_act_CI <- boot.ci(lpi_act, type = 'basic')
+# Output
+lpi_act
+mean(lpi_act$t)
+lpi_act_CI
+# Plot
+plot(lpi_act)
+```
+
+## Wilcoxon rank sum tests
+
+### Wilcoxon boot function
+```{r wilcoxon}
+wilcox <- function(data, i) {
+    d <- data[i, ]
+    stat <- wilcox_test(d[[1]] ~ d[[2]])
+    stat@statistic@teststatistic
+}
+```
+
+### WHOLE COHORT
+_(pain and no pain)_
+
+### ACTIGRAPHY
+_(reduced boot replicates to 1000 to speed-up iterations)_
+
+### Time active vs pain/no pain
+```{r act2_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(active_min, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+act2_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+act2_pain_CI <- boot.ci(act2_pain, type = 'basic')
+# Output
+act2_pain
+mean(act2_pain$t)
+act2_pain_CI
+# Plot
+plot(act2_pain)
+```
+
+### Median daily active vs pain/no pain
+```{r act_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(median_activity, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+act_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+act_pain_CI <- boot.ci(act_pain, type = 'basic')
+# Output
+act_pain
+mean(act_pain$t)
+act_pain_CI
+# Plot
+plot(act_pain)
+```
+
+### Time spent at 0% maximum activity vs pain/no pain
+```{r q0_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(min_q0, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+q0_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q0_pain_CI <- boot.ci(q0_pain, type = 'basic')
+# Output
+q0_pain
+mean(q0_pain$t)
+q0_pain_CI
+# Plot
+plot(q0_pain)
+```
+
+### Time spent in first quartile of maximum activity vs pain/no pain
+```{r q1_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(min_q1, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+q1_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q1_pain_CI <- boot.ci(q1_pain, type = 'basic')
+# Output
+q1_pain
+mean(q1_pain$t)
+q1_pain_CI
+# Plot
+plot(q1_pain)
+```
+
+### Time spent in second quartile of maximum activity vs pain/no pain
+```{r q2_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(min_q2, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+q2_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q2_pain_CI <- boot.ci(q2_pain, type = 'basic')
+# Output
+q2_pain
+mean(q2_pain$t)
+q2_pain_CI
+# Plot
+plot(q2_pain)
+```
+
+### Time spent in third quartile of maximum activity vs pain/no pain
+```{r q3_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(min_q3, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+q3_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q3_pain_CI <- boot.ci(q3_pain, type = 'basic')
+# Output
+q3_pain
+mean(q3_pain$t)
+q3_pain_CI
+# Plot
+plot(q3_pain)
+```
+
+### Time spent in fourth quartile of maximum activity vs pain/no pain
+```{r q4_pain}
+# Set seed
+set.seed(1234)
+# Process
+data_new <- data_activity %>%
+    select(c(min_q4, pain)) %>%
+    filter(complete.cases(.))
+
+# Run bootstrap
+q4_pain <- boot(data_new, 
+                wilcox, 
+                R = 1000,
+                sim = 'ordinary', 
+                stype = 'i')
+# Get 95%CI
+q4_pain_CI <- boot.ci(q4_pain, type = 'basic')
+# Output
+q4_pain
+mean(q4_pain$t)
+q4_pain_CI
+# Plot
+plot(q4_pain)
+```
+
+****
+
+## Session information
+```{r session_information}
+sessionInfo()
+```
