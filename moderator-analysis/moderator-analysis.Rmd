@@ -1,0 +1,269 @@
+---
+title: "Moderator analyses"
+author: "Peter Kamerman and Antonia Wadley"
+date: "8 July 2016"
+output: 
+    github_document:
+        toc: true
+        toc_depth: 4
+---
+
+**Last updated: `r format(Sys.time(), "%B %d, %Y")`**
+
+****
+
+# Session setup
+```{r sessionSetup, message = FALSE}
+# Load packages
+library(svglite)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+# set seed
+set.seed(1234)
+
+# knitr chunk options
+opts_chunk$set(echo = TRUE,
+               warning = FALSE,
+               message = FALSE,
+               cache = TRUE,
+               cache.extra = rand_seed,
+               fig.path = './figures/',
+               fig.width = 7,
+               fig.height = 7,
+               dev = c('png', 'svg'),
+               tidy = FALSE)
+```
+
+# Load data
+```{r import_data}
+data <- read_csv('./data/data.csv')
+```
+
+# Quick look
+```{r quick_look}
+
+dim(data)
+names(data)
+head(data)
+tail(data)
+glimpse(data)
+summary(data)
+
+```
+
+****
+
+# Analysis
+## Pain vs median daily activity
+### Exploratory plots
+```{r pain_act_plots}
+
+## Distribution of median_activity (DV)
+with(data, hist(median_activity))
+
+## x/y plot: y = median_activity (DV), 
+## x = wpi (IV - predictor)
+with(data, plot(wpi, median_activity,
+                  main = 'median activity (DV) vs. worst pain (IV - predictor)',
+                  xlab = 'worst pain',
+                  ylab = 'median activity'))
+
+## x/y plot: y = median_activity (DV), 
+## x = resilience (IV - moderator)
+with(data, plot(resilience, median_activity,
+                  main = 'median activity (DV) vs. resilience (IV - moderator)',
+                  xlab = 'resilience',
+                  ylab = 'median activity'))
+
+## x/x plot: x1 = wpi (DV - predictor), 
+## x2 = resilience (IV - moderator)
+with(data, plot(wpi, median_activity,
+                  main = 'worst pain (DV - predictor) vs. resilience (IV - moderator)',
+                  xlab = 'worst pain',
+                  ylab = 'resilience'))
+```
+
+### Univariate modelling
+```{r pain_act_uni}
+
+# Linear regression
+## Median activity (DV) vs worst pain (IV - predictor)
+mod1 <- lm(median_activity ~ wpi, data = data)
+summary(mod1)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod1)
+par(mfrow = c(1,1))
+
+## Median activity (DV) vs resilience (IV - moderator)
+mod2 <- lm(median_activity ~ resilience, data = data)
+summary(mod2)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod2)
+par(mfrow = c(1,1))
+
+## Worst pain (IV - predictor) vs resilience (IV - moderator)
+### Worst pain is factor, so use clm in ordinal package
+library(ordinal)
+mod3 <- lm(wpi ~ resilience, data = data)
+summary(mod3)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod2)
+par(mfrow = c(1,1))
+```
+
+### Interaction modelling
+```{r pain_act_int}
+
+mod4 <- lm(median_activity ~ wpi * resilience,
+                         data = data)
+summary(mod4)
+par(mfrow = c(2,2))
+plot(mod4)
+par(mfrow = c(1,1))
+
+# Use 'lmres' function in package pequod to look at effects 
+# with centering.
+library(pequod)
+mod4_centered <- lmres(median_activity ~ wpi * resilience,
+                         residual_centering = TRUE,
+                         data = data)
+summary(mod4_centered)
+# Examine interaction using sinmple slope analysis
+mod4_centered_interaction <- simpleSlope(mod4_centered,
+                                         pred = 'wpi',
+                                         mod1 = 'resilience')
+PlotSlope(mod4_centered_interaction)
+
+```
+
+****
+
+## Pain vs quality of life
+
+## Process data
+```{r pain_qol_process}
+
+# Convert eq5d_vas to a proportion for beta-distribution regression
+data_1 <- data %>%
+    mutate(eq5d_vas = eq5d_vas/100)
+
+```
+### Exploratory plots
+```{r pain_qol_plots}
+
+## Distribution of quality of life (DV)
+with(data, hist(eq5d_vas))
+
+## x/y plot: y = eq5d_vas (DV), 
+## x = wpi (IV - predictor)
+with(data, plot(wpi, eq5d_vas,
+                  main = 'quality of life (DV) vs. worst pain (IV - predictor)',
+                  xlab = 'worst pain',
+                  ylab = 'quality of life'))
+
+## x/y plot: y = eq5d_vas (DV), 
+## x = resilience (IV - moderator)
+with(data, plot(resilience, eq5d_vas,
+                  main = 'quality of life (DV) vs. resilience (IV - moderator)',
+                  xlab = 'resilience',
+                  ylab = 'quality of life'))
+
+## x/x plot: x1 = wpi (DV - predictor), 
+## x2 = resilience (IV - moderator)
+with(data, plot(wpi, eq5d_vas,
+                  main = 'worst pain (DV - predictor) vs. resilience (IV - moderator)',
+                  xlab = 'worst pain',
+                  ylab = 'resilience'))
+```
+
+### Univariate modelling
+```{r pain_qol_uni}
+
+library(betareg)
+# Linear regression
+## quality of life (DV) vs worst pain (IV - predictor)
+mod1 <- betareg(eq5d_vas ~ wpi, data = data_1[-31, ]) # based on Cook's D from eq5d_vas vs resilience (see mod2 below)
+summary(mod1)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod1)
+par(mfrow = c(1,1))
+
+## quality of life (DV) vs resilience (IV - moderator)
+mod2 <- betareg(eq5d_vas ~ resilience, data = data_1[-31, ]) # based on Cook's D from eq5d_vas vs resilience (see mod2 below)
+summary(mod2)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod2)
+par(mfrow = c(1,1))
+
+### Large Cook's D for no. 31, redo analysis with point removed
+## quality of life (DV) vs resilience (IV - moderator)
+mod2_update <- betareg(eq5d_vas ~ resilience, data = data_1[-31, ])
+summary(mod2_update)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod2_update)
+par(mfrow = c(1,1))
+
+## Worst pain (IV - predictor) vs resilience (IV - moderator)
+### Worst pain is factor, so use clm in ordinal package
+library(ordinal)
+mod3 <- lm(wpi ~ resilience, data = data_1[-31, ])
+summary(mod3)
+## Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod2)
+par(mfrow = c(1,1))
+```
+
+### Interaction modelling
+```{r pain_qol_int}
+
+mod4 <- betareg(eq5d_vas ~ wpi * resilience,
+                         data = data_1[-31, ])
+summary(mod4)
+# Diagnostic plots
+par(mfrow = c(2,2))
+plot(mod4)
+par(mfrow = c(1,1))
+
+# Use 'lmres' function in package pequod to look at effects 
+# with centering.
+library(pequod)
+
+# 'lmres' function only works for linear models,
+# so cannot use 'betareg' function. Solution used: 
+# Arcsine transform on eq5d VAS data (using package metafor).
+library(metafor)
+
+data_1_transformed <- data_1[-31, ] %>%
+    mutate(eq5d_vas = transf.arcsin(.$eq5d_vas))
+
+mod4_centered <- lmres(eq5d_vas ~ wpi * resilience,
+                         residual_centering = TRUE,
+                         data = data_1_transformed)
+
+summary(mod4_centered)
+
+# Examine interaction using sinmple slope analysis
+mod4_centered_interaction <- simpleSlope(mod4_centered,
+                                         pred = 'wpi',
+                                         mod1 = 'resilience')
+PlotSlope(mod4_centered_interaction)
+```
+
+****
+
+# Session information
+```{r session_information}
+
+sessionInfo()
+
+```
