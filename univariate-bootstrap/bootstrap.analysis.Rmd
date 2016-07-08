@@ -695,5 +695,7 @@ boot_wilcox(data = data_activity,
 
 # Session information
 ```{r session_information}
+
 sessionInfo()
+
 ```
