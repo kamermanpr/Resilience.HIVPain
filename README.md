@@ -25,7 +25,7 @@ and scripts for the plotting of:
 ****
 ## Supplementary descriptive data
 
-### Table 1. Demographic and resilience characteristics of the cohort and subsets
+#### Table 1. Demographic and resilience characteristics of the cohort and subsets
 
 |                                                  | **Whole cohort:<br>Pain**<br>(n = 98) | **Whole cohort:<br>No pain**<br>(n = 99) | **Actigraphy subset:<br>Pain**<br>(n = 37) | **Actigraphy subset:<br>No pain**<br>(n = 31) | **No actigraphy subset:<br>Pain**<br>(n = 61) | **No actigraphy subset:<br>No pain**<br>(n = 68) |
 |:-------------------------------------------------|--------------------------------:|-----------------------------------:|-------------------------------------:|----------------------------------------:|----------------------------------------:|-------------------------------------------:|
