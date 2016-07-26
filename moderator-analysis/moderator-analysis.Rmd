@@ -3,7 +3,7 @@ title: "Moderator analyses"
 author: "Peter Kamerman and Antonia Wadley"
 date: "8 July 2016"
 output: 
-    github_document:
+    html_document:
         toc: true
         toc_depth: 4
 ---
