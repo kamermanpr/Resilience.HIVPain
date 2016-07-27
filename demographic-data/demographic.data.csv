@@ -1,0 +1,198 @@
+ID,chronic_pain,actigraphy,age,sex,years_education,employment,time_since_HIV_diagnosis,time_on_art,nadir_cd4,resilience_scale_score,cdrisc_score,eq5d_vas
+1,Yes,No,35,Female,12,Full time,1,0,9,151,97,90
+2,Yes,No,44,Female,12,Unemployed,11,9,119,125,56,60
+3,Yes,No,38,Male,12,Part time/piece work,5,5,22,162,89,90
+4,Yes,No,32,Male,12,Full time,2,1,63,136,80,50
+5,Yes,No,59,Male,7,Unemployed,15,9,339,170,79,80
+6,Yes,No,59,Female,11,Unemployed,3,1,NA,76,60,30
+7,Yes,No,35,Female,11,Unemployed,10,0,20,140,78,20
+8,Yes,No,47,Female,10,Part time/piece work,12,7,NA,112,53,40
+9,Yes,Yes,34,Male,7,Part time/piece work,11,7,46,166,79,60
+10,No,Yes,49,Female,10,Full time,13,10,127,173,98,100
+11,No,Yes,32,Female,11,Full time,1,1,21,151,77,70
+12,No,No,37,Female,0,Unemployed,11,2,216,150,74,40
+13,No,Yes,51,Male,11,Full time,8,3,204,154,83,95
+14,No,No,36,Female,12,Full time,5,4,167,171,89,100
+15,No,No,42,Female,12,Unemployed,8,8,394,163,70,50
+16,Yes,No,36,Female,11,Full time,3,3,172,148,84,80
+17,No,No,54,Female,11,Unemployed,15,10,69,175,100,100
+18,No,No,46,Female,8,Full time,9,8,106,145,69,90
+19,No,No,39,Male,6,Full time,5,7,28,170,98,100
+20,Yes,No,45,Female,9,Unemployed,3,2,175,118,40,50
+21,Yes,Yes,34,Female,12,Part time/piece work,1,1,72,143,67,70
+22,No,No,44,Female,11,Full time,3,3,401,152,91,75
+23,Yes,Yes,47,Male,12,Unemployed,4,3,205,167,79,50
+24,No,Yes,53,Female,12,Full time,6,5,158,134,77,90
+25,No,No,31,Female,12,Unemployed,5,5,NA,137,85,80
+26,No,No,39,Female,11,Part time/piece work,7,1,269,158,77,80
+27,No,No,38,Female,12,Full time,6,2,290,160,81,90
+28,No,Yes,37,Female,12,Full time,8,7,3,150,78,60
+29,No,No,37,Female,11,Part time/piece work,6,5,199,148,60,70
+30,No,No,38,Male,0,Full time,9,9,2,163,78,80
+31,Yes,No,38,Female,12,Unemployed,4,3,NA,162,99,20
+32,No,Yes,40,Female,12,Full time,8,8,213,166,94,100
+33,No,Yes,40,Female,12,Full time,18,11,157,148,80,70
+34,Yes,No,49,Female,0,Full time,NA,NA,NA,170,88,30
+35,Yes,No,36,Female,11,Full time,8,7,569,148,84,90
+36,Yes,No,50,Female,8,Unemployed,9,8,189,146,95,60
+37,No,Yes,32,Female,12,Full time,6,2,6,172,88,60
+38,No,Yes,58,Female,8,Full time,6,5,234,170,96,100
+39,No,No,24,Male,12,Full time,2,2,176,139,61,90
+40,Yes,Yes,42,Female,10,Unemployed,4,2,114,137,69,40
+41,No,No,28,Female,12,Unemployed,5,3,498,168,96,90
+42,No,No,56,Male,9,Unemployed,10,9,128,141,77,60
+43,No,No,56,Male,0,Unemployed,4,NA,NA,142,65,50
+44,Yes,No,41,Female,11,Full time,16,4,120,152,49,60
+45,No,Yes,37,Female,12,Full time,12,0,128,167,94,70
+46,No,Yes,40,Female,NA,Part time/piece work,8,8,156,171,77,90
+47,No,No,47,Female,10,Unemployed,6,1,1,164,89,100
+48,Yes,No,41,Female,7,Part time/piece work,5,5,265,137,61,60
+49,No,No,42,Female,12,Full time,13,10,NA,125,60,60
+50,No,Yes,35,Male,12,Full time,1,1,NA,150,92,70
+51,No,No,53,Female,4,Unemployed,7,6,4,138,76,80
+52,Yes,No,45,Female,2,Full time,8,5,47,153,63,60
+53,No,Yes,56,Female,10,Full time,3,3,74,168,88,80
+54,No,Yes,35,Female,12,Part time/piece work,11,6,189,159,80,90
+55,No,Yes,42,Female,12,Unemployed,9,9,65,163,73,90
+56,No,Yes,41,Female,NA,Unemployed,8,5,272,148,76,80
+57,No,Yes,18,Female,10,Unemployed,1,1,7,152,81,90
+58,No,No,31,Female,12,Full time,2,1,22,168,88,60
+59,No,No,43,Female,12,Part time/piece work,16,10,150,154,90,90
+60,No,No,51,Female,11,Full time,3,3,330,170,84,80
+62,Yes,No,37,Female,10,Part time/piece work,5,1,169,146,71,60
+63,No,No,65,Male,NA,Part time/piece work,19,11,58,158,74,70
+64,Yes,No,55,Male,8,Full time,1,1,216,146,73,60
+65,No,No,31,Female,11,Unemployed,1,0,99,154,80,80
+66,Yes,No,57,Female,10,Full time,3,NA,30,149,72,50
+67,Yes,Yes,34,Female,12,Unemployed,5,0,97,164,93,80
+68,No,No,30,Female,11,Unemployed,8,8,NA,158,84,80
+69,Yes,Yes,48,Male,10,Part time/piece work,10,10,17,138,70,30
+70,No,No,34,Female,12,Full time,4,4,13,175,99,80
+71,Yes,Yes,40,Female,12,Full time,4,3,366,135,70,60
+72,Yes,Yes,48,Female,9,Unemployed,6,0,310,112,66,50
+73,Yes,Yes,50,Female,12,Full time,8,8,7,161,71,50
+74,Yes,Yes,41,Male,12,Part time/piece work,1,2,207,153,70,40
+75,Yes,Yes,41,Male,7,Part time/piece work,1,0,46,163,75,50
+76,Yes,Yes,33,Female,11,Part time/piece work,2,2,124,153,61,80
+77,Yes,Yes,37,Male,10,Unemployed,2,1,318,143,65,40
+78,Yes,No,30,Female,11,Full time,7,7,NA,132,77,40
+79,No,No,35,Female,10,Full time,11,10,NA,163,94,90
+80,No,No,30,Female,12,Unemployed,3,0,NA,160,79,90
+81,No,No,29,Female,8,Full time,1,NA,NA,159,89,90
+82,No,No,19,Female,11,Unemployed,9,9,NA,148,90,70
+83,No,No,42,Female,12,Unemployed,18,15,74,172,95,50
+84,No,No,48,Male,12,Unemployed,12,12,NA,139,88,80
+85,No,No,32,Female,12,Full time,10,2,319,164,91,70
+86,Yes,No,46,Female,9,Full time,17,3,152,93,69,40
+87,No,No,65,Female,12,Unemployed,18,18,111,161,95,90
+88,No,No,41,Female,12,Full time,5,0,36,148,84,40
+89,Yes,No,89,Female,6,Unemployed,3,3,189,150,73,60
+90,Yes,Yes,50,Female,0,Part time/piece work,6,6,136,172,98,50
+91,No,Yes,44,Female,11,Unemployed,9,9,273,162,93,70
+92,Yes,No,35,Female,11,Full time,7,7,165,162,86,50
+93,Yes,No,63,Female,6,Full time,8,7,16,126,73,50
+94,No,No,32,Female,10,Full time,2,2,56,171,93,80
+95,No,Yes,35,Female,12,Full time,11,4,500,155,68,80
+96,No,No,32,Female,12,Full time,4,2,70,159,89,90
+97,Yes,No,64,Female,3,Unemployed,3,2,567,125,73,60
+98,Yes,Yes,42,Female,12,Unemployed,2,2,144,163,84,60
+99,No,Yes,40,Male,12,Full time,9,8,174,172,93,70
+100,Yes,No,42,Female,12,Full time,9,9,24,164,92,80
+101,No,Yes,36,Male,11,Part time/piece work,7,6,87,171,79,90
+102,Yes,Yes,33,Female,12,Full time,14,8,558,159,88,70
+103,No,Yes,20,Male,12,Unemployed,20,9,171,136,71,70
+104,No,No,46,Male,9,Full time,2,2,300,153,81,70
+105,Yes,No,49,Male,7,Unemployed,11,10,121,121,63,30
+106,No,Yes,27,Female,8,Unemployed,1,0,37,159,95,70
+107,No,No,61,Female,12,Part time/piece work,11,9,208,166,97,100
+108,No,No,41,Female,8,Full time,19,10,13,161,85,70
+109,No,No,50,Female,10,Unemployed,3,4,233,159,86,70
+110,No,No,37,Female,7,Part time/piece work,7,7,43,158,80,70
+111,No,No,26,Female,11,Unemployed,2,2,140,166,82,95
+112,Yes,Yes,40,Male,12,Full time,11,9,100,125,77,30
+113,No,No,40,Male,12,Part time/piece work,3,3,678,137,64,60
+114,No,No,31,Female,11,Full time,9,6,348,164,96,90
+115,Yes,No,33,Female,12,Full time,4,,564,142,82,30
+116,Yes,No,27,Male,12,Full time,5,2,184,169,93,70
+117,Yes,Yes,33,Female,7,Unemployed,12,9,107,157,89,70
+118,No,No,38,Male,7,Unemployed,3,3,120,148,86,75
+119,No,No,35,Female,12,Full time,9,8,22,158,89,80
+120,Yes,No,39,Female,8,Unemployed,3,3,164,124,81,50
+121,No,No,39,Male,12,Full time,4,2,4,150,84,70
+122,Yes,No,35,Male,11,Unemployed,4,0,11,150,69,50
+123,No,Yes,41,Male,11,Full time,2,2,45,143,88,90
+124,Yes,Yes,33,Female,10,Unemployed,13,8,30,149,88,40
+125,No,No,59,Female,8,Full time,1,0,352,158,80,50
+126,No,No,36,Female,12,Full time,6,6,170,158,88,80
+127,Yes,No,46,Male,10,Unemployed,NA,,NA,154,86,20
+128,No,No,36,Male,12,Full time,2,1,396,155,92,100
+129,Yes,Yes,38,Female,11,Unemployed,5,5,3,141,63,40
+130,Yes,Yes,44,Male,12,Unemployed,6,5,422,145,81,30
+131,Yes,Yes,30,Female,12,Unemployed,1,0,8,140,89,60
+132,Yes,No,30,Female,7,Part time/piece work,6,3,194,138,82,80
+133,Yes,Yes,58,Female,8,Unemployed,10,7,41,169,85,70
+134,Yes,Yes,44,Male,12,Full time,6,5,123,159,93,50
+135,Yes,Yes,48,Female,12,Full time,13,8,36,158,71,80
+136,Yes,Yes,45,Female,12,Unemployed,20,10,66,128,74,60
+137,No,Yes,51,Female,11,Unemployed,1,0,7,158,82,70
+138,No,Yes,34,Female,10,Part time/piece work,5,4,1,154,80,50
+139,Yes,Yes,44,Female,12,Full time,11,9,775,136,66,50
+140,Yes,No,55,Female,0,Unemployed,NA,0,360,130,93,60
+141,Yes,Yes,35,Female,4,Part time/piece work,4,2,219,127,65,30
+142,No,Yes,47,Female,11,Unemployed,NA,,NA,158,91,90
+143,Yes,No,49,Male,8,Unemployed,2,1,122,125,71,50
+144,Yes,No,52,Female,11,Unemployed,6,5,160,111,60,40
+145,No,No,55,Male,12,Full time,3,2,128,134,75,60
+146,Yes,No,59,Female,8,Full time,4,1,385,142,81,50
+147,No,No,39,Female,12,Full time,6,2,278,153,92,70
+148,Yes,No,42,Male,9,Full time,5,4,107,161,82,20
+149,No,No,29,Female,12,Full time,10,6,94,155,81,80
+150,Yes,No,51,Female,10,Full time,8,8,6,137,78,60
+151,Yes,No,32,Male,12,Unemployed,2,1,218,149,90,80
+152,Yes,Yes,55,Male,12,Unemployed,25,24,204,143,76,70
+153,Yes,No,46,Female,10,Full time,13,4,109,148,74,40
+154,Yes,Yes,34,Female,12,Full time,5,4,46,162,83,40
+155,Yes,No,56,Female,11,Part time/piece work,12,10,110,100,27,30
+156,Yes,No,66,Female,4,Unemployed,4,3,176,77,41,10
+157,No,No,42,Male,12,Unemployed,18,9,346,160,79,50
+158,No,No,37,Male,4,Full time,5,2,245,123,92,90
+159,Yes,Yes,49,Male,10,Unemployed,4,3,184,107,48,10
+160,No,Yes,38,Female,11,Full time,11,2,334,163,79,95
+161,Yes,Yes,43,Male,11,Unemployed,7,6,246,161,82,30
+162,Yes,No,37,Female,11,Unemployed,18,9,NA,150,89,0
+163,Yes,Yes,51,Female,7,Unemployed,11,10,117,134,83,40
+164,Yes,Yes,50,Male,6,Unemployed,6,5,30,166,91,60
+165,Yes,Yes,46,Female,12,Unemployed,3,2,149,156,85,50
+166,No,No,36,Female,10,Unemployed,11,9,260,158,76,70
+167,Yes,Yes,42,Female,12,Part time/piece work,9,8,248,159,86,40
+168,Yes,Yes,45,Female,10,Full time,11,3,87,159,78,70
+169,No,No,46,Female,11,Full time,5,4,238,152,94,60
+170,Yes,No,59,Male,0,Part time/piece work,10,9,184,146,80,30
+171,No,No,48,Female,10,Unemployed,2,1,84,165,68,40
+172,No,Yes,49,Female,12,Full time,11,10,62,145,88,80
+173,Yes,No,40,Female,12,Unemployed,11,8,121,151,73,20
+174,No,Yes,44,Female,12,Full time,9,8,16,151,87,60
+175,No,No,54,Female,12,Full time,NA,NA,NA,153,78,90
+176,No,Yes,44,Male,10,Full time,4,3,249,137,67,70
+177,No,No,45,Female,8,Part time/piece work,3,3,200,159,56,40
+178,Yes,No,35,Male,12,Full time,13,10,53,154,82,40
+179,No,No,52,Female,10,Unemployed,2,1,216,114,75,50
+180,No,No,48,Female,10,Unemployed,11,7,155,150,86,90
+181,No,No,29,Female,12,Full time,6,4,79,172,91,95
+182,No,No,31,Female,12,Full time,5,4,36,163,84,70
+183,Yes,No,31,Female,12,Unemployed,8,1,206,166,90,50
+184,No,No,35,Female,10,Part time/piece work,6,6,84,143,78,40
+185,Yes,No,41,Male,8,Unemployed,5,4,44,148,75,80
+186,Yes,No,46,Male,11,Full time,12,9,83,135,71,60
+187,Yes,No,34,Male,7,Unemployed,2,2,258,155,86,30
+188,No,No,42,Female,12,Full time,9,4,245,167,91,80
+189,Yes,No,56,Female,12,Full time,11,10,4,143,85,50
+190,Yes,No,34,Female,12,Full time,8,3,264,140,80,50
+191,Yes,No,35,Male,11,Unemployed,3,2,82,145,77,70
+192,Yes,No,49,Female,12,Part time/piece work,9,8,193,130,89,70
+193,Yes,No,57,Male,5,Full time,8,2,278,157,88,80
+194,Yes,No,45,Male,11,Full time,3,2,35,141,76,70
+195,Yes,No,40,Male,6,Part time/piece work,9,6,122,116,76,30
+196,Yes,No,50,Female,7,Full time,5,3,213,153,88,50
+197,Yes,No,49,Male,10,Unemployed,5,4,166,151,78,80
+198,Yes,No,40,Female,12,Full time,10,3,319,149,89,60
