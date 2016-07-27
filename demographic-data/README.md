@@ -1,6 +1,6 @@
 # Demographic data
 ## Summary table
-_(raw data can be found in [demographics.data.csv](./demographic.data.csv))_
+_(raw data can be found in [demographics.data.csv](./demographic.data.csv), and the code sheet is provided [below](code-sheet))_
 
 #### Table 1. Demographic and resilience characteristics of the whole cohort and subsets
 
@@ -24,3 +24,31 @@ _(raw data can be found in [demographics.data.csv](./demographic.data.csv))_
 | **CD-RISC score**,<br>mean (SD)                     | 77 (12)                         | 82 (11)                            | 77 (11)                              | 83 (8)                                  | 77 (13)                                 | 82 (12)                                    |
 | **EQ5D VAS score**,<br>median (range) | 50 (0-90) | 80 (30-100) | 50 (10-80) | 80 (50-100) | 50 (0-90) | 80 (30-100) |
 _<sup>1</sup>: Education analysed using a chi squared test for trend; missing data in no pain cohorts: 3 in n=99 cohort, 1 from n=68 cohort._
+
+****
+
+## Code sheet
+
+ID: Participant id code
+
+chronic_pain: Had chronic pain (pain on most days for $geq$ 3 months) (Yes / No)	
+
+actigraphy: Took part in the actigraphy component of the study (Yes / No)
+
+age: Age in years	
+
+sex: Self-declared biological sex (Male / Female)
+
+years_education: Number of years of formal education
+
+employment: Was the participant employed? (Full time, Part time/piece work, Unemployed)
+
+time_since_HIV_diagnosis: Number of years since diagnosed with HIV
+
+time_on_art	nadir_cd4: Number of years on antiretoviral therapy
+
+resilience_scale_score: Resilience Scale score (see the [Resilience Scale](http://www.resiliencescale.com/wp-content/uploads/2014/06/Wagnild-Young-psychom-R.pdf) website for more details)
+
+cdrisc_score: CD-RISC scale score (see the [CD-RISC](http://www.cd-risc.com) website for more details)
+
+eq5d_vas: Overall rating of health state on the day of the first interview (0-100 visual analogue scale, anchored at 'worst imaginable health state' = 0, and 'best imaginable health state' = 100)
