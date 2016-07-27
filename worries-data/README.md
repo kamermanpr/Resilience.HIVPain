@@ -10,7 +10,7 @@ _(raw data can be found in [worries.data.csv](./worries.data.csv), and the code 
 
 ## Code sheet
 
-**Note:** 'worries\_about\_pain' and 'worries\_about\_sleep' were deemed to have been assessed twice (firstly in the EQ5D subscales) and they were subcategories of 'worries\_about\_health', and therefore only the global concept ('worries\_about\_health') was assessed.
+**Note:** _'worries\_about\_pain'_ and _'worries\_about\_sleep'_ were deemed to have been assessed twice (firstly in the EQ5D subscales) and they were subcategories of _'worries\_about\_health'_, and therefore only the global concept _('worries\_about\_health')_ was assessed.
 
 - **ID:** Participant id code
 
