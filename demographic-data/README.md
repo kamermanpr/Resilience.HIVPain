@@ -1,6 +1,6 @@
 # Demographic data
 ## Summary table
-_(raw data can be found in [demographics.data.csv](./demographic.data.csv)_
+_(raw data can be found in [demographics.data.csv](./demographic.data.csv))_
 
 #### Table 1. Demographic and resilience characteristics of the whole cohort and subsets
 
