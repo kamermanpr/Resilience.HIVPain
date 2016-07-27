@@ -29,26 +29,26 @@ _<sup>1</sup>: Education analysed using a chi squared test for trend; missing da
 
 ## Code sheet
 
-ID: Participant id code
+- **ID:** Participant id code
 
-chronic_pain: Had chronic pain (pain on most days for $geq$ 3 months) (Yes / No)	
+- **chronic_pain:** Had chronic pain (pain on most days for $geq$ 3 months) (Yes / No)	
 
-actigraphy: Took part in the actigraphy component of the study (Yes / No)
+- **actigraphy:** Took part in the actigraphy component of the study (Yes / No)
 
-age: Age in years	
+- **age:** Age in years	
 
-sex: Self-declared biological sex (Male / Female)
+- **sex:** Self-declared biological sex (Male / Female)
 
-years_education: Number of years of formal education
+- **years_education:** Number of years of formal education
 
-employment: Was the participant employed? (Full time, Part time/piece work, Unemployed)
+- **employment:** Was the participant employed? (Full time, Part time/piece work, Unemployed)
 
-time_since_HIV_diagnosis: Number of years since diagnosed with HIV
+- **time_since_HIV_diagnosis:** Number of years since diagnosed with HIV
 
-time_on_art	nadir_cd4: Number of years on antiretoviral therapy
+- **time_on_art	nadir_cd4:** Number of years on antiretoviral therapy
 
-resilience_scale_score: Resilience Scale score (see [Wagnild & Young (1993)](http://www.resiliencescale.com/wp-content/uploads/2014/06/Wagnild-Young-psychom-R.pdf) for more details)
+- **resilience_scale_score:** Resilience Scale score (see [Wagnild & Young (1993)](http://www.resiliencescale.com/wp-content/uploads/2014/06/Wagnild-Young-psychom-R.pdf) for more details)
 
-cdrisc_score: CD-RISC scale score (see [Conner & Davidson (2003)](http://onlinelibrary.wiley.com/doi/10.1002/da.10113/epdf) for details)
+- **cdrisc_score:** CD-RISC scale score (see [Conner & Davidson (2003)](http://onlinelibrary.wiley.com/doi/10.1002/da.10113/epdf) for details)
 
-eq5d_vas: Overall rating of health state on the day of the first interview (0-100 visual analogue scale, anchored at 'worst imaginable health state' = 0, and 'best imaginable health state' = 100)
+- **eq5d_vas:** Overall rating of health state on the day of the first interview (0-100 visual analogue scale, anchored at 'worst imaginable health state' = 0, and 'best imaginable health state' = 100)
