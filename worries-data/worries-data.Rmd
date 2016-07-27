@@ -1,0 +1,71 @@
+---
+title: "Worries data: summary table"
+author: "Peter Kamerman"
+date: "27 July 2016"
+output: 
+    github_document:
+        toc: true
+        toc_depth: 4
+---
+
+**Last updated: `r format(Sys.time(), "%B %d, %Y")`**
+
+****
+
+# Session setup
+```{r sessionSetup, message = FALSE}
+# Load packages
+library(svglite)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(ztable)
+
+# knitr chunk options
+opts_chunk$set(echo = TRUE,
+               warning = FALSE,
+               message = FALSE,
+               cache = TRUE,
+               cache.extra = rand_seed,
+               fig.path = './figures/',
+               fig.width = 7,
+               fig.height = 7,
+               dev = c('png', 'svg'),
+               tidy = FALSE)
+```
+
+# Load data
+```{r import_data}
+data <- read_csv('worries.data.csv')
+```
+
+# Quick look
+```{r quick_look}
+############################################################
+#                                                          #
+#                           Data                           #
+#                                                          #
+############################################################
+dim(data)
+names(data)
+head(data)
+tail(data)
+glimpse(data)
+# summary(data)
+
+```
+
+# Process data
+```{r process_data}
+############################################################
+#                                                          #
+#               Summarise                                  #
+#                                                          #
+############################################################
+data_1 <- data %>%
+    gather(key = key, value = value, -ID, -chronic_pain, -actigraphy) %>%
+    group_by(chronic_pain, actigraphy)
+# %>%
+    mutate(pain = pain.x) %>%
+    select(-pain.x, -pain.y)

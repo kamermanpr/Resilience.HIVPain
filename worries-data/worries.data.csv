@@ -1,198 +1,198 @@
-ID,chronic_pain,actigraphy,worries_about_pain,worries_about_fatigue,worries_about_health,worries_about_sleep,worries_about_money,worries_about_family,worries_about_food
-1,Yes,No,Nearly all the time,Not at all,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Not at all
-2,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-3,Yes,No,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Nearly all the time,Often
-4,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
-5,Yes,No,Sometimes,Often,Sometimes,Sometimes,Nearly all the time,Sometimes,Sometimes
-6,Yes,No,Nearly all the time,Often,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time
-7,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-8,Yes,No,Often,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-9,Yes,Yes,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-10,No,Yes,Not at all,Not at all,Sometimes,Not at all,Sometimes,Nearly all the time,Often
-11,No,Yes,Not at all,Rarely,Not at all,Not at all,Sometimes,Not at all,Not at all
-12,No,No,Not at all,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-13,No,Yes,Sometimes,Not at all,Not at all,Not at all,Sometimes,Often,Often
-14,No,No,Not at all,Rarely,Not at all,Not at all,Sometimes,Not at all,Not at all
-15,No,No,Sometimes,Rarely,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-16,Yes,No,Sometimes,Sometimes,Sometimes,Not at all,Sometimes,Often,Sometimes
-17,No,No,Not at all,Sometimes,Not at all,Nearly all the time,Sometimes,Sometimes,Not at all
-18,No,No,Not at all,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-19,No,No,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Not at all,Nearly all the time
-20,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-21,Yes,Yes,Sometimes,Rarely,Often,Not at all,Sometimes,Often,Sometimes
-22,No,No,Rarely,Rarely,Rarely,Not at all,Nearly all the time,Nearly all the time,Often
-23,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-24,No,Yes,Not at all,Sometimes,Not at all,Not at all,Sometimes,Nearly all the time,Not at all
-25,No,No,Not at all,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Not at all
-26,No,No,Not at all,Sometimes,Sometimes,Nearly all the time,Sometimes,Sometimes,Nearly all the time
-27,No,No,Not at all,Not at all,Not at all,Not at all,Rarely,Not at all,Not at all
-28,No,Yes,Not at all,Rarely,Often,Rarely,Nearly all the time,Not at all,Sometimes
-29,No,No,Sometimes,Sometimes,Sometimes,Sometimes,Often,Nearly all the time,Sometimes
-30,No,No,Often,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Nearly all the time
-31,Yes,No,Often,Not at all,Nearly all the time,Often,Often,Often,Not at all
-32,No,Yes,Not at all,Sometimes,Sometimes,Rarely,Nearly all the time,Sometimes,Not at all
-33,No,Yes,Sometimes,Sometimes,Often,Often,Sometimes,Often,Rarely
-34,Yes,No,Nearly all the time,Not at all,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-35,Yes,No,Sometimes,Sometimes,Often,Sometimes,Often,Often,Often
-36,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-37,No,Yes,Often,Not at all,Nearly all the time,Nearly all the time,Not at all,Not at all,Often
-38,No,Yes,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Not at all,Sometimes
-39,No,No,Sometimes,Sometimes,Nearly all the time,Not at all,Nearly all the time,Often,Not at all
-40,Yes,Yes,Nearly all the time,Sometimes,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-41,No,No,Not at all,Not at all,Sometimes,Not at all,Sometimes,Not at all,Not at all
-42,No,No,Sometimes,Not at all,Often,Not at all,Nearly all the time,Rarely,Nearly all the time
-43,No,No,Sometimes,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-44,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-45,No,Yes,Rarely,Often,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Sometimes
-46,No,Yes,Sometimes,Sometimes,Often,Nearly all the time,Often,Often,Often
-47,No,No,Not at all,Not at all,Sometimes,Not at all,Sometimes,Nearly all the time,Sometimes
-48,Yes,No,Often,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Rarely,Sometimes
-49,No,No,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes,Not at all
-50,No,Yes,Not at all,Not at all,Not at all,Not at all,Sometimes,Rarely,Not at all
-51,No,No,Rarely,Not at all,Rarely,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time
-52,Yes,No,Often,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
-53,No,Yes,Not at all,Not at all,Rarely,Nearly all the time,Not at all,Nearly all the time,Not at all
-54,No,Yes,Not at all,Not at all,Not at all,Not at all,Sometimes,Nearly all the time,Not at all
-55,No,Yes,Not at all,Sometimes,Sometimes,Nearly all the time,Often,Nearly all the time,Not at all
-56,No,Yes,Not at all,Not at all,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Not at all
-57,No,Yes,Not at all,Sometimes,Rarely,Not at all,Nearly all the time,Not at all,Nearly all the time
-58,No,No,Not at all,Sometimes,Not at all,Nearly all the time,Not at all,Not at all,Not at all
-59,No,No,Not at all,Sometimes,Nearly all the time,Not at all,Sometimes,Not at all,Sometimes
-60,No,No,Not at all,Sometimes,Not at all,Not at all,Sometimes,Not at all,Not at all
-62,Yes,No,Sometimes,Sometimes,Sometimes,Rarely,Nearly all the time,Sometimes,Nearly all the time
-63,No,No,Not at all,Rarely,Nearly all the time,Not at all,Nearly all the time,Sometimes,Nearly all the time
-64,Yes,No,Nearly all the time,Sometimes,Sometimes,Rarely,Rarely,Sometimes,Not at all
-65,No,No,Not at all,Rarely,Sometimes,Not at all,Nearly all the time,Not at all,Sometimes
-66,Yes,No,Nearly all the time,Sometimes,Sometimes,Not at all,Sometimes,Sometimes,Sometimes
-67,Yes,Yes,Nearly all the time,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Rarely
-68,No,No,Not at all,Sometimes,Nearly all the time,Not at all,Sometimes,Nearly all the time,Not at all
-69,Yes,Yes,Sometimes,Often,Nearly all the time,Not at all,Often,Rarely,Often
-70,No,No,Often,Sometimes,Nearly all the time,Not at all,Not at all,Not at all,Not at all
-71,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Not at all
-72,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Not at all,Sometimes
-73,Yes,Yes,Sometimes,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Not at all
-74,Yes,Yes,Sometimes,Sometimes,Sometimes,Often,Nearly all the time,Sometimes,Sometimes
-75,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
-76,Yes,Yes,Sometimes,Sometimes,Not at all,Rarely,Nearly all the time,Nearly all the time,Not at all
-77,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes
-78,Yes,No,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-79,No,No,Not at all,Sometimes,Not at all,Not at all,Not at all,Not at all,Not at all
-80,No,No,Not at all,Sometimes,Often,Not at all,Nearly all the time,Sometimes,Nearly all the time
-81,No,No,Not at all,Rarely,Not at all,Nearly all the time,Nearly all the time,Nearly all the time,Not at all
-82,No,No,Not at all,Sometimes,Sometimes,Not at all,Sometimes,Sometimes,Often
-83,No,No,Not at all,Sometimes,Not at all,Sometimes,Sometimes,Not at all,Not at all
-84,No,No,Rarely,Rarely,Not at all,Not at all,Nearly all the time,Not at all,Nearly all the time
-85,No,No,Sometimes,Rarely,Nearly all the time,Not at all,Nearly all the time,Sometimes,Nearly all the time
-86,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Sometimes
-87,No,No,Sometimes,Often,Nearly all the time,Not at all,Rarely,Not at all,Not at all
-88,No,No,Nearly all the time,Nearly all the time,Sometimes,Not at all,Nearly all the time,Sometimes,Not at all
-89,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Often,Nearly all the time,Sometimes,Nearly all the time
-90,Yes,Yes,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time
-91,No,Yes,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Sometimes,Nearly all the time
-92,Yes,No,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Not at all,Sometimes
-93,Yes,No,Nearly all the time,Nearly all the time,Sometimes,Not at all,Nearly all the time,Nearly all the time,Sometimes
-94,No,No,Rarely,Nearly all the time,Rarely,Not at all,Nearly all the time,Sometimes,Nearly all the time
-95,No,Yes,Not at all,Sometimes,Sometimes,Not at all,Sometimes,Sometimes,Rarely
-96,No,No,Nearly all the time,Rarely,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
-97,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Sometimes,Sometimes
-98,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Not at all
-99,No,Yes,Not at all,Not at all,Rarely,Not at all,Sometimes,Often,Not at all
-100,Yes,No,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes,Not at all
-101,No,Yes,Not at all,Not at all,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-102,Yes,Yes,Nearly all the time,Not at all,Not at all,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-103,No,Yes,Not at all,Sometimes,Not at all,Not at all,Sometimes,Sometimes,Not at all
-104,No,No,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Not at all
-105,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-106,No,Yes,Not at all,Rarely,Sometimes,Not at all,Sometimes,Not at all,Not at all
-107,No,No,Sometimes,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
-108,No,No,Not at all,Sometimes,Nearly all the time,Not at all,Nearly all the time,Often,Nearly all the time
-109,No,No,Not at all,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-110,No,No,Not at all,Rarely,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
-111,No,No,Not at all,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-112,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Often,Nearly all the time,Nearly all the time
-113,No,No,Not at all,Often,Sometimes,Not at all,Nearly all the time,Often,Often
-114,No,No,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Sometimes
-115,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time
-116,Yes,No,Sometimes,Not at all,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time
-117,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Sometimes
-118,No,No,Not at all,Sometimes,Nearly all the time,Not at all,Sometimes,Not at all,Not at all
-119,No,No,Not at all,Sometimes,Rarely,Not at all,Nearly all the time,Nearly all the time,Sometimes
-120,Yes,No,Nearly all the time,Rarely,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-121,No,No,Not at all,Not at all,Rarely,Not at all,Nearly all the time,Nearly all the time,Sometimes
-122,Yes,No,Nearly all the time,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-123,No,Yes,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Not at all
-124,Yes,Yes,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-125,No,No,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Sometimes,Sometimes,Not at all
-126,No,No,Not at all,Sometimes,Not at all,Not at all,Sometimes,Sometimes,Not at all
-127,Yes,No,Nearly all the time,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes
-128,No,No,Not at all,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Not at all
-129,Yes,Yes,Nearly all the time,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-130,Yes,Yes,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-131,Yes,Yes,Sometimes,Not at all,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-132,Yes,No,Sometimes,Nearly all the time,Nearly all the time,Not at all,Nearly all the time,Not at all,Sometimes
-133,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
-134,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Not at all,Sometimes,Nearly all the time,Not at all
-135,Yes,Yes,Nearly all the time,Nearly all the time,Sometimes,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-136,Yes,Yes,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-137,No,Yes,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
-138,No,Yes,Not at all,Sometimes,Often,Sometimes,Nearly all the time,Nearly all the time,Sometimes
-139,Yes,Yes,Sometimes,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-140,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-141,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Rarely
-142,No,Yes,Sometimes,Rarely,Not at all,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-143,Yes,No,Sometimes,Sometimes,Sometimes,Not at all,Nearly all the time,Not at all,Sometimes
-144,Yes,No,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-145,No,No,Sometimes,Sometimes,Nearly all the time,Sometimes,Rarely,Not at all,Not at all
-146,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Rarely
-147,No,No,Rarely,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes
-148,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-149,No,No,Sometimes,Sometimes,Sometimes,Rarely,Often,Sometimes,Rarely
-150,Yes,No,Often,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Not at all
-151,Yes,No,Often,Rarely,Not at all,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-152,Yes,Yes,Sometimes,Rarely,Often,Not at all,Nearly all the time,Sometimes,Rarely
-153,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-154,Yes,Yes,Nearly all the time,Sometimes,Sometimes,Often,Nearly all the time,Nearly all the time,Sometimes
-155,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Not at all
-156,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-157,No,No,Not at all,Not at all,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-158,No,No,Not at all,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Sometimes
-159,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-160,No,Yes,Not at all,Not at all,Not at all,Not at all,Nearly all the time,Nearly all the time,Often
-161,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-162,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-163,Yes,Yes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time
-164,Yes,Yes,Nearly all the time,Rarely,Sometimes,Often,Nearly all the time,Nearly all the time,Nearly all the time
-165,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-166,No,No,Sometimes,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes
-167,Yes,Yes,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-168,Yes,Yes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-169,No,No,Not at all,Rarely,Nearly all the time,Not at all,Nearly all the time,Rarely,Sometimes
-170,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Sometimes
-171,No,No,Not at all,Not at all,Sometimes,Rarely,Not at all,Not at all,Not at all
-172,No,Yes,Not at all,Not at all,Sometimes,Not at all,Nearly all the time,Sometimes,Sometimes
-173,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-174,No,Yes,Not at all,Not at all,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Rarely
-175,No,No,Not at all,Sometimes,Not at all,Often,Nearly all the time,Nearly all the time,Sometimes
-176,No,Yes,Not at all,Sometimes,Sometimes,Not at all,Often,Nearly all the time,Nearly all the time
-177,No,No,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Sometimes
-178,Yes,No,Nearly all the time,Not at all,Nearly all the time,Sometimes,Sometimes,Not at all,Not at all
-179,No,No,Rarely,Not at all,Sometimes,Not at all,Often,Nearly all the time,Rarely
-180,No,No,Rarely,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Sometimes
-181,No,No,Not at all,Sometimes,Rarely,Not at all,Sometimes,Sometimes,Rarely
-182,No,No,Not at all,Not at all,Often,Not at all,Sometimes,Not at all,Sometimes
-183,Yes,No,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-184,No,No,Sometimes,Rarely,Rarely,Not at all,Nearly all the time,Often,Nearly all the time
-185,Yes,No,Sometimes,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes
-186,Yes,No,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Rarely
-187,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
-188,No,No,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Sometimes
-189,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Sometimes
-190,Yes,No,Nearly all the time,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
-191,Yes,No,Nearly all the time,Sometimes,Rarely,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
-192,Yes,No,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
-193,Yes,No,Nearly all the time,Sometimes,Sometimes,Often,Nearly all the time,Sometimes,Nearly all the time
-194,Yes,No,Sometimes,Not at all,Not at all,Not at all,Sometimes,Not at all,Not at all
-195,Yes,No,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
-196,Yes,No,Nearly all the time,Often,Not at all,Not at all,Sometimes,Not at all,Not at all
-197,Yes,No,Sometimes,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Sometimes
-198,Yes,No,Often,Sometimes,Often,Often,Sometimes,Often,Sometimes
+ID,chronic_pain,actigraphy,employment,worries_about_pain,worries_about_fatigue,worries_about_health,worries_about_sleep,worries_about_money,worries_about_family,worries_about_food
+1,Yes,No,Full time,Nearly all the time,Not at all,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Not at all
+2,Yes,No,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+3,Yes,No,Part time/piece work,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Nearly all the time,Often
+4,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
+5,Yes,No,Unemployed,Sometimes,Often,Sometimes,Sometimes,Nearly all the time,Sometimes,Sometimes
+6,Yes,No,Unemployed,Nearly all the time,Often,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time
+7,Yes,No,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+8,Yes,No,Part time/piece work,Often,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+9,Yes,Yes,Part time/piece work,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+10,No,Yes,Full time,Not at all,Not at all,Sometimes,Not at all,Sometimes,Nearly all the time,Often
+11,No,Yes,Full time,Not at all,Rarely,Not at all,Not at all,Sometimes,Not at all,Not at all
+12,No,No,Unemployed,Not at all,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+13,No,Yes,Full time,Sometimes,Not at all,Not at all,Not at all,Sometimes,Often,Often
+14,No,No,Full time,Not at all,Rarely,Not at all,Not at all,Sometimes,Not at all,Not at all
+15,No,No,Unemployed,Sometimes,Rarely,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+16,Yes,No,Full time,Sometimes,Sometimes,Sometimes,Not at all,Sometimes,Often,Sometimes
+17,No,No,Unemployed,Not at all,Sometimes,Not at all,Nearly all the time,Sometimes,Sometimes,Not at all
+18,No,No,Full time,Not at all,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+19,No,No,Full time,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Not at all,Nearly all the time
+20,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+21,Yes,Yes,Part time/piece work,Sometimes,Rarely,Often,Not at all,Sometimes,Often,Sometimes
+22,No,No,Full time,Rarely,Rarely,Rarely,Not at all,Nearly all the time,Nearly all the time,Often
+23,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+24,No,Yes,Full time,Not at all,Sometimes,Not at all,Not at all,Sometimes,Nearly all the time,Not at all
+25,No,No,Unemployed,Not at all,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Not at all
+26,No,No,Part time/piece work,Not at all,Sometimes,Sometimes,Nearly all the time,Sometimes,Sometimes,Nearly all the time
+27,No,No,Full time,Not at all,Not at all,Not at all,Not at all,Rarely,Not at all,Not at all
+28,No,Yes,Full time,Not at all,Rarely,Often,Rarely,Nearly all the time,Not at all,Sometimes
+29,No,No,Part time/piece work,Sometimes,Sometimes,Sometimes,Sometimes,Often,Nearly all the time,Sometimes
+30,No,No,Full time,Often,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Nearly all the time
+31,Yes,No,Unemployed,Often,Not at all,Nearly all the time,Often,Often,Often,Not at all
+32,No,Yes,Full time,Not at all,Sometimes,Sometimes,Rarely,Nearly all the time,Sometimes,Not at all
+33,No,Yes,Full time,Sometimes,Sometimes,Often,Often,Sometimes,Often,Rarely
+34,Yes,No,Full time,Nearly all the time,Not at all,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+35,Yes,No,Full time,Sometimes,Sometimes,Often,Sometimes,Often,Often,Often
+36,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+37,No,Yes,Full time,Often,Not at all,Nearly all the time,Nearly all the time,Not at all,Not at all,Often
+38,No,Yes,Full time,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Not at all,Sometimes
+39,No,No,Full time,Sometimes,Sometimes,Nearly all the time,Not at all,Nearly all the time,Often,Not at all
+40,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+41,No,No,Unemployed,Not at all,Not at all,Sometimes,Not at all,Sometimes,Not at all,Not at all
+42,No,No,Unemployed,Sometimes,Not at all,Often,Not at all,Nearly all the time,Rarely,Nearly all the time
+43,No,No,Unemployed,Sometimes,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+44,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+45,No,Yes,Full time,Rarely,Often,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Sometimes
+46,No,Yes,Part time/piece work,Sometimes,Sometimes,Often,Nearly all the time,Often,Often,Often
+47,No,No,Unemployed,Not at all,Not at all,Sometimes,Not at all,Sometimes,Nearly all the time,Sometimes
+48,Yes,No,Part time/piece work,Often,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Rarely,Sometimes
+49,No,No,Full time,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes,Not at all
+50,No,Yes,Full time,Not at all,Not at all,Not at all,Not at all,Sometimes,Rarely,Not at all
+51,No,No,Unemployed,Rarely,Not at all,Rarely,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time
+52,Yes,No,Full time,Often,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
+53,No,Yes,Full time,Not at all,Not at all,Rarely,Nearly all the time,Not at all,Nearly all the time,Not at all
+54,No,Yes,Part time/piece work,Not at all,Not at all,Not at all,Not at all,Sometimes,Nearly all the time,Not at all
+55,No,Yes,Unemployed,Not at all,Sometimes,Sometimes,Nearly all the time,Often,Nearly all the time,Not at all
+56,No,Yes,Unemployed,Not at all,Not at all,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Not at all
+57,No,Yes,Unemployed,Not at all,Sometimes,Rarely,Not at all,Nearly all the time,Not at all,Nearly all the time
+58,No,No,Full time,Not at all,Sometimes,Not at all,Nearly all the time,Not at all,Not at all,Not at all
+59,No,No,Part time/piece work,Not at all,Sometimes,Nearly all the time,Not at all,Sometimes,Not at all,Sometimes
+60,No,No,Full time,Not at all,Sometimes,Not at all,Not at all,Sometimes,Not at all,Not at all
+62,Yes,No,Part time/piece work,Sometimes,Sometimes,Sometimes,Rarely,Nearly all the time,Sometimes,Nearly all the time
+63,No,No,Part time/piece work,Not at all,Rarely,Nearly all the time,Not at all,Nearly all the time,Sometimes,Nearly all the time
+64,Yes,No,Full time,Nearly all the time,Sometimes,Sometimes,Rarely,Rarely,Sometimes,Not at all
+65,No,No,Unemployed,Not at all,Rarely,Sometimes,Not at all,Nearly all the time,Not at all,Sometimes
+66,Yes,No,Full time,Nearly all the time,Sometimes,Sometimes,Not at all,Sometimes,Sometimes,Sometimes
+67,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Rarely
+68,No,No,Unemployed,Not at all,Sometimes,Nearly all the time,Not at all,Sometimes,Nearly all the time,Not at all
+69,Yes,Yes,Part time/piece work,Sometimes,Often,Nearly all the time,Not at all,Often,Rarely,Often
+70,No,No,Full time,Often,Sometimes,Nearly all the time,Not at all,Not at all,Not at all,Not at all
+71,Yes,Yes,Full time,Nearly all the time,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Not at all
+72,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Not at all,Sometimes
+73,Yes,Yes,Full time,Sometimes,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Not at all
+74,Yes,Yes,Part time/piece work,Sometimes,Sometimes,Sometimes,Often,Nearly all the time,Sometimes,Sometimes
+75,Yes,Yes,Part time/piece work,Nearly all the time,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
+76,Yes,Yes,Part time/piece work,Sometimes,Sometimes,Not at all,Rarely,Nearly all the time,Nearly all the time,Not at all
+77,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes
+78,Yes,No,Full time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+79,No,No,Full time,Not at all,Sometimes,Not at all,Not at all,Not at all,Not at all,Not at all
+80,No,No,Unemployed,Not at all,Sometimes,Often,Not at all,Nearly all the time,Sometimes,Nearly all the time
+81,No,No,Full time,Not at all,Rarely,Not at all,Nearly all the time,Nearly all the time,Nearly all the time,Not at all
+82,No,No,Unemployed,Not at all,Sometimes,Sometimes,Not at all,Sometimes,Sometimes,Often
+83,No,No,Unemployed,Not at all,Sometimes,Not at all,Sometimes,Sometimes,Not at all,Not at all
+84,No,No,Unemployed,Rarely,Rarely,Not at all,Not at all,Nearly all the time,Not at all,Nearly all the time
+85,No,No,Full time,Sometimes,Rarely,Nearly all the time,Not at all,Nearly all the time,Sometimes,Nearly all the time
+86,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Sometimes
+87,No,No,Unemployed,Sometimes,Often,Nearly all the time,Not at all,Rarely,Not at all,Not at all
+88,No,No,Full time,Nearly all the time,Nearly all the time,Sometimes,Not at all,Nearly all the time,Sometimes,Not at all
+89,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Often,Nearly all the time,Sometimes,Nearly all the time
+90,Yes,Yes,Part time/piece work,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time
+91,No,Yes,Unemployed,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Sometimes,Nearly all the time
+92,Yes,No,Full time,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Not at all,Sometimes
+93,Yes,No,Full time,Nearly all the time,Nearly all the time,Sometimes,Not at all,Nearly all the time,Nearly all the time,Sometimes
+94,No,No,Full time,Rarely,Nearly all the time,Rarely,Not at all,Nearly all the time,Sometimes,Nearly all the time
+95,No,Yes,Full time,Not at all,Sometimes,Sometimes,Not at all,Sometimes,Sometimes,Rarely
+96,No,No,Full time,Nearly all the time,Rarely,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
+97,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Sometimes,Sometimes
+98,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Not at all
+99,No,Yes,Full time,Not at all,Not at all,Rarely,Not at all,Sometimes,Often,Not at all
+100,Yes,No,Full time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes,Not at all
+101,No,Yes,Part time/piece work,Not at all,Not at all,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+102,Yes,Yes,Full time,Nearly all the time,Not at all,Not at all,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+103,No,Yes,Unemployed,Not at all,Sometimes,Not at all,Not at all,Sometimes,Sometimes,Not at all
+104,No,No,Full time,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Not at all
+105,Yes,No,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+106,No,Yes,Unemployed,Not at all,Rarely,Sometimes,Not at all,Sometimes,Not at all,Not at all
+107,No,No,Part time/piece work,Sometimes,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
+108,No,No,Full time,Not at all,Sometimes,Nearly all the time,Not at all,Nearly all the time,Often,Nearly all the time
+109,No,No,Unemployed,Not at all,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+110,No,No,Part time/piece work,Not at all,Rarely,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
+111,No,No,Unemployed,Not at all,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+112,Yes,Yes,Full time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Often,Nearly all the time,Nearly all the time
+113,No,No,Part time/piece work,Not at all,Often,Sometimes,Not at all,Nearly all the time,Often,Often
+114,No,No,Full time,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Sometimes
+115,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time
+116,Yes,No,Full time,Sometimes,Not at all,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time
+117,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Sometimes
+118,No,No,Unemployed,Not at all,Sometimes,Nearly all the time,Not at all,Sometimes,Not at all,Not at all
+119,No,No,Full time,Not at all,Sometimes,Rarely,Not at all,Nearly all the time,Nearly all the time,Sometimes
+120,Yes,No,Unemployed,Nearly all the time,Rarely,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+121,No,No,Full time,Not at all,Not at all,Rarely,Not at all,Nearly all the time,Nearly all the time,Sometimes
+122,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+123,No,Yes,Full time,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Sometimes,Not at all
+124,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+125,No,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Sometimes,Sometimes,Not at all
+126,No,No,Full time,Not at all,Sometimes,Not at all,Not at all,Sometimes,Sometimes,Not at all
+127,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes
+128,No,No,Full time,Not at all,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Not at all
+129,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+130,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+131,Yes,Yes,Unemployed,Sometimes,Not at all,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+132,Yes,No,Part time/piece work,Sometimes,Nearly all the time,Nearly all the time,Not at all,Nearly all the time,Not at all,Sometimes
+133,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
+134,Yes,Yes,Full time,Nearly all the time,Sometimes,Nearly all the time,Not at all,Sometimes,Nearly all the time,Not at all
+135,Yes,Yes,Full time,Nearly all the time,Nearly all the time,Sometimes,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+136,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+137,No,Yes,Unemployed,Not at all,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Not at all
+138,No,Yes,Part time/piece work,Not at all,Sometimes,Often,Sometimes,Nearly all the time,Nearly all the time,Sometimes
+139,Yes,Yes,Full time,Sometimes,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+140,Yes,No,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+141,Yes,Yes,Part time/piece work,Nearly all the time,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Rarely
+142,No,Yes,Unemployed,Sometimes,Rarely,Not at all,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+143,Yes,No,Unemployed,Sometimes,Sometimes,Sometimes,Not at all,Nearly all the time,Not at all,Sometimes
+144,Yes,No,Unemployed,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+145,No,No,Full time,Sometimes,Sometimes,Nearly all the time,Sometimes,Rarely,Not at all,Not at all
+146,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Often,Nearly all the time,Nearly all the time,Rarely
+147,No,No,Full time,Rarely,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes
+148,Yes,No,Full time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+149,No,No,Full time,Sometimes,Sometimes,Sometimes,Rarely,Often,Sometimes,Rarely
+150,Yes,No,Full time,Often,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Not at all
+151,Yes,No,Unemployed,Often,Rarely,Not at all,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+152,Yes,Yes,Unemployed,Sometimes,Rarely,Often,Not at all,Nearly all the time,Sometimes,Rarely
+153,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+154,Yes,Yes,Full time,Nearly all the time,Sometimes,Sometimes,Often,Nearly all the time,Nearly all the time,Sometimes
+155,Yes,No,Part time/piece work,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Not at all
+156,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+157,No,No,Unemployed,Not at all,Not at all,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+158,No,No,Full time,Not at all,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Sometimes
+159,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+160,No,Yes,Full time,Not at all,Not at all,Not at all,Not at all,Nearly all the time,Nearly all the time,Often
+161,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+162,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+163,Yes,Yes,Unemployed,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time
+164,Yes,Yes,Unemployed,Nearly all the time,Rarely,Sometimes,Often,Nearly all the time,Nearly all the time,Nearly all the time
+165,Yes,Yes,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+166,No,No,Unemployed,Sometimes,Nearly all the time,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Sometimes
+167,Yes,Yes,Part time/piece work,Nearly all the time,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+168,Yes,Yes,Full time,Nearly all the time,Often,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+169,No,No,Full time,Not at all,Rarely,Nearly all the time,Not at all,Nearly all the time,Rarely,Sometimes
+170,Yes,No,Part time/piece work,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Sometimes
+171,No,No,Unemployed,Not at all,Not at all,Sometimes,Rarely,Not at all,Not at all,Not at all
+172,No,Yes,Full time,Not at all,Not at all,Sometimes,Not at all,Nearly all the time,Sometimes,Sometimes
+173,Yes,No,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+174,No,Yes,Full time,Not at all,Not at all,Sometimes,Sometimes,Nearly all the time,Nearly all the time,Rarely
+175,No,No,Full time,Not at all,Sometimes,Not at all,Often,Nearly all the time,Nearly all the time,Sometimes
+176,No,Yes,Full time,Not at all,Sometimes,Sometimes,Not at all,Often,Nearly all the time,Nearly all the time
+177,No,No,Part time/piece work,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Sometimes
+178,Yes,No,Full time,Nearly all the time,Not at all,Nearly all the time,Sometimes,Sometimes,Not at all,Not at all
+179,No,No,Unemployed,Rarely,Not at all,Sometimes,Not at all,Often,Nearly all the time,Rarely
+180,No,No,Unemployed,Rarely,Sometimes,Nearly all the time,Not at all,Nearly all the time,Nearly all the time,Sometimes
+181,No,No,Full time,Not at all,Sometimes,Rarely,Not at all,Sometimes,Sometimes,Rarely
+182,No,No,Full time,Not at all,Not at all,Often,Not at all,Sometimes,Not at all,Sometimes
+183,Yes,No,Unemployed,Nearly all the time,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+184,No,No,Part time/piece work,Sometimes,Rarely,Rarely,Not at all,Nearly all the time,Often,Nearly all the time
+185,Yes,No,Unemployed,Sometimes,Sometimes,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Sometimes
+186,Yes,No,Full time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Rarely
+187,Yes,No,Unemployed,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time
+188,No,No,Full time,Not at all,Sometimes,Sometimes,Not at all,Nearly all the time,Nearly all the time,Sometimes
+189,Yes,No,Full time,Nearly all the time,Sometimes,Nearly all the time,Rarely,Nearly all the time,Nearly all the time,Sometimes
+190,Yes,No,Full time,Nearly all the time,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Nearly all the time
+191,Yes,No,Unemployed,Nearly all the time,Sometimes,Rarely,Rarely,Nearly all the time,Nearly all the time,Nearly all the time
+192,Yes,No,Part time/piece work,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time
+193,Yes,No,Full time,Nearly all the time,Sometimes,Sometimes,Often,Nearly all the time,Sometimes,Nearly all the time
+194,Yes,No,Full time,Sometimes,Not at all,Not at all,Not at all,Sometimes,Not at all,Not at all
+195,Yes,No,Part time/piece work,Nearly all the time,Sometimes,Nearly all the time,Nearly all the time,Nearly all the time,Nearly all the time,Sometimes
+196,Yes,No,Full time,Nearly all the time,Often,Not at all,Not at all,Sometimes,Not at all,Not at all
+197,Yes,No,Unemployed,Sometimes,Sometimes,Not at all,Not at all,Nearly all the time,Nearly all the time,Sometimes
+198,Yes,No,Full time,Often,Sometimes,Often,Often,Sometimes,Often,Sometimes
