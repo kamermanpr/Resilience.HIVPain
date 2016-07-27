@@ -40,7 +40,7 @@ opts_chunk$set(echo = TRUE,
 # Load data
 ```{r import_data}
 data <- read_csv('./data/data.csv')
-data_activity <- read_csv('./data/activity-data.csv')
+data_activity <- read_csv('./data/activity.data.csv')
 ```
 
 # Quick look
