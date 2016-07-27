@@ -1,6 +1,6 @@
 # Demographic data
 ## Summary table
-_(raw data can be found in [demographics.data.csv](./demographic.data.csv), and the code sheet is provided [below](code-sheet))_
+_(raw data can be found in [demographics.data.csv](./demographic.data.csv), and the code sheet is provided [below](#code-sheet))_
 
 #### Table 1. Demographic and resilience characteristics of the whole cohort and subsets
 
@@ -47,8 +47,8 @@ time_since_HIV_diagnosis: Number of years since diagnosed with HIV
 
 time_on_art	nadir_cd4: Number of years on antiretoviral therapy
 
-resilience_scale_score: Resilience Scale score (see the [Resilience Scale](http://www.resiliencescale.com/wp-content/uploads/2014/06/Wagnild-Young-psychom-R.pdf) website for more details)
+resilience_scale_score: Resilience Scale score (see [Wagnild & Young (1993)](http://www.resiliencescale.com/wp-content/uploads/2014/06/Wagnild-Young-psychom-R.pdf) for more details)
 
-cdrisc_score: CD-RISC scale score (see the [CD-RISC](http://www.cd-risc.com) website for more details)
+cdrisc_score: CD-RISC scale score (see [Conner & Davidson (2003)](http://onlinelibrary.wiley.com/doi/10.1002/da.10113/epdf) for details)
 
 eq5d_vas: Overall rating of health state on the day of the first interview (0-100 visual analogue scale, anchored at 'worst imaginable health state' = 0, and 'best imaginable health state' = 100)
