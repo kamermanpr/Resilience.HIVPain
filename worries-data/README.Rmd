@@ -1,0 +1,420 @@
+---
+output: github_document
+---
+
+# Worries data
+## Data summaries
+_(raw data can be found in [worries.data.csv](./data/worries.data.csv), and the code sheet is provided [below](#code-sheet))_
+
+```{r sessionSetup, message = FALSE, warning = FALSE, include = FALSE}
+############################################################
+#                                                          #
+#                      Session setup                       #
+#                                                          #
+############################################################
+
+# Load packages
+library(svglite)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(grid)
+
+# knitr chunk options
+knitr::opts_chunk$set(echo = FALSE,
+               warning = FALSE,
+               message = FALSE,
+               fig.path = './figures/',
+               fig.height = 8,
+               fig.width = 8,
+               dev = c('svg', 'png'), 
+               tidy = FALSE)
+```
+
+## Import data
+```{r import_data, echo = TRUE}
+data <- read_csv('./data/worries.data.csv')
+```
+
+```{r quick_look, eval = FALSE, include = FALSE}
+############################################################
+#                                                          #
+#                        Quick look                        #
+#                                                          #
+############################################################
+
+dim(data)
+names(data)
+head(data)
+tail(data)
+glimpse(data)
+# summary(data)
+
+```
+
+## Worries about pain
+```{r pain}
+
+data_pain <- data %>%
+    select(c(2, 4, 5))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_pain, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_pain
+
+df_pain <- as.data.frame(data_pain) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_pain, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about pain',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+
+```
+
+## Worries about fatigue
+```{r fatigue}
+
+data_fatigue <- data %>%
+    select(c(2, 4, 6))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_fatigue, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_fatigue
+
+df_fatigue <- as.data.frame(data_fatigue) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_fatigue, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about fatigue',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+
+```
+
+## Worries about health
+```{r health}
+
+data_health <- data %>%
+    select(c(2, 4, 7))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_health, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_health
+
+df_health <- as.data.frame(data_health) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_health, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about health',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+```
+
+## Worries about sleep
+```{r sleep}
+
+data_sleep <- data %>%
+    select(c(2, 4, 8))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_sleep, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_sleep
+
+df_sleep <- as.data.frame(data_sleep) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_sleep, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about sleep',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+```
+
+## Worries about money
+```{r money}
+
+data_money <- data %>%
+    select(c(2, 4, 9))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_money, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_money
+
+df_money <- as.data.frame(data_money) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_money, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about money',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+```
+
+## Worries about family
+```{r family}
+
+data_family <- data %>%
+    select(c(2, 4, 10))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_family, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_family
+
+df_family <- as.data.frame(data_family) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_family, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about family',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+
+```
+
+## Worries about food
+```{r food}
+
+data_food <- data %>%
+    select(c(2, 4, 11))  %>%
+    mutate(`EMPLOYMENT STATUS` = # recode employment status
+               ifelse(employment == 'Full time' | 
+                          employment == 'Part time/piece work',
+                      'employed', 'unemployed')) %>%
+    mutate(RATING = factor(worries_about_food, 
+                           levels = c('Not at all', 'Rarely',
+                                      'Sometimes', 'Often', 
+                                      'Nearly all the time'), 
+                           ordered = TRUE)) %>%
+    select(1, 3, 4, 5) %>%
+    rename(`CHRONIC PAIN:` = chronic_pain) %>%
+    group_by(`EMPLOYMENT STATUS`, `CHRONIC PAIN:`, RATING) %>%
+    summarise(COUNT = n()) %>%
+    xtabs(COUNT ~ RATING + `EMPLOYMENT STATUS` + `CHRONIC PAIN:`,
+          data = .) %>%
+    ftable(.)
+
+data_food
+
+df_food <- as.data.frame(data_food) %>%
+    rename(Rating = RATING,
+           Employment_status = EMPLOYMENT.STATUS,
+           Pain_status = CHRONIC.PAIN.,
+           Count = Freq) %>%
+    mutate(Percentage = round((Count / sum(.$Count)) * 100)) %>%
+    mutate(Pain_status = ifelse(Pain_status == 'Yes', 
+                                'Chronic pain', 'No chronic pain')) %>%
+    mutate(Employment_status = ifelse(Employment_status == 'employed', 
+                                'Employed', 'Unemployed'))
+    
+ggplot(df_food, aes(x = Rating, y = Percentage)) +
+    geom_bar(stat = 'identity') +
+    facet_grid(Employment_status ~ Pain_status) +
+    labs(title = 'Worries about food',
+         x = '\nRating',
+         y = 'Percentage of total cohort (%)\n') +
+    theme(plot.title = element_text(size = 18),
+          axis.title = element_text(size = 16),
+          axis.text = element_text(size = 14),
+          axis.text.x = element_text(angle = 30, hjust = 1),
+          strip.text = element_text(size = 12))
+```
+
+****
+
+## Code sheet
+
+**Note:** _'worries\_about\_pain'_ and _'worries\_about\_sleep'_ were deemed to have been assessed twice (firstly in the EQ5D subscales) and they were subcategories of _'worries\_about\_health'_, and therefore only the global concept _('worries\_about\_health')_ was assessed in the manuscript.
+
+- **ID:** Participant id code
+
+- **chronic_pain:** Had chronic pain (pain on most days for $geq$ 3 months) (Yes / No)	
+
+- **actigraphy:** Took part in the actigraphy component of the study (Yes / No)
+
+- **worries\_about\_pain:** Do you worry about your pain? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)
+
+- **worries\_about\_fatigue:** Do you worry about being fatigued? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)
+
+- **worries\_about\_health:** Do you worry about your health? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)	
+
+- **worries\_about\_sleep:** Do you worry about your sleep? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)
+
+- **worries\_about\_money:** Do you worry about money? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)
+
+- **worries\_about\_family:** Do you worry about your pain? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)
+
+- **worries\_about\_food:** Do you worry about your pain? (rating scale: Not at all, Rarely, Sometimes, Often, Nearly all the time)
