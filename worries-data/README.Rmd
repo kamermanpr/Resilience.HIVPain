@@ -29,7 +29,6 @@ knitr::opts_chunk$set(echo = FALSE,
                fig.path = './figures/',
                fig.height = 8,
                fig.width = 8,
-               dev = c('svg', 'png'), 
                tidy = FALSE)
 ```
 

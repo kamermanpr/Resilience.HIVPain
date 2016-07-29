@@ -30,7 +30,7 @@ Worries about pain
     ## Nearly all the time employed                         3  35
     ##                     unemployed                       0  36
 
-![](./figures/pain-1.svg)
+![](./figures/pain-1.png)
 
 Worries about fatigue
 ---------------------
@@ -48,7 +48,7 @@ Worries about fatigue
     ## Nearly all the time employed                         5  12
     ##                     unemployed                       1  16
 
-![](./figures/fatigue-1.svg)
+![](./figures/fatigue-1.png)
 
 Worries about health
 --------------------
@@ -66,7 +66,7 @@ Worries about health
     ## Nearly all the time employed                        14  28
     ##                     unemployed                       7  25
 
-![](./figures/health-1.svg)
+![](./figures/health-1.png)
 
 Worries about sleep
 -------------------
@@ -84,7 +84,7 @@ Worries about sleep
     ## Nearly all the time employed                         9  16
     ##                     unemployed                       7  23
 
-![](./figures/sleep-1.svg)
+![](./figures/sleep-1.png)
 
 Worries about money
 -------------------
@@ -102,7 +102,7 @@ Worries about money
     ## Nearly all the time employed                        35  40
     ##                     unemployed                      19  42
 
-![](./figures/money-1.svg)
+![](./figures/money-1.png)
 
 Worries about family
 --------------------
@@ -120,7 +120,7 @@ Worries about family
     ## Nearly all the time employed                        26  36
     ##                     unemployed                      16  34
 
-![](./figures/family-1.svg)
+![](./figures/family-1.png)
 
 Worries about food
 ------------------
@@ -138,7 +138,7 @@ Worries about food
     ## Nearly all the time employed                        11  19
     ##                     unemployed                      11  27
 
-![](./figures/food-1.svg)
+![](./figures/food-1.png)
 
 ------------------------------------------------------------------------
 
